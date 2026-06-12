@@ -13,7 +13,7 @@ use App\Models\Texto;
 use App\Models\Personal;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('inicio');
 });
 
 Route::get('/dashboard', function () {

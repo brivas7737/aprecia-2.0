@@ -1,30 +1,51 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>APRECIA 2.0</title>
 
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-    </head>
-    <body class="font-sans text-gray-900 antialiased">
-        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
-            <div>
-                <a href="/">
-                    <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
-                </a>
-            </div>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-            <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
-                {{ $slot }}
-            </div>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+
+<body
+    style="
+        font-family:'Poppins',sans-serif;
+        background: linear-gradient(
+            135deg,
+            #d90429 0%,
+            #ff6b00 50%,
+            #ffcc00 100%
+        );
+    "
+>
+
+    <div class="min-h-screen flex justify-center items-center p-4">
+
+        <div
+            class="w-full sm:max-w-md overflow-hidden"
+            style="
+                background:#fff8dc;
+                border-radius:30px;
+                padding:35px;
+                box-shadow:0 20px 50px rgba(0,0,0,.30);
+                border-top:8px solid #d90429;
+                border-bottom:8px solid #ffcc00;
+            "
+        >
+
+            {{ $slot }}
+
         </div>
-    </body>
+
+    </div>
+
+</body>
 </html>
