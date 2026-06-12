@@ -311,19 +311,19 @@ return [
     [
         'text' => 'Instituciones',
         'icon' => 'fas fa-school',
-        'url'  => '#',
+        'url'  => 'instituciones',
     ],
 
     [
         'text' => 'Niveles Educativos',
         'icon' => 'fas fa-graduation-cap',
-        'url'  => '#',
+        'url'  => 'niveles-educativos',
     ],
 
     [
         'text' => 'Condiciones Visuales',
         'icon' => 'fas fa-eye',
-        'url'  => '#',
+        'url'  => 'condiciones-visuales',
     ],
 
     [
@@ -339,6 +339,12 @@ return [
     ],
 
     [
+    'text' => 'Áreas de Atención',
+    'icon' => 'fas fa-briefcase',
+    'url'  => 'areas-atencion',
+    ],
+
+    [
         'text' => 'Personal',
         'icon' => 'fas fa-user-tie',
         'url'  => '#',
@@ -349,7 +355,7 @@ return [
     [
         'text' => 'Categorías',
         'icon' => 'fas fa-folder',
-        'url'  => '#',
+        'url'  => 'categorias',
     ],
 
     [
