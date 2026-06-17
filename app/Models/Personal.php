@@ -10,4 +10,21 @@ class Personal extends Model
     use SoftDeletes;
 
     protected $table = 'personal';
+
+    protected $fillable = [
+        'institucion_id',
+        'nombre',
+        'apellido',
+        'ci',
+        'telefono',
+        'correo',
+        'cargo',
+        'fecha_ingreso',
+        'activo'
+    ];
+
+    public function institucion()
+    {
+        return $this->belongsTo(Institucion::class);
+    }
 }

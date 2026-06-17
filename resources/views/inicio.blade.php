@@ -20,20 +20,67 @@
         <!-- Navigation-->
         <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
             <div class="container">
-                <a class="navbar-brand" href="#page-top"><img src="assets/img/navbar-logo.jpeg" alt="..." /></a>
+                <a class="navbar-brand" href="#page-top">
+
+<img
+    src="{{ asset('assets/img/logoamarillo.png') }}"
+    alt="APRECIA"
+    style="
+        height:120px;
+    ">
+</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     Menu
                     <i class="fas fa-bars ms-1"></i>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-                        <li class="nav-item"><a class="nav-link" href="#services">Servicios</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#portfolio">Portafolio</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#about">Sobre Nosotros</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#team">Equipo</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#contact">Contacto</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Iniciar Sesión</a></li>
-                    </ul>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#page-top">
+            Inicio
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#services">
+            Servicios
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#portfolio">
+            Programas
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#about">
+            Nuestra Historia
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" href="#contact">
+            Contacto
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link"
+           href="{{ route('login') }}"
+           style="
+                background:#d90429;
+                color:white !important;
+                border-radius:25px;
+                padding:10px 20px;
+                margin-left:10px;
+           ">
+            Iniciar Sesión
+        </a>
+    </li>
+
+</ul>
                 </div>
             </div>
         </nav>
@@ -86,33 +133,33 @@
         <section class="page-section" id="services">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Services</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase">Servicios</h2>
+                    <h3 class="section-subheading text-muted">El Centro de Educación Especial ofrece una amplia gama de servicios dedicados a la atención y educación de personas con discapacidad visual.</h3>
                 </div>
                 <div class="row text-center">
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-shopping-cart fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-user-graduate fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h4 class="my-3">E-Commerce</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                        <h4 class="my-3">Atención Especializada</h4>
+                        <p class="text-muted">Brindamos apoyo educativo integral a niños, adolescentes y jóvenes con discapacidad visual, promoviendo su desarrollo académico y personal.</p>
                     </div>
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-laptop fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-book-reader fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h4 class="my-3">Responsive Design</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                        <h4 class="my-3">Biblioteca y Recursos Accesibles</h4>
+                        <p class="text-muted">Disponemos de materiales educativos adaptados y recursos accesibles que facilitan el aprendizaje y fortalecen la inclusión educativa.</p>
                     </div>
                     <div class="col-md-4">
                         <span class="fa-stack fa-4x">
                             <i class="fas fa-circle fa-stack-2x text-primary"></i>
-                            <i class="fas fa-lock fa-stack-1x fa-inverse"></i>
+                            <i class="fas fa-users fa-stack-1x fa-inverse"></i>
                         </span>
-                        <h4 class="my-3">Web Security</h4>
-                        <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima maxime quam architecto quo inventore harum ex magni, dicta impedit.</p>
+                        <h4 class="my-3">Orientación y Apoyo Familiar</h4>
+                        <p class="text-muted">Acompañamos a las familias mediante orientación y seguimiento para fortalecer el proceso educativo y la autonomía de los estudiantes.</p>
                     </div>
                 </div>
             </div>
@@ -121,8 +168,8 @@
         <section class="page-section bg-light" id="portfolio">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Portfolio</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase">Programas</h2>
+                    <h3 class="section-subheading text-muted">Programas y servicios desarrollados para apoyar la educación y el desarrollo integral de personas con discapacidad visual.</h3>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-sm-6 mb-4">
@@ -135,8 +182,8 @@
                                 <img class="img-fluid" src="assets/img/portfolio/1.jpg" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Threads</div>
-                                <div class="portfolio-caption-subheading text-muted">Illustration</div>
+                                <div class="portfolio-caption-heading">Atención Temprana</div>
+                                <div class="portfolio-caption-subheading text-muted">Desarrollo Sensorial y Psicomotriz</div>
                             </div>
                         </div>
                     </div>
@@ -150,8 +197,8 @@
                                 <img class="img-fluid" src="assets/img/portfolio/2.jpg" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Explore</div>
-                                <div class="portfolio-caption-subheading text-muted">Graphic Design</div>
+                                <div class="portfolio-caption-heading">Apoyo Educativo</div>
+                                <div class="portfolio-caption-subheading text-muted">Inclusión Escolar</div>
                             </div>
                         </div>
                     </div>
@@ -165,8 +212,8 @@
                                 <img class="img-fluid" src="assets/img/portfolio/3.jpg" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Finish</div>
-                                <div class="portfolio-caption-subheading text-muted">Identity</div>
+                                <div class="portfolio-caption-heading">Rehabilitación Funcional</div>
+                                <div class="portfolio-caption-subheading text-muted">Autonomía Personal</div>
                             </div>
                         </div>
                     </div>
@@ -180,8 +227,8 @@
                                 <img class="img-fluid" src="assets/img/portfolio/4.jpg" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Lines</div>
-                                <div class="portfolio-caption-subheading text-muted">Branding</div>
+                                <div class="portfolio-caption-heading">Baja Visión</div>
+                                <div class="portfolio-caption-subheading text-muted">Atención Especializada</div>
                             </div>
                         </div>
                     </div>
@@ -195,8 +242,8 @@
                                 <img class="img-fluid" src="assets/img/portfolio/5.jpg" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Southwest</div>
-                                <div class="portfolio-caption-subheading text-muted">Website Design</div>
+                                <div class="portfolio-caption-heading">Tecnología Accesible</div>
+                                <div class="portfolio-caption-subheading text-muted">Computación Inclusiva</div>
                             </div>
                         </div>
                     </div>
@@ -210,8 +257,8 @@
                                 <img class="img-fluid" src="assets/img/portfolio/6.jpg" alt="..." />
                             </a>
                             <div class="portfolio-caption">
-                                <div class="portfolio-caption-heading">Window</div>
-                                <div class="portfolio-caption-subheading text-muted">Photography</div>
+                                <div class="portfolio-caption-heading">Familia y Comunidad</div>
+                                <div class="portfolio-caption-subheading text-muted">Orientación y Participación</div>
                             </div>
                         </div>
                     </div>
@@ -222,58 +269,58 @@
         <section class="page-section" id="about">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">About</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase">Nuestra Historia</h2>
+                    <h3 class="section-subheading text-muted">31 años de compromiso con la educación, la inclusión y el desarrollo integral de personas con discapacidad visual.</h3>
                 </div>
                 <ul class="timeline">
                     <li>
                         <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>2009-2011</h4>
-                                <h4 class="subheading">Our Humble Beginnings</h4>
+                                <h4>1995</h4>
+                                <h4 class="subheading">Fundación de APRECIA</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                            <div class="timeline-body"><p class="text-muted">El Centro de Educación Especial APRECIA inicia sus actividades en la ciudad de La Paz con el objetivo de brindar atención educativa especializada a personas con discapacidad visual.</p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
                         <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>March 2011</h4>
-                                <h4 class="subheading">An Agency is Born</h4>
+                                <h4></h4>
+                                <h4 class="subheading">Crecimiento Institucional</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                            <div class="timeline-body"><p class="text-muted">A lo largo de los años, APRECIA amplía sus servicios de habilitación, rehabilitación y apoyo educativo, consolidándose como una institución referente en la atención a personas con discapacidad visual.</p></div>
                         </div>
                     </li>
                     <li>
                         <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/3.jpg" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>December 2015</h4>
-                                <h4 class="subheading">Transition to Full Service</h4>
+                                <h4></h4>
+                                <h4 class="subheading">Inclusión Educativa</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                            <div class="timeline-body"><p class="text-muted">Se fortalece el servicio de Apoyo Técnico Pedagógico para acompañar a estudiantes con discapacidad visual incluidos en unidades educativas regulares del Sistema Educativo Plurinacional.</p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
                         <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/4.jpg" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>July 2020</h4>
-                                <h4 class="subheading">Phase Two Expansion</h4>
+                                <h4>2026</h4>
+                                <h4 class="subheading">XXXI Aniversario</h4>
                             </div>
-                            <div class="timeline-body"><p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p></div>
+                            <div class="timeline-body"><p class="text-muted">APRECIA celebra 31 años de servicio institucional reafirmando su compromiso con la inclusión, la equidad y el acceso a una educación de calidad para personas con discapacidad visual.</p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
                         <div class="timeline-image">
                             <h4>
-                                Be Part
+                                31 Años
                                 <br />
-                                Of Our
+                                de Servicio y
                                 <br />
-                                Story!
+                                Compromiso
                             </h4>
                         </div>
                     </li>
@@ -284,146 +331,141 @@
         <section class="page-section bg-light" id="team">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Our Amazing Team</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <h2 class="section-heading text-uppercase">Nuestro Equipo</h2>
+                    <h3 class="section-subheading text-muted">Profesionales comprometidos con la educación, inclusión y desarrollo integral de personas con discapacidad visual.</h3>
+                    <div style="margin-top:-30px;"></div>
                 </div>
+<div class="row justify-content-center">
+
+    <div class="col-lg-10 text-center">
+
+        <img
+    src="{{ asset('assets/img/equipo-aprecia.jpg') }}"
+    alt="Equipo APRECIA"
+    class="img-fluid"
+    style="
+        border-radius:25px;
+        box-shadow:0 10px 30px rgba(0,0,0,.25);
+        border:8px solid white;
+        max-height:700px;
+        margin-top:-20px;
+    ">
+    </div>
+</div>
                 <div class="row">
-                    <div class="col-lg-4">
-                        <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="assets/img/team/1.jpg" alt="..." />
-                            <h4>Parveen Anand</h4>
-                            <p class="text-muted">Lead Designer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Parveen Anand LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="assets/img/team/2.jpg" alt="..." />
-                            <h4>Diana Petersen</h4>
-                            <p class="text-muted">Lead Marketer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Diana Petersen LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                    <div class="col-lg-4">
-                        <div class="team-member">
-                            <img class="mx-auto rounded-circle" src="assets/img/team/3.jpg" alt="..." />
-                            <h4>Larry Parker</h4>
-                            <p class="text-muted">Lead Developer</p>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Twitter Profile"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker Facebook Profile"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Larry Parker LinkedIn Profile"><i class="fab fa-linkedin-in"></i></a>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-8 mx-auto text-center"><p class="large text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p></div>
+                    <div class="col-lg-8 mx-auto text-center"><p class="text-muted mt-3"
+   style="
+      font-size:18px;
+      line-height:1.8;
+      max-width:900px;
+      margin:auto;
+   ">El Centro de Educación Especial APRECIA La Paz cuenta con un equipo multidisciplinario comprometido con la atención educativa especializada, la rehabilitación, la inclusión y el acompañamiento integral de personas con discapacidad visual.</p></div>
                 </div>
             </div>
         </section>
-        <!-- Clients-->
-        <div class="py-5">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/microsoft.svg" alt="..." aria-label="Microsoft Logo" /></a>
-                    </div>
-                    <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/google.svg" alt="..." aria-label="Google Logo" /></a>
-                    </div>
-                    <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/facebook.svg" alt="..." aria-label="Facebook Logo" /></a>
-                    </div>
-                    <div class="col-md-3 col-sm-6 my-3">
-                        <a href="#!"><img class="img-fluid img-brand d-block mx-auto" src="assets/img/logos/ibm.svg" alt="..." aria-label="IBM Logo" /></a>
-                    </div>
-                </div>
-            </div>
+<!-- Contacto -->
+<section class="page-section" id="contact">
+    <div class="container">
+
+        <div class="text-center">
+            <h2 class="section-heading text-uppercase">Contáctanos</h2>
+
+            <h3 class="section-subheading text-muted">
+                Estamos disponibles para brindar información sobre nuestros programas y servicios educativos.
+            </h3>
         </div>
-        <!-- Contact-->
-        <section class="page-section" id="contact">
-            <div class="container">
-                <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Contact Us</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+
+        <div class="row justify-content-center">
+
+            <div class="col-lg-8">
+
+                <div
+                    class="text-center p-5"
+                    style="
+                        background: rgba(255,255,255,0.05);
+                        border-radius:20px;
+                        border:1px solid rgba(255,255,255,0.1);
+                    "
+                >
+
+                    <h4 class="text-white mb-4">
+                        Centro de Educación Especial APRECIA - La Paz
+                    </h4>
+
+                    <p class="text-white mb-3">
+
+    <a
+        href="https://maps.app.goo.gl/y4Rk4t7ARJFgVyRW7"
+        target="_blank"
+        style="
+            color:white;
+            text-decoration:none;
+        ">
+
+        📍 Calle Pichincha esquina Ingavi,
+        Edificio Cáritas Bolivia, 3er piso
+
+    </a>
+
+</p>
+
+                    <p class="text-white mb-3">
+                        📞 77203659 - 78760703
+                    </p>
+
+                    <p class="text-white mb-3">
+                        📧 ceeaprecialp@gmail.com
+                    </p>
+
+<p class="text-white mb-0">
+    📘 Facebook:
+    <a
+        href="https://www.facebook.com/share/1Dp7aERb4g/?mibextid=wwXIfr"
+        target="_blank"
+        style="color:#ffcc00; text-decoration:none;">
+
+        APRECIA La Paz
+
+    </a>
+</p>
                 </div>
-                <!-- * * * * * * * * * * * * * * *-->
-                <!-- * * SB Forms Contact Form * *-->
-                <!-- * * * * * * * * * * * * * * *-->
-                <!-- This form is pre-integrated with SB Forms.-->
-                <!-- To make this form functional, sign up at-->
-                <!-- https://startbootstrap.com/solution/contact-forms-->
-                <!-- to get an API token!-->
-                <form id="contactForm" data-sb-form-api-token="API_TOKEN">
-                    <div class="row align-items-stretch mb-5">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <!-- Name input-->
-                                <input class="form-control" id="name" type="text" placeholder="Your Name *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-                            </div>
-                            <div class="form-group">
-                                <!-- Email address input-->
-                                <input class="form-control" id="email" type="email" placeholder="Your Email *" data-sb-validations="required,email" />
-                                <div class="invalid-feedback" data-sb-feedback="email:required">An email is required.</div>
-                                <div class="invalid-feedback" data-sb-feedback="email:email">Email is not valid.</div>
-                            </div>
-                            <div class="form-group mb-md-0">
-                                <!-- Phone number input-->
-                                <input class="form-control" id="phone" type="tel" placeholder="Your Phone *" data-sb-validations="required" />
-                                <div class="invalid-feedback" data-sb-feedback="phone:required">A phone number is required.</div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group form-group-textarea mb-md-0">
-                                <!-- Message input-->
-                                <textarea class="form-control" id="message" placeholder="Your Message *" data-sb-validations="required"></textarea>
-                                <div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Submit success message-->
-                    <!---->
-                    <!-- This is what your users will see when the form-->
-                    <!-- has successfully submitted-->
-                    <div class="d-none" id="submitSuccessMessage">
-                        <div class="text-center text-white mb-3">
-                            <div class="fw-bolder">Form submission successful!</div>
-                            To activate this form, sign up at
-                            <br />
-                            <a href="https://startbootstrap.com/solution/contact-forms">https://startbootstrap.com/solution/contact-forms</a>
-                        </div>
-                    </div>
-                    <!-- Submit error message-->
-                    <!---->
-                    <!-- This is what your users will see when there is-->
-                    <!-- an error submitting the form-->
-                    <div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-                    <!-- Submit Button-->
-                    <div class="text-center"><button class="btn btn-primary btn-xl text-uppercase disabled" id="submitButton" type="submit">Send Message</button></div>
-                </form>
+
             </div>
-        </section>
-        <!-- Footer-->
-        <footer class="footer py-4">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-4 text-lg-start">Centro de Educación Especial APRECIA - LA PAZ - 2026</div>
-                    <div class="col-lg-4 my-3 my-lg-0">
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a class="btn btn-dark btn-social mx-2" href="#!" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                    <div class="col-lg-4 text-lg-end">
-                        <a class="link-dark text-decoration-none me-3" href="#!">Política de Privacidad</a>
-                        <a class="link-dark text-decoration-none" href="#!">Términos de Uso</a>
-                    </div>
-                </div>
+
+        </div>
+
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer py-4">
+
+    <div class="container">
+
+        <div class="row align-items-center">
+
+            <div class="col-lg-6 text-lg-start">
+                Centro de Educación Especial APRECIA - LA PAZ © 2026
             </div>
-        </footer>
+
+            <div class="col-lg-6 text-lg-end">
+
+<a
+    class="btn btn-dark btn-social mx-2"
+    href="https://www.facebook.com/share/1Dp7aERb4g/?mibextid=wwXIfr
+    target="_blank">
+
+    <i class="fab fa-facebook-f"></i>
+
+</a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</footer>
         <!-- Portfolio Modals-->
         <!-- Portfolio item 1 modal popup-->
         <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-hidden="true">
@@ -435,23 +477,13 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <h2 class="text-uppercase">Atención Temprana</h2>
+                                    <p class="item-intro text-muted">Desarrollo Sensorial y Psicomotriz</p>
                                     <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Threads
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Illustration
-                                        </li>
-                                    </ul>
+                                    <p>Programa dirigido a niños y niñas en edades tempranas para fortalecer el desarrollo sensorial, psicomotriz, cognitivo y social mediante actividades adaptadas.</p>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
-                                        Close Project
+                                        Cerrar Programa
                                     </button>
                                 </div>
                             </div>
@@ -470,23 +502,13 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <h2 class="text-uppercase">Apoyo Educativo</h2>
+                                    <p class="item-intro text-muted">Inclusión Escolar</p>
                                     <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/2.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Explore
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Graphic Design
-                                        </li>
-                                    </ul>
+                                    <p>Aprestamiento y apoyo a los procesos educativos regulares para favorecer la inclusión y permanencia de estudiantes con discapacidad visual.</p>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
-                                        Close Project
+                                        Cerrar Programa
                                     </button>
                                 </div>
                             </div>
@@ -505,23 +527,13 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <h2 class="text-uppercase">Rehabilitación Funcional</h2>
+                                    <p class="item-intro text-muted">Autonomía Personal</p>
                                     <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/3.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Finish
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Identity
-                                        </li>
-                                    </ul>
+                                    <p>Desarrollo de habilidades que permiten mejorar la independencia, orientación, movilidad y participación activa de los estudiantes.</p>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
-                                        Close Project
+                                        Cerrar Programa
                                     </button>
                                 </div>
                             </div>
@@ -540,23 +552,13 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <h2 class="text-uppercase">Baja Visión</h2>
+                                    <p class="item-intro text-muted">Atención Especializada</p>
                                     <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/4.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Lines
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Branding
-                                        </li>
-                                    </ul>
+                                    <p>Evaluación y acompañamiento de personas con baja visión mediante estrategias y recursos que potencian el aprovechamiento del resto visual.</p>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
-                                        Close Project
+                                        Cerrar Programa
                                     </button>
                                 </div>
                             </div>
@@ -575,23 +577,13 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <h2 class="text-uppercase">Tecnología Accesible</h2>
+                                    <p class="item-intro text-muted">Computación Inclusiva</p>
                                     <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/5.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Southwest
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Website Design
-                                        </li>
-                                    </ul>
+                                    <p>Capacitación en computación y uso de tecnologías accesibles que facilitan el acceso a la información y la comunicación.</p>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
-                                        Close Project
+                                        Cerrar Programa
                                     </button>
                                 </div>
                             </div>
@@ -610,23 +602,13 @@
                             <div class="col-lg-8">
                                 <div class="modal-body">
                                     <!-- Project details-->
-                                    <h2 class="text-uppercase">Project Name</h2>
-                                    <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
+                                    <h2 class="text-uppercase">Familia y Comunidad</h2>
+                                    <p class="item-intro text-muted">Orientación y Participación</p>
                                     <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.jpg" alt="..." />
-                                    <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt repellat aperiam quasi sunt officia expedita beatae cupiditate, maiores repudiandae, nostrum, reiciendis facere nemo!</p>
-                                    <ul class="list-inline">
-                                        <li>
-                                            <strong>Client:</strong>
-                                            Window
-                                        </li>
-                                        <li>
-                                            <strong>Category:</strong>
-                                            Photography
-                                        </li>
-                                    </ul>
+                                    <p>Espacios de orientación, formación y participación dirigidos a familias y comunidad para fortalecer el apoyo educativo y social de los estudiantes.</p>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
-                                        Close Project
+                                        Cerrar Programa
                                     </button>
                                 </div>
                             </div>

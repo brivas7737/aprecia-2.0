@@ -329,13 +329,13 @@ return [
     [
         'text' => 'Estudiantes',
         'icon' => 'fas fa-user-graduate',
-        'url'  => '#',
+        'url'  => 'estudiantes',
     ],
 
     [
-        'text' => 'Tutores',
-        'icon' => 'fas fa-users',
-        'url'  => '#',
+    'text' => 'Tutores',
+    'icon' => 'fas fa-users',
+    'url'  => 'tutores',
     ],
 
     [
@@ -345,9 +345,15 @@ return [
     ],
 
     [
-        'text' => 'Personal',
-        'icon' => 'fas fa-user-tie',
-        'url'  => '#',
+    'text' => 'Programas y Servicios',
+    'icon' => 'fas fa-chalkboard-teacher',
+    'url'  => 'programas-servicios',
+    ],
+
+    [
+    'text' => 'Personal',
+    'icon' => 'fas fa-users',
+    'url' => 'personal',
     ],
 
     ['header' => 'BIBLIOTECA'],

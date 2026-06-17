@@ -6,6 +6,10 @@ use App\Http\Controllers\NivelEducativoController;
 use App\Http\Controllers\CondicionVisualController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\AreaAtencionController;
+use App\Http\Controllers\ProgramaServicioController;
+use App\Http\Controllers\EstudianteController;
+use App\Http\Controllers\PersonalController;
+use App\Http\Controllers\TutorController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Institucion;
 use App\Models\Estudiante;
@@ -38,6 +42,14 @@ Route::middleware('auth')->group(function () {
     Route::resource('areas-atencion', AreaAtencionController::class);
 
     Route::resource('categorias', CategoriaController::class);
+
+    Route::resource('programas-servicios', ProgramaServicioController::class);
+
+    Route::resource('estudiantes', EstudianteController::class);
+
+    Route::resource('personal', PersonalController::class);
+
+    Route::resource('tutores', TutorController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
