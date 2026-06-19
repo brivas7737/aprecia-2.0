@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Texto;
 use App\Models\Categoria;
 use App\Models\NivelEducativo;
+use App\Models\AudioGenerado;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -204,4 +205,66 @@ class TextoController extends Controller
                 'Texto eliminado correctamente'
             );
     }
+
+public function generarAudio($id)
+{
+    $texto = Texto::findOrFail($id);
+
+    $python =
+    'C:\Users\Geovana\Desktop\aporte\venv\Scripts\python.exe';
+
+    $script =
+    'C:\Users\Geovana\Desktop\aporte\src\audio_generator.py';
+
+    $pdf =
+    storage_path(
+        'app/public/' . $texto->archivo
+    );
+
+    $nombreAudio =
+    'texto_' . $texto->id . '.mp3';
+
+    $salida =
+    storage_path(
+    'app/public/audios/' . $nombreAudio
+    );
+
+    $comando =
+    "\"$python\" \"$script\" \"$pdf\" \"$salida\"";
+
+    exec($comando, $output, $return);
+
+    if ($return == 0) {
+
+        AudioGenerado::create([
+
+            'texto_id' => $texto->id,
+
+            'voz_id' => 1,
+
+            'archivo_audio' => $salida,
+
+            'duracion_segundos' => null,
+
+            'reproducciones' => 0,
+
+            'fecha_generacion' => now()
+
+        ]);
+
+        return redirect()
+            ->route('textos.index')
+            ->with(
+                'success',
+                'Audio generado correctamente'
+            );
+    }
+
+    return redirect()
+        ->route('textos.index')
+        ->with(
+            'error',
+            'No se pudo generar el audio'
+        );
+}
 }

@@ -11,6 +11,7 @@ use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\TextoController;
+use App\Http\Controllers\AudioGeneradoController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Institucion;
 use App\Models\Estudiante;
@@ -53,6 +54,16 @@ Route::middleware('auth')->group(function () {
     Route::resource('tutores', TutorController::class);
 
     Route::resource('textos', \App\Http\Controllers\TextoController::class);
+
+    Route::get(
+    'textos/{texto}/audio',
+    [TextoController::class,'generarAudio']
+    )->name('textos.generarAudio');
+
+    Route::resource(
+    'audios-generados',
+    AudioGeneradoController::class
+    )->only(['index']);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

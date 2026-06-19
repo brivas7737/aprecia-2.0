@@ -156,6 +156,12 @@
 
                         </form>
 
+                        <a href="{{ route('textos.generarAudio',$texto->id) }}"
+                             class="btn btn-success btn-sm">
+                        <i class="fas fa-volume-up"></i>
+                          Audio
+                        </a>
+
                     </td>
 
                 </tr>

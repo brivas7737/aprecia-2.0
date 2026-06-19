@@ -37,4 +37,12 @@ class Texto extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    
+    public function audios()
+    {
+        return $this->hasMany(
+          AudioGenerado::class,
+          'texto_id'
+    );
+    }
 }

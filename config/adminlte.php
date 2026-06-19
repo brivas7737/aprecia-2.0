@@ -370,6 +370,12 @@ return [
         'url'  => 'textos',
     ],
 
+    [
+    'text' => 'Audios Generados',
+    'icon' => 'fas fa-volume-up',
+    'url'  => 'audios-generados',
+    ],
+
 ],
 
     /*
