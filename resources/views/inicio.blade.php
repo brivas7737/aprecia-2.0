@@ -179,7 +179,7 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="assets/img/portfolio/1.jpg" alt="..." />
+                                <img class="img-fluid" src="assets/img/atencion-temprana.jpeg" alt="..." />
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">Atención Temprana</div>
@@ -254,7 +254,7 @@
                                 <div class="portfolio-hover">
                                     <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                                 </div>
-                                <img class="img-fluid" src="assets/img/portfolio/6.jpg" alt="..." />
+                                <img class="img-fluid" src="assets/img/portfolio/6.jpeg" alt="..." />
                             </a>
                             <div class="portfolio-caption">
                                 <div class="portfolio-caption-heading">Familia y Comunidad</div>
@@ -274,17 +274,17 @@
                 </div>
                 <ul class="timeline">
                     <li>
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.jpg" alt="..." /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.1.jpeg" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
-                                <h4>1995</h4>
+                                <h4>11 de Junio de 1995</h4>
                                 <h4 class="subheading">Fundación de APRECIA</h4>
                             </div>
                             <div class="timeline-body"><p class="text-muted">El Centro de Educación Especial APRECIA inicia sus actividades en la ciudad de La Paz con el objetivo de brindar atención educativa especializada a personas con discapacidad visual.</p></div>
                         </div>
                     </li>
                     <li class="timeline-inverted">
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/2.jpg" alt="..." /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.2.jpg" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4></h4>
@@ -294,7 +294,7 @@
                         </div>
                     </li>
                     <li>
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/3.jpg" alt="..." /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.3.jpg" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4></h4>
@@ -304,7 +304,7 @@
                         </div>
                     </li>
                     <li class="timeline-inverted">
-                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/4.jpg" alt="..." /></div>
+                        <div class="timeline-image"><img class="rounded-circle img-fluid" src="assets/img/about/1.4.jpg" alt="..." /></div>
                         <div class="timeline-panel">
                             <div class="timeline-heading">
                                 <h4>2026</h4>
@@ -479,7 +479,7 @@
                                     <!-- Project details-->
                                     <h2 class="text-uppercase">Atención Temprana</h2>
                                     <p class="item-intro text-muted">Desarrollo Sensorial y Psicomotriz</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/1.jpg" alt="..." />
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/atencion-temprana.jpeg" alt="..." />
                                     <p>Programa dirigido a niños y niñas en edades tempranas para fortalecer el desarrollo sensorial, psicomotriz, cognitivo y social mediante actividades adaptadas.</p>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>
@@ -604,7 +604,7 @@
                                     <!-- Project details-->
                                     <h2 class="text-uppercase">Familia y Comunidad</h2>
                                     <p class="item-intro text-muted">Orientación y Participación</p>
-                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.jpg" alt="..." />
+                                    <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/6.jpeg" alt="..." />
                                     <p>Espacios de orientación, formación y participación dirigidos a familias y comunidad para fortalecer el apoyo educativo y social de los estudiantes.</p>
                                     <button class="btn btn-primary btn-xl text-uppercase" data-bs-dismiss="modal" type="button">
                                         <i class="fas fa-xmark me-1"></i>

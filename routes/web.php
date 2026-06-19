@@ -10,6 +10,7 @@ use App\Http\Controllers\ProgramaServicioController;
 use App\Http\Controllers\EstudianteController;
 use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\TutorController;
+use App\Http\Controllers\TextoController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Institucion;
 use App\Models\Estudiante;
@@ -24,9 +25,9 @@ Route::get('/dashboard', function () {
 
     return view('dashboard', [
         'totalInstituciones' => Institucion::count(),
-        'totalEstudiantes' => 0,
-        'totalTextos' => 0,
-        'totalPersonal' => 0,
+        'totalEstudiantes' => Estudiante::count(),
+        'totalTextos' => Texto::count(),
+        'totalPersonal' => Personal::count(),
     ]);
 
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -50,6 +51,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('personal', PersonalController::class);
 
     Route::resource('tutores', TutorController::class);
+
+    Route::resource('textos', \App\Http\Controllers\TextoController::class);
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

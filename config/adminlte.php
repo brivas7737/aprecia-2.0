@@ -367,7 +367,7 @@ return [
     [
         'text' => 'Textos',
         'icon' => 'fas fa-book',
-        'url'  => '#',
+        'url'  => 'textos',
     ],
 
 ],

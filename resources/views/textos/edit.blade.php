@@ -1,19 +1,21 @@
 @extends('adminlte::page')
 
-@section('title', 'Nuevo Texto')
+@section('title', 'Editar Texto')
 
 @section('content_header')
-    <h1>Nuevo Texto</h1>
+    <h1>Editar Texto</h1>
 @stop
 
 @section('content')
 
 <div class="card">
 
-    <div class="card-header bg-primary">
+    <div class="card-header bg-warning">
 
         <h3 class="card-title">
-            Registro de Material Educativo
+
+            Modificar Material Educativo
+
         </h3>
 
     </div>
@@ -38,31 +40,27 @@
 
         @endif
 
-        <form action="{{ route('textos.store') }}"
+        <form action="{{ route('textos.update', $texto->id) }}"
               method="POST"
               enctype="multipart/form-data">
 
             @csrf
+            @method('PUT')
 
             <div class="row">
 
                 <div class="col-md-6 mb-3">
 
-                    <label>
-                        Categoría
-                    </label>
+                    <label>Categoría</label>
 
                     <select name="categoria_id"
                             class="form-control"
                             required>
 
-                        <option value="">
-                            Seleccione una categoría
-                        </option>
-
                         @foreach($categorias as $categoria)
 
-                            <option value="{{ $categoria->id }}">
+                            <option value="{{ $categoria->id }}"
+                                {{ $texto->categoria_id == $categoria->id ? 'selected' : '' }}>
 
                                 {{ $categoria->nombre }}
 
@@ -76,21 +74,16 @@
 
                 <div class="col-md-6 mb-3">
 
-                    <label>
-                        Nivel Educativo
-                    </label>
+                    <label>Nivel Educativo</label>
 
                     <select name="nivel_educativo_id"
                             class="form-control"
                             required>
 
-                        <option value="">
-                            Seleccione un nivel
-                        </option>
-
                         @foreach($niveles as $nivel)
 
-                            <option value="{{ $nivel->id }}">
+                            <option value="{{ $nivel->id }}"
+                                {{ $texto->nivel_educativo_id == $nivel->id ? 'selected' : '' }}>
 
                                 {{ $nivel->nombre }}
 
@@ -108,28 +101,24 @@
 
                 <div class="col-md-8 mb-3">
 
-                    <label>
-                        Título
-                    </label>
+                    <label>Título</label>
 
                     <input type="text"
                            name="titulo"
                            class="form-control"
-                           placeholder="Ej: Ciencias Naturales 3ro Primaria"
+                           value="{{ $texto->titulo }}"
                            required>
 
                 </div>
 
                 <div class="col-md-4 mb-3">
 
-                    <label>
-                        Autor
-                    </label>
+                    <label>Autor</label>
 
                     <input type="text"
                            name="autor"
                            class="form-control"
-                           placeholder="Autor del material"
+                           value="{{ $texto->autor }}"
                            required>
 
                 </div>
@@ -140,14 +129,11 @@
 
                 <div class="col-md-12 mb-3">
 
-                    <label>
-                        Descripción
-                    </label>
+                    <label>Descripción</label>
 
                     <textarea name="descripcion"
                               rows="4"
-                              class="form-control"
-                              placeholder="Descripción del contenido"></textarea>
+                              class="form-control">{{ $texto->descripcion }}</textarea>
 
                 </div>
 
@@ -157,22 +143,38 @@
 
                 <div class="col-md-12 mb-3">
 
-                    <label>
-                        Archivo
-                    </label>
+                    <label>Archivo Actual</label>
+
+                    <br>
+
+                    @if($texto->archivo)
+
+                        <a href="{{ asset('storage/'.$texto->archivo) }}"
+                           target="_blank"
+                           class="btn btn-info">
+
+                            <i class="fas fa-file-pdf"></i>
+
+                            Ver Archivo
+
+                        </a>
+
+                    @endif
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12 mb-3">
+
+                    <label>Reemplazar Archivo (Opcional)</label>
 
                     <input type="file"
                            name="archivo"
                            class="form-control"
-                           accept=".pdf,.doc,.docx,.txt"
-                           required>
-
-                    <small class="text-muted">
-
-                        Formatos permitidos:
-                        PDF, DOC, DOCX y TXT
-
-                    </small>
+                           accept=".pdf,.doc,.docx,.txt">
 
                 </div>
 
@@ -181,18 +183,16 @@
             <hr>
 
             <button type="submit"
-                    class="btn btn-success">
+                    class="btn btn-warning">
 
                 <i class="fas fa-save"></i>
 
-                Guardar
+                Actualizar
 
             </button>
 
             <a href="{{ route('textos.index') }}"
                class="btn btn-secondary">
-
-                <i class="fas fa-arrow-left"></i>
 
                 Cancelar
 
