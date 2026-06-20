@@ -13,6 +13,6 @@ class NivelEducativo extends Model
 
     protected $fillable = [
         'nombre',
-        'estado'
+        'descripcion'
     ];
 }

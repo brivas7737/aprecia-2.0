@@ -211,10 +211,10 @@ public function generarAudio($id)
     $texto = Texto::findOrFail($id);
 
     $python =
-    'C:\Users\Geovana\Desktop\aporte\venv\Scripts\python.exe';
+'C:\Users\Geovana\Desktop\aporte\venv\Scripts\python.exe';
 
     $script =
-    'C:\Users\Geovana\Desktop\aporte\src\audio_generator.py';
+    base_path('python/audio_generator.py');
 
     $pdf =
     storage_path(
@@ -232,25 +232,34 @@ public function generarAudio($id)
     $comando =
     "\"$python\" \"$script\" \"$pdf\" \"$salida\"";
 
+    if (!file_exists(dirname($salida))) {
+
+    mkdir(
+        dirname($salida),
+        0777,
+        true
+    );
+    }
+
     exec($comando, $output, $return);
 
     if ($return == 0) {
 
-        AudioGenerado::create([
+$audio = AudioGenerado::create([
 
-            'texto_id' => $texto->id,
+    'texto_id' => $texto->id,
 
-            'voz_id' => 1,
+    'voz_id' => 1,
 
-            'archivo_audio' => $salida,
+    'archivo_audio' => 'audios/' . $nombreAudio,
 
-            'duracion_segundos' => null,
+    'duracion_segundos' => null,
 
-            'reproducciones' => 0,
+    'reproducciones' => 0,
 
-            'fecha_generacion' => now()
+    'fecha_generacion' => now()
 
-        ]);
+]);
 
         return redirect()
             ->route('textos.index')

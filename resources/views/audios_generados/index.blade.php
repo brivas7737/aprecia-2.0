@@ -6,7 +6,19 @@
 
 <div class="d-flex justify-content-between">
 
-    <h1>Audios Generados</h1>
+<div class="d-flex justify-content-between">
+
+<h1>Audios Generados</h1>
+
+<a
+href="{{ route('audios-generados.eliminados') }}"
+class="btn btn-warning">
+
+🗑 Eliminados
+
+</a>
+
+</div>
 
 </div>
 
@@ -42,7 +54,11 @@
 
                     <th>Fecha</th>
 
+                    <th>Reproducciones</th>
+
                     <th>Audio</th>
+
+                    <th>Acciones</th>
 
                 </tr>
 
@@ -50,60 +66,89 @@
 
             <tbody>
 
-                @forelse($audios as $audio)
+@forelse($audios as $audio)
 
-                <tr>
+<tr>
 
-                    <td>
-                        {{ $audio->id }}
-                    </td>
+    <td>{{ $audio->id }}</td>
 
-                    <td>
-                        {{ $audio->texto->titulo ?? 'N/A' }}
-                    </td>
+    <td>{{ $audio->texto->titulo ?? 'N/A' }}</td>
 
-                    <td>
-                        {{ $audio->voz->nombre ?? 'N/A' }}
-                    </td>
+    <td>{{ $audio->voz->nombre ?? 'N/A' }}</td>
 
-                    <td>
-                        {{ $audio->fecha_generacion }}
-                    </td>
+    <td>{{ $audio->fecha_generacion }}</td>
 
-                    <td>
+    <td>{{ $audio->reproducciones }}</td>
 
-    @php
+    <td>
 
-        $nombreAudio = basename($audio->archivo_audio);
+        @php
+            $nombreAudio = basename($audio->archivo_audio);
+        @endphp
 
-    @endphp
+        <audio
+            controls
+            preload="none"
+            onplay="registrarReproduccion({{ $audio->id }})">
 
-    <audio controls preload="none">
+            <source
+                src="{{ asset('storage/audios/'.$nombreAudio) }}"
+                type="audio/mpeg">
 
-        <source
-            src="{{ asset('storage/audios/'.$nombreAudio) }}"
-            type="audio/mpeg">
+        </audio>
 
-    </audio>
+    </td>
 
-</td>
+    <td>
 
-                </tr>
+        <a href="{{ route(
+            'audios-generados.descargar',
+            $audio->id
+        ) }}"
+        class="btn btn-success btn-sm">
 
-                @empty
+            ⬇
 
-                <tr>
+        </a>
 
-                    <td colspan="5"
-                        class="text-center">
+        <form
+            action="{{ route(
+                'audios-generados.destroy',
+                $audio->id
+            ) }}"
+            method="POST"
+            style="display:inline;">
 
-                        No existen audios generados.
+            @csrf
+            @method('DELETE')
 
-                    </td>
+            <button
+                type="submit"
+                class="btn btn-danger btn-sm">
 
-                </tr>
+                🗑
 
-                @endforelse
+            </button>
+
+        </form>
+
+    </td>
+
+</tr>
+
+@empty
+
+<tr>
+
+    <td colspan="7" class="text-center">
+
+        No existen audios generados.
+
+    </td>
+
+</tr>
+
+@endforelse
 
             </tbody>
 
@@ -112,5 +157,27 @@
     </div>
 
 </div>
+
+@section('js')
+
+<script>
+
+function registrarReproduccion(id)
+{
+    fetch(
+        '/audios-generados/' + id + '/reproducir',
+        {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN':
+                '{{ csrf_token() }}'
+            }
+        }
+    );
+}
+
+</script>
+
+@stop
 
 @stop

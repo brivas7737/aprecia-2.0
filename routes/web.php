@@ -65,6 +65,31 @@ Route::middleware('auth')->group(function () {
     AudioGeneradoController::class
     )->only(['index']);
 
+    Route::get(
+    'audios-generados/{audio}/descargar',
+    [AudioGeneradoController::class,'descargar']
+    )->name('audios-generados.descargar');
+
+    Route::delete(
+    'audios-generados/{audio}',
+    [AudioGeneradoController::class,'destroy']
+    )->name('audios-generados.destroy');
+
+    Route::get(
+    'audios-generados-eliminados',
+    [AudioGeneradoController::class,'eliminados']
+    )->name('audios-generados.eliminados');
+
+    Route::post(
+    'audios-generados/{id}/restaurar',
+    [AudioGeneradoController::class,'restaurar']
+    )->name('audios-generados.restaurar');
+
+    Route::post(
+    'audios-generados/{audio}/reproducir',
+    [AudioGeneradoController::class,'reproducir']
+    )->name('audios-generados.reproducir');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
