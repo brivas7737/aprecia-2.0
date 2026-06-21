@@ -49,6 +49,11 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('estudiantes', EstudianteController::class);
 
+    Route::get(
+    'estudiantes/{estudiante}/ver',
+    [EstudianteController::class,'ver']
+    )->name('estudiantes.ver');
+
     Route::resource('personal', PersonalController::class);
 
     Route::resource('tutores', TutorController::class);
@@ -89,6 +94,26 @@ Route::middleware('auth')->group(function () {
     'audios-generados/{audio}/reproducir',
     [AudioGeneradoController::class,'reproducir']
     )->name('audios-generados.reproducir');
+
+    Route::get(
+    'textos-eliminados',
+    [TextoController::class,'eliminados']
+    )->name('textos.eliminados');
+
+    Route::post(
+    'textos/{id}/restaurar',
+    [TextoController::class,'restaurar']
+    )->name('textos.restaurar');
+
+    Route::get(
+    'estudiantes-eliminados',
+    [EstudianteController::class,'eliminados']
+    )->name('estudiantes.eliminados');
+
+    Route::post(
+    'estudiantes/{id}/restaurar',
+    [EstudianteController::class,'restaurar']
+    )->name('estudiantes.restaurar');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

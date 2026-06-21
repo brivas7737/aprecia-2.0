@@ -8,14 +8,138 @@
 
     <h1>Biblioteca de Textos</h1>
 
-    <a href="{{ route('textos.create') }}"
-       class="btn btn-success">
+    <div>
 
-        <i class="fas fa-plus"></i>
+        <a href="{{ route('textos.eliminados') }}"
+           class="btn btn-warning">
 
-        Nuevo Texto
+            🗑 Eliminados
 
-    </a>
+        </a>
+
+        <a href="{{ route('textos.create') }}"
+           class="btn btn-success">
+
+            <i class="fas fa-plus"></i>
+
+            Nuevo Texto
+
+        </a>
+
+    </div>
+
+    <div class="card mt-3">
+
+<div class="card-body">
+
+<form method="GET">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<select
+name="categoria"
+class="form-control">
+
+<option value="">
+
+Todas las categorías
+
+</option>
+
+@foreach($categorias as $categoria)
+
+<option
+value="{{ $categoria->id }}"
+{{ request('categoria') == $categoria->id ? 'selected' : '' }}>
+
+{{ $categoria->nombre }}
+
+</option>
+
+@endforeach
+
+</select>
+
+</div>
+
+<div class="col-md-3">
+
+<select
+name="nivel"
+class="form-control">
+
+<option value="">
+
+Todos los niveles
+
+</option>
+
+@foreach($niveles as $nivel)
+
+<option
+value="{{ $nivel->id }}"
+{{ request('nivel') == $nivel->id ? 'selected' : '' }}>
+
+{{ $nivel->nombre }}
+
+</option>
+
+@endforeach
+
+</select>
+
+</div>
+
+<div class="col-md-2">
+
+<input
+type="text"
+name="titulo"
+class="form-control"
+placeholder="Título"
+value="{{ request('titulo') }}">
+
+</div>
+
+<div class="col-md-2">
+
+<input
+type="text"
+name="autor"
+class="form-control"
+placeholder="Autor"
+value="{{ request('autor') }}">
+
+</div>
+
+<div class="col-md-2">
+
+<button
+class="btn btn-primary">
+
+🔍 Buscar
+
+</button>
+
+<a
+href="{{ route('textos.index') }}"
+class="btn btn-secondary">
+
+Limpiar
+
+</a>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
 
 </div>
 

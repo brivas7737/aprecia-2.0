@@ -10,10 +10,17 @@
 
 @section('content')
 
-<a href="{{ route('estudiantes.create') }}"
-   class="btn btn-primary mb-3">
+<a href="{{ route('estudiantes.eliminados') }}"
+class="btn btn-warning mb-3">
 
-    Nuevo Estudiante
+🗑 Eliminados
+
+</a>
+
+<a href="{{ route('estudiantes.create') }}"
+class="btn btn-primary mb-3">
+
+Nuevo Estudiante
 
 </a>
 
@@ -24,6 +31,145 @@
 </div>
 
 @endif
+
+<div class="card mb-3">
+
+<div class="card-body">
+
+<form method="GET">
+
+<div class="row">
+
+<div class="col-md-3">
+
+<select
+name="programa"
+class="form-control">
+
+<option value="">
+Todos los programas
+</option>
+
+@foreach($programas as $programa)
+
+<option
+value="{{ $programa->id }}"
+{{ request('programa') == $programa->id ? 'selected' : '' }}>
+
+{{ $programa->nombre }}
+
+</option>
+
+@endforeach
+
+</select>
+
+</div>
+
+<div class="col-md-3">
+
+<select
+name="servicio"
+class="form-control">
+
+<option value="">
+Todos los servicios
+</option>
+
+@foreach($servicios as $servicio)
+
+<option
+value="{{ $servicio->id }}"
+{{ request('servicio') == $servicio->id ? 'selected' : '' }}>
+
+{{ $servicio->nombre }}
+
+</option>
+
+@endforeach
+
+</select>
+
+</div>
+
+<div class="col-md-3">
+
+<select
+name="paralelo"
+class="form-control">
+
+<option value="">
+Todos los paralelos
+</option>
+
+@foreach($paralelos as $paralelo)
+
+<option
+value="{{ $paralelo->id }}"
+{{ request('paralelo') == $paralelo->id ? 'selected' : '' }}>
+
+{{ $paralelo->nombre }}
+
+</option>
+
+@endforeach
+
+</select>
+
+</div>
+
+<div class="col-md-3">
+
+<select
+name="condicion"
+class="form-control">
+
+<option value="">
+Todas las condiciones
+</option>
+
+@foreach($condiciones as $condicion)
+
+<option
+value="{{ $condicion->id }}"
+{{ request('condicion') == $condicion->id ? 'selected' : '' }}>
+
+{{ $condicion->nombre }}
+
+</option>
+
+@endforeach
+
+</select>
+
+</div>
+
+<div class="col-md-3">
+
+<button
+class="btn btn-primary">
+
+🔍 Filtrar
+
+</button>
+
+<a
+href="{{ route('estudiantes.index') }}"
+class="btn btn-secondary">
+
+Limpiar
+
+</a>
+
+</div>
+
+</div>
+
+</form>
+
+</div>
+
+</div>
 
 <div class="card">
 
@@ -41,6 +187,10 @@
                     <th>Código</th>
                     <th>Nombre Completo</th>
                     <th>CI</th>
+                    <th>RUDEES</th>
+                    <th>Programa</th>
+                    <th>Servicio</th>
+                    <th>Paralelo</th>
                     <th>Institución</th>
                     <th>Nivel Educativo</th>
                     <th>Condición Visual</th>
@@ -69,6 +219,22 @@
                     <td>{{ $estudiante->ci }}</td>
 
                     <td>
+    {{ $estudiante->rudees }}
+</td>
+
+<td>
+    {{ $estudiante->programa->nombre ?? 'No aplica' }}
+</td>
+
+<td>
+    {{ $estudiante->servicio->nombre ?? 'No aplica' }}
+</td>
+
+<td>
+    {{ $estudiante->paralelo->nombre ?? '' }}
+</td>
+
+                    <td>
                         {{ $estudiante->institucion->nombre ?? '' }}
                     </td>
 
@@ -92,11 +258,22 @@
 
                     <td>
 
+                    <a
+href="{{ route(
+    'estudiantes.ver',
+    $estudiante->id
+) }}"
+class="btn btn-info btn-sm">
+
+👁️
+
+</a>
+
                         <a
                             href="{{ route('estudiantes.edit', $estudiante->id) }}"
                             class="btn btn-warning btn-sm">
 
-                            Editar
+                            ✏️
 
                         </a>
 
@@ -113,7 +290,7 @@
                                 class="btn btn-danger btn-sm"
                                 onclick="return confirm('¿Eliminar estudiante?')">
 
-                                Eliminar
+                                🗑️
 
                             </button>
 

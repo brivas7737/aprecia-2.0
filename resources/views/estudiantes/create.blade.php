@@ -43,6 +43,36 @@
                 </div>
 
                 <div class="col-md-4 mb-3">
+    <label>RUDEES</label>
+
+    <input type="text"
+           name="rudees"
+           class="form-control">
+</div>
+
+<div class="col-md-4 mb-3">
+    <label>Paralelo</label>
+
+    <select name="paralelo_id"
+            class="form-control">
+
+        <option value="">
+            Seleccione
+        </option>
+
+        @foreach($paralelos as $paralelo)
+
+            <option value="{{ $paralelo->id }}">
+                {{ $paralelo->nombre }}
+            </option>
+
+        @endforeach
+
+    </select>
+
+</div>
+
+                <div class="col-md-4 mb-3">
                     <label>Fecha de Nacimiento</label>
                     <input type="date"
                            name="fecha_nacimiento"
@@ -130,6 +160,52 @@
                     </select>
 
                 </div>
+
+                <div class="col-md-6 mb-3">
+
+    <label>Programa</label>
+
+    <select name="programa_id"
+            class="form-control">
+
+        <option value="">
+            No aplica
+        </option>
+
+        @foreach($programas as $programa)
+
+            <option value="{{ $programa->id }}">
+                {{ $programa->nombre }}
+            </option>
+
+        @endforeach
+
+    </select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+
+    <label>Servicio</label>
+
+    <select name="servicio_id"
+            class="form-control">
+
+        <option value="">
+            No aplica
+        </option>
+
+        @foreach($servicios as $servicio)
+
+            <option value="{{ $servicio->id }}">
+                {{ $servicio->nombre }}
+            </option>
+
+        @endforeach
+
+    </select>
+
+</div>
 
                 <div class="col-md-4 mb-3">
                     <label>Código Estudiantil</label>

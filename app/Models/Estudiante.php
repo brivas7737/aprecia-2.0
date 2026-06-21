@@ -2,6 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Programa;
+use App\Models\Servicio;
+use App\Models\Paralelo;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -25,6 +28,10 @@ class Estudiante extends Model
         'direccion',
         'fecha_registro',
         'codigo_estudiantil',
+        'rudees',
+        'programa_id',
+        'servicio_id',
+        'paralelo_id',
         'foto',
         'activo'
     ];
@@ -43,4 +50,24 @@ class Estudiante extends Model
     {
         return $this->belongsTo(CondicionVisual::class);
     }
+    public function programa()
+{
+    return $this->belongsTo(
+        Programa::class
+    );
+}
+
+public function servicio()
+{
+    return $this->belongsTo(
+        Servicio::class
+    );
+}
+
+public function paralelo()
+{
+    return $this->belongsTo(
+        Paralelo::class
+    );
+}
 }

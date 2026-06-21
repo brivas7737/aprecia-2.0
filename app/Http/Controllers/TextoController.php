@@ -15,17 +15,68 @@ class TextoController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
-    {
-        $textos = Texto::with([
-            'categoria',
-            'nivelEducativo'
-        ])
-        ->orderBy('id', 'desc')
+public function index(Request $request)
+{
+    $query = Texto::with([
+        'categoria',
+        'nivelEducativo'
+    ]);
+
+    if ($request->filled('categoria')) {
+
+        $query->where(
+            'categoria_id',
+            $request->categoria
+        );
+    }
+
+    if ($request->filled('nivel')) {
+
+        $query->where(
+            'nivel_educativo_id',
+            $request->nivel
+        );
+    }
+
+    if ($request->filled('titulo')) {
+
+        $query->where(
+            'titulo',
+            'like',
+            '%' . $request->titulo . '%'
+        );
+    }
+
+    if ($request->filled('autor')) {
+
+        $query->where(
+            'autor',
+            'like',
+            '%' . $request->autor . '%'
+        );
+    }
+
+    $textos = $query
+        ->orderBy('id','desc')
         ->paginate(10);
 
-        return view('textos.index', compact('textos'));
-    }
+    $categorias =
+        Categoria::orderBy('nombre')
+        ->get();
+
+    $niveles =
+        NivelEducativo::orderBy('nombre')
+        ->get();
+
+    return view(
+        'textos.index',
+        compact(
+            'textos',
+            'categorias',
+            'niveles'
+        )
+    );
+}
 
     /**
      * Show the form for creating a new resource.
@@ -206,6 +257,22 @@ class TextoController extends Controller
             );
     }
 
+    public function eliminados()
+{
+    $textos = Texto::onlyTrashed()
+        ->with([
+            'categoria',
+            'nivelEducativo'
+        ])
+        ->orderBy('id','desc')
+        ->get();
+
+    return view(
+        'textos.eliminados',
+        compact('textos')
+    );
+    }
+
 public function generarAudio($id)
 {
     $texto = Texto::findOrFail($id);
@@ -274,6 +341,20 @@ $audio = AudioGenerado::create([
         ->with(
             'error',
             'No se pudo generar el audio'
+        );
+}
+
+public function restaurar($id)
+{
+    Texto::onlyTrashed()
+        ->findOrFail($id)
+        ->restore();
+
+    return redirect()
+        ->route('textos.index')
+        ->with(
+            'success',
+            'Texto restaurado correctamente'
         );
 }
 }
