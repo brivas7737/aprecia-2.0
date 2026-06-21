@@ -29,6 +29,8 @@ class PersonalController extends Controller
         $request->validate([
             'nombre' => 'required|max:100',
             'apellido' => 'required|max:100',
+            'correo' => 'nullable|email',
+            'ci' => 'nullable|numeric'
         ]);
 
         Personal::create($request->all());
@@ -60,6 +62,8 @@ class PersonalController extends Controller
         $request->validate([
             'nombre' => 'required|max:100',
             'apellido' => 'required|max:100',
+            'correo' => 'nullable|email',
+            'ci' => 'nullable|numeric'
         ]);
 
         $personal = Personal::findOrFail($id);
@@ -80,5 +84,44 @@ class PersonalController extends Controller
         return redirect()
             ->route('personal.index')
             ->with('success', 'Personal eliminado correctamente');
+    }
+
+    public function ver($id)
+    {
+        $personal = Personal::with(
+            'institucion'
+        )->findOrFail($id);
+
+        return view(
+            'personal.ver',
+            compact('personal')
+        );
+    }
+
+    public function eliminados()
+    {
+        $personal =
+            Personal::onlyTrashed()
+                ->orderBy('id', 'desc')
+                ->get();
+
+        return view(
+            'personal.eliminados',
+            compact('personal')
+        );
+    }
+
+    public function restaurar($id)
+    {
+        Personal::onlyTrashed()
+            ->findOrFail($id)
+            ->restore();
+
+        return redirect()
+            ->route('personal.index')
+            ->with(
+                'success',
+                'Registro restaurado correctamente'
+            );
     }
 }

@@ -24,25 +24,25 @@
 <label>Estudiante</label>
 
 <select name="estudiante_id"
-        class="form-control"
-        required>
+        class="form-control">
 
-<option value="">
-Seleccione...
-</option>
+    <option value="">
+        Sin estudiante asociado
+    </option>
 
-@foreach($estudiantes as $estudiante)
+    @foreach($estudiantes as $estudiante)
 
-<option value="{{ $estudiante->id }}">
+        <option value="{{ $estudiante->id }}">
 
-{{ $estudiante->nombre }}
-{{ $estudiante->apellido }}
+            {{ $estudiante->apellido }}
+            {{ $estudiante->nombre }}
 
-</option>
+        </option>
 
-@endforeach
+    @endforeach
 
 </select>
+
 
 </div>
 
@@ -53,11 +53,29 @@ Seleccione...
 <select name="parentesco"
         class="form-control">
 
-<option>Padre</option>
-<option>Madre</option>
-<option>Tutor Legal</option>
-<option>Hermano</option>
-<option>Otro Familiar</option>
+    <option value="">
+        Sin especificar
+    </option>
+
+    <option value="Padre">
+        Padre
+    </option>
+
+    <option value="Madre">
+        Madre
+    </option>
+
+    <option value="Tutor Legal">
+        Tutor Legal
+    </option>
+
+    <option value="Hermano">
+        Hermano
+    </option>
+
+    <option value="Otro Familiar">
+        Otro Familiar
+    </option>
 
 </select>
 

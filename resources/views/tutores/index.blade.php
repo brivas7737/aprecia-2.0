@@ -15,6 +15,23 @@
 
 </a>
 
+@if(session('success'))
+
+<div class="alert alert-success">
+
+    {{ session('success') }}
+
+</div>
+
+@endif
+
+<a href="{{ route('tutores.eliminados') }}"
+   class="btn btn-warning mb-3">
+
+    🗑 Eliminados
+
+</a>
+
 <div class="card">
 
     <div class="card-body">
@@ -41,10 +58,20 @@
 
                     <td>{{ $tutor->id }}</td>
 
-                    <td>
-                        {{ $tutor->estudiante->nombre }}
-                        {{ $tutor->estudiante->apellido }}
-                    </td>
+<td>
+
+@if($tutor->estudiante)
+
+    {{ $tutor->estudiante->nombre }}
+    {{ $tutor->estudiante->apellido }}
+
+@else
+
+    Sin estudiante asociado
+
+@endif
+
+</td>
 
                     <td>
                         {{ $tutor->nombre }}
@@ -57,27 +84,38 @@
 
                     <td>{{ $tutor->parentesco }}</td>
 
-                    <td>
+<td>
 
-                        <a href="{{ route('tutores.edit',$tutor->id) }}"
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+<a href="{{ route('tutores.ver',$tutor->id) }}"
+   class="btn btn-info btn-sm">
 
-                        <form action="{{ route('tutores.destroy',$tutor->id) }}"
-                              method="POST"
-                              style="display:inline">
+    👁️
 
-                            @csrf
-                            @method('DELETE')
+</a>
 
-                            <button class="btn btn-danger btn-sm">
-                                Eliminar
-                            </button>
+<a href="{{ route('tutores.edit',$tutor->id) }}"
+   class="btn btn-warning btn-sm">
 
-                        </form>
+    ✏️
 
-                    </td>
+</a>
+
+<form action="{{ route('tutores.destroy',$tutor->id) }}"
+      method="POST"
+      style="display:inline">
+
+    @csrf
+    @method('DELETE')
+
+    <button class="btn btn-danger btn-sm">
+
+        🗑️
+
+    </button>
+
+</form>
+
+</td>
 
                 </tr>
 

@@ -1,46 +1,19 @@
 @extends('adminlte::page')
 
-@section('title', 'Nuevo Texto')
+@section('title', 'Nuevo Personal')
 
 @section('content_header')
-    <h1>Nuevo Texto</h1>
+    <h1>Nuevo Personal</h1>
 @stop
 
 @section('content')
 
 <div class="card">
 
-    <div class="card-header bg-primary">
-
-        <h3 class="card-title">
-            Registro de Material Educativo
-        </h3>
-
-    </div>
-
     <div class="card-body">
 
-        @if ($errors->any())
-
-            <div class="alert alert-danger">
-
-                <ul class="mb-0">
-
-                    @foreach ($errors->all() as $error)
-
-                        <li>{{ $error }}</li>
-
-                    @endforeach
-
-                </ul>
-
-            </div>
-
-        @endif
-
-        <form action="{{ route('textos.store') }}"
-              method="POST"
-              enctype="multipart/form-data">
+        <form action="{{ route('personal.store') }}"
+              method="POST">
 
             @csrf
 
@@ -48,23 +21,78 @@
 
                 <div class="col-md-6 mb-3">
 
-                    <label>
-                        Categoría
-                    </label>
+                    <label>Nombre</label>
 
-                    <select name="categoria_id"
-                            class="form-control"
-                            required>
+                    <input type="text"
+                           name="nombre"
+                           class="form-control"
+                           required>
 
-                        <option value="">
-                            Seleccione una categoría
-                        </option>
+                </div>
 
-                        @foreach($categorias as $categoria)
+                <div class="col-md-6 mb-3">
 
-                            <option value="{{ $categoria->id }}">
+                    <label>Apellido</label>
 
-                                {{ $categoria->nombre }}
+                    <input type="text"
+                           name="apellido"
+                           class="form-control"
+                           required>
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label>CI</label>
+
+                    <input type="text"
+                           name="ci"
+                           class="form-control">
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label>Teléfono</label>
+
+                    <input type="text"
+                           name="telefono"
+                           class="form-control">
+
+                </div>
+
+                <div class="col-md-4 mb-3">
+
+                    <label>Correo</label>
+
+                    <input type="email"
+                           name="correo"
+                           class="form-control">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Cargo</label>
+
+                    <input type="text"
+                           name="cargo"
+                           class="form-control">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Institución</label>
+
+                    <select name="institucion_id"
+                            class="form-control">
+
+                        @foreach($instituciones as $institucion)
+
+                            <option value="{{ $institucion->id }}">
+
+                                {{ $institucion->nombre }}
 
                             </option>
 
@@ -76,27 +104,29 @@
 
                 <div class="col-md-6 mb-3">
 
-                    <label>
-                        Nivel Educativo
-                    </label>
+                    <label>Fecha Ingreso</label>
 
-                    <select name="nivel_educativo_id"
-                            class="form-control"
-                            required>
+                    <input type="date"
+                           name="fecha_ingreso"
+                           class="form-control"
+                           value="{{ date('Y-m-d') }}">
 
-                        <option value="">
-                            Seleccione un nivel
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>Estado</label>
+
+                    <select name="activo"
+                            class="form-control">
+
+                        <option value="1">
+                            Activo
                         </option>
 
-                        @foreach($niveles as $nivel)
-
-                            <option value="{{ $nivel->id }}">
-
-                                {{ $nivel->nombre }}
-
-                            </option>
-
-                        @endforeach
+                        <option value="0">
+                            Inactivo
+                        </option>
 
                     </select>
 
@@ -104,95 +134,15 @@
 
             </div>
 
-            <div class="row">
-
-                <div class="col-md-8 mb-3">
-
-                    <label>
-                        Título
-                    </label>
-
-                    <input type="text"
-                           name="titulo"
-                           class="form-control"
-                           placeholder="Ej: Ciencias Naturales 3ro Primaria"
-                           required>
-
-                </div>
-
-                <div class="col-md-4 mb-3">
-
-                    <label>
-                        Autor
-                    </label>
-
-                    <input type="text"
-                           name="autor"
-                           class="form-control"
-                           placeholder="Autor del material"
-                           required>
-
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-12 mb-3">
-
-                    <label>
-                        Descripción
-                    </label>
-
-                    <textarea name="descripcion"
-                              rows="4"
-                              class="form-control"
-                              placeholder="Descripción del contenido"></textarea>
-
-                </div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-12 mb-3">
-
-                    <label>
-                        Archivo
-                    </label>
-
-                    <input type="file"
-                           name="archivo"
-                           class="form-control"
-                           accept=".pdf,.doc,.docx,.txt"
-                           required>
-
-                    <small class="text-muted">
-
-                        Formatos permitidos:
-                        PDF, DOC, DOCX y TXT
-
-                    </small>
-
-                </div>
-
-            </div>
-
-            <hr>
-
             <button type="submit"
                     class="btn btn-success">
-
-                <i class="fas fa-save"></i>
 
                 Guardar
 
             </button>
 
-            <a href="{{ route('textos.index') }}"
+            <a href="{{ route('personal.index') }}"
                class="btn btn-secondary">
-
-                <i class="fas fa-arrow-left"></i>
 
                 Cancelar
 

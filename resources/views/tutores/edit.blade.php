@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title','Editar Tutor')
+@section('title', 'Editar Tutor')
 
 @section('content_header')
 <h1>Editar Tutor</h1>
@@ -12,8 +12,7 @@
 
     <div class="card-body">
 
-        <form action="{{ route('tutores.update',$tutor->id) }}"
-              method="POST">
+        <form action="{{ route('tutores.update', $tutor->id) }}" method="POST">
 
             @csrf
             @method('PUT')
@@ -22,19 +21,18 @@
 
                 <div class="col-md-6 mb-3">
 
-                    <label>Estudiante</label>
+                    <select name="estudiante_id" class="form-control">
 
-                    <select name="estudiante_id"
-                            class="form-control"
-                            required>
+                        <option value="">
+                            Sin estudiante asociado
+                        </option>
 
                         @foreach($estudiantes as $estudiante)
 
-                            <option value="{{ $estudiante->id }}"
-                                {{ $tutor->estudiante_id == $estudiante->id ? 'selected' : '' }}>
+                            <option value="{{ $estudiante->id }}" {{ $tutor->estudiante_id == $estudiante->id ? 'selected' : '' }}>
 
-                                {{ $estudiante->nombre }}
                                 {{ $estudiante->apellido }}
+                                {{ $estudiante->nombre }}
 
                             </option>
 
@@ -48,31 +46,29 @@
 
                     <label>Parentesco</label>
 
-                    <select name="parentesco"
-                            class="form-control">
+                    <select name="parentesco" class="form-control">
 
-                        <option value="Padre"
-                            {{ $tutor->parentesco == 'Padre' ? 'selected' : '' }}>
+                        <option value="" {{ empty($tutor->parentesco) ? 'selected' : '' }}>
+                            Sin especificar
+                        </option>
+
+                        <option value="Padre" {{ $tutor->parentesco == 'Padre' ? 'selected' : '' }}>
                             Padre
                         </option>
 
-                        <option value="Madre"
-                            {{ $tutor->parentesco == 'Madre' ? 'selected' : '' }}>
+                        <option value="Madre" {{ $tutor->parentesco == 'Madre' ? 'selected' : '' }}>
                             Madre
                         </option>
 
-                        <option value="Tutor Legal"
-                            {{ $tutor->parentesco == 'Tutor Legal' ? 'selected' : '' }}>
+                        <option value="Tutor Legal" {{ $tutor->parentesco == 'Tutor Legal' ? 'selected' : '' }}>
                             Tutor Legal
                         </option>
 
-                        <option value="Hermano"
-                            {{ $tutor->parentesco == 'Hermano' ? 'selected' : '' }}>
+                        <option value="Hermano" {{ $tutor->parentesco == 'Hermano' ? 'selected' : '' }}>
                             Hermano
                         </option>
 
-                        <option value="Otro Familiar"
-                            {{ $tutor->parentesco == 'Otro Familiar' ? 'selected' : '' }}>
+                        <option value="Otro Familiar" {{ $tutor->parentesco == 'Otro Familiar' ? 'selected' : '' }}>
                             Otro Familiar
                         </option>
 
@@ -84,11 +80,7 @@
 
                     <label>Nombre</label>
 
-                    <input type="text"
-                           name="nombre"
-                           class="form-control"
-                           value="{{ $tutor->nombre }}"
-                           required>
+                    <input type="text" name="nombre" class="form-control" value="{{ $tutor->nombre }}" required>
 
                 </div>
 
@@ -96,11 +88,7 @@
 
                     <label>Apellido</label>
 
-                    <input type="text"
-                           name="apellido"
-                           class="form-control"
-                           value="{{ $tutor->apellido }}"
-                           required>
+                    <input type="text" name="apellido" class="form-control" value="{{ $tutor->apellido }}" required>
 
                 </div>
 
@@ -108,10 +96,7 @@
 
                     <label>CI</label>
 
-                    <input type="text"
-                           name="ci"
-                           class="form-control"
-                           value="{{ $tutor->ci }}">
+                    <input type="text" name="ci" class="form-control" value="{{ $tutor->ci }}">
 
                 </div>
 
@@ -119,10 +104,7 @@
 
                     <label>Teléfono</label>
 
-                    <input type="text"
-                           name="telefono"
-                           class="form-control"
-                           value="{{ $tutor->telefono }}">
+                    <input type="text" name="telefono" class="form-control" value="{{ $tutor->telefono }}">
 
                 </div>
 
@@ -130,10 +112,7 @@
 
                     <label>Correo</label>
 
-                    <input type="email"
-                           name="correo"
-                           class="form-control"
-                           value="{{ $tutor->correo }}">
+                    <input type="email" name="correo" class="form-control" value="{{ $tutor->correo }}">
 
                 </div>
 
@@ -141,24 +120,19 @@
 
                     <label>Dirección</label>
 
-                    <input type="text"
-                           name="direccion"
-                           class="form-control"
-                           value="{{ $tutor->direccion }}">
+                    <input type="text" name="direccion" class="form-control" value="{{ $tutor->direccion }}">
 
                 </div>
 
             </div>
 
-            <button type="submit"
-                    class="btn btn-primary">
+            <button type="submit" class="btn btn-primary">
 
                 Actualizar
 
             </button>
 
-            <a href="{{ route('tutores.index') }}"
-               class="btn btn-secondary">
+            <a href="{{ route('tutores.index') }}" class="btn btn-secondary">
 
                 Cancelar
 

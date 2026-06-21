@@ -1,9 +1,9 @@
 @extends('adminlte::page')
 
-@section('title','Editar Personal')
+@section('title', 'Editar Personal')
 
 @section('content_header')
-<h1>Editar Personal</h1>
+    <h1>Editar Personal</h1>
 @stop
 
 @section('content')
@@ -12,7 +12,7 @@
 
     <div class="card-body">
 
-        <form action="{{ route('personal.update',$personal->id) }}"
+        <form action="{{ route('personal.update', $personal->id) }}"
               method="POST">
 
             @csrf
@@ -90,17 +90,6 @@
 
                 <div class="col-md-6 mb-3">
 
-                    <label>Fecha Ingreso</label>
-
-                    <input type="date"
-                           name="fecha_ingreso"
-                           class="form-control"
-                           value="{{ $personal->fecha_ingreso }}">
-
-                </div>
-
-                <div class="col-md-6 mb-3">
-
                     <label>Institución</label>
 
                     <select name="institucion_id"
@@ -123,6 +112,17 @@
 
                 <div class="col-md-6 mb-3">
 
+                    <label>Fecha Ingreso</label>
+
+                    <input type="date"
+                           name="fecha_ingreso"
+                           class="form-control"
+                           value="{{ $personal->fecha_ingreso }}">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
                     <label>Estado</label>
 
                     <select name="activo"
@@ -130,12 +130,16 @@
 
                         <option value="1"
                             {{ $personal->activo ? 'selected' : '' }}>
+
                             Activo
+
                         </option>
 
                         <option value="0"
                             {{ !$personal->activo ? 'selected' : '' }}>
+
                             Inactivo
+
                         </option>
 
                     </select>

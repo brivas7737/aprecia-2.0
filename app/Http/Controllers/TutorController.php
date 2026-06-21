@@ -32,6 +32,13 @@ class TutorController extends Controller
         return redirect()
             ->route('tutores.index')
             ->with('success', 'Tutor registrado correctamente');
+
+        $request->validate([
+            'nombre' => 'required|max:100',
+            'apellido' => 'required|max:100',
+            'correo' => 'nullable|email',
+            'ci' => 'nullable|numeric'
+        ]);
     }
 
     public function show(string $id)
@@ -70,4 +77,41 @@ class TutorController extends Controller
             ->route('tutores.index')
             ->with('success', 'Tutor eliminado correctamente');
     }
+
+    public function ver($id)
+{
+    $tutor = Tutor::with('estudiante')
+        ->findOrFail($id);
+
+    return view(
+        'tutores.ver',
+        compact('tutor')
+    );
+}
+
+public function eliminados()
+{
+    $tutores = Tutor::onlyTrashed()
+        ->orderBy('id','desc')
+        ->get();
+
+    return view(
+        'tutores.eliminados',
+        compact('tutores')
+    );
+}
+
+public function restaurar($id)
+{
+    Tutor::onlyTrashed()
+        ->findOrFail($id)
+        ->restore();
+
+    return redirect()
+        ->route('tutores.index')
+        ->with(
+            'success',
+            'Tutor restaurado correctamente'
+        );
+}
 }

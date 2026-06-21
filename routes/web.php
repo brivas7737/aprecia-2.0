@@ -61,6 +61,21 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('tutores', TutorController::class);
 
+    Route::get(
+    'tutores-eliminados',
+    [TutorController::class,'eliminados']
+)->name('tutores.eliminados');
+
+Route::post(
+    'tutores/{id}/restaurar',
+    [TutorController::class,'restaurar']
+)->name('tutores.restaurar');
+
+Route::get(
+    'tutores/{id}/ver',
+    [TutorController::class,'ver']
+)->name('tutores.ver');
+
     Route::resource('textos', \App\Http\Controllers\TextoController::class);
 
     Route::get(
@@ -162,6 +177,22 @@ Route::post(
     'paralelos/{id}/restaurar',
     [ParaleloController::class,'restaurar']
 )->name('paralelos.restaurar');
+
+Route::get(
+    'personal/{personal}/ver',
+    [PersonalController::class,'ver']
+)->name('personal.ver');
+
+Route::get(
+    'personal-eliminados',
+    [PersonalController::class,'eliminados']
+)->name('personal.eliminados');
+
+Route::post(
+    'personal/{id}/restaurar',
+    [PersonalController::class,'restaurar']
+)->name('personal.restaurar');
+
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

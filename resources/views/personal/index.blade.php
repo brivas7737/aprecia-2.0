@@ -10,18 +10,23 @@
 
 @section('content')
 
-<a href="{{ route('personal.create') }}"
-   class="btn btn-primary mb-3">
+<a href="{{ route('personal.create') }}" class="btn btn-primary mb-3">
 
     Nuevo Personal
+    <a href="{{ route('personal.eliminados') }}" class="btn btn-warning mb-3">
+
+        🗑 Eliminados
+
+    </a>
 
 </a>
 
+
 @if(session('success'))
 
-<div class="alert alert-success">
-    {{ session('success') }}
-</div>
+    <div class="alert alert-success">
+        {{ session('success') }}
+    </div>
 
 @endif
 
@@ -29,96 +34,101 @@
 
     <div class="card-body">
 
-        <table id="tablaPersonal"
-               class="table table-bordered table-striped">
+        <table id="tablaPersonal" class="table table-bordered table-striped">
 
             <thead>
 
-            <tr>
+                <tr>
 
-                <th>ID</th>
-                <th>Nombre Completo</th>
-                <th>CI</th>
-                <th>Cargo</th>
-                <th>Institución</th>
-                <th>Teléfono</th>
-                <th>Estado</th>
-                <th>Acciones</th>
+                    <th>ID</th>
+                    <th>Nombre Completo</th>
+                    <th>CI</th>
+                    <th>Cargo</th>
+                    <th>Institución</th>
+                    <th>Teléfono</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
 
-            </tr>
+                </tr>
 
             </thead>
 
             <tbody>
 
-            @foreach($personal as $persona)
+                @foreach($personal as $persona)
 
-                <tr>
+                    <tr>
 
-                    <td>{{ $persona->id }}</td>
+                        <td>{{ $persona->id }}</td>
 
-                    <td>
-                        {{ $persona->nombre }}
-                        {{ $persona->apellido }}
-                    </td>
+                        <td>
+                            {{ $persona->nombre }}
+                            {{ $persona->apellido }}
+                        </td>
 
-                    <td>{{ $persona->ci }}</td>
+                        <td>{{ $persona->ci }}</td>
 
-                    <td>{{ $persona->cargo }}</td>
+                        <td>{{ $persona->cargo }}</td>
 
-                    <td>
-                        {{ $persona->institucion->nombre ?? '' }}
-                    </td>
+                        <td>
+                            {{ $persona->institucion->nombre ?? '' }}
+                        </td>
 
-                    <td>{{ $persona->telefono }}</td>
+                        <td>{{ $persona->telefono }}</td>
 
-                    <td>
+                        <td>
 
-                        @if($persona->activo)
+                            @if($persona->activo)
 
-                            Activo
+                                Activo
 
-                        @else
+                            @else
 
-                            Inactivo
+                                Inactivo
 
-                        @endif
+                            @endif
 
-                    </td>
+                        </td>
 
-                    <td>
+                        <td>
+<a
+href="{{ route(
+'personal.ver',
+$persona->id
+) }}"
+class="btn btn-info btn-sm">
 
-                        <a href="{{ route('personal.edit',$persona->id) }}"
-                           class="btn btn-warning btn-sm">
+👁️
 
-                            Editar
+</a>
 
-                        </a>
 
-                        <form
-                            action="{{ route('personal.destroy',$persona->id) }}"
-                            method="POST"
-                            style="display:inline;">
+                            <a href="{{ route('personal.edit', $persona->id) }}" class="btn btn-warning btn-sm">
 
-                            @csrf
-                            @method('DELETE')
+                                ✏️
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Eliminar registro?')">
+                            </a>
 
-                                Eliminar
+                            <form action="{{ route('personal.destroy', $persona->id) }}" method="POST"
+                                style="display:inline;">
 
-                            </button>
+                                @csrf
+                                @method('DELETE')
 
-                        </form>
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Eliminar registro?')">
 
-                    </td>
+                                    🗑️
 
-                </tr>
+                                </button>
 
-            @endforeach
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                @endforeach
 
             </tbody>
 
@@ -134,19 +144,19 @@
 
 <script>
 
-$(document).ready(function(){
+    $(document).ready(function () {
 
-    $('#tablaPersonal').DataTable({
+        $('#tablaPersonal').DataTable({
 
-        language:{
+            language: {
 
-            url:'//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
 
-        }
+            }
+
+        });
 
     });
-
-});
 
 </script>
 

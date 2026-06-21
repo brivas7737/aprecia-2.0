@@ -4,7 +4,7 @@
 
 @section('content_header')
 
-<h1>Programas Eliminados</h1>
+<h1>Personal Eliminados</h1>
 
 @stop
 
@@ -20,7 +20,7 @@
 
 @endif
 
-<a href="{{ route('programas.index') }}"
+<a href="{{ route('personal.index') }}"
    class="btn btn-primary mb-3">
 
     Volver
@@ -53,32 +53,32 @@
 
             <tbody>
 
-                @forelse($programas as $programa)
+                @forelse($personal as $persona)
 
                 <tr>
 
                     <td>
-                        {{ $programa->id }}
+                        {{ $persona->id }}
                     </td>
 
                     <td>
-                        {{ $programa->nombre }}
+                        {{ $persona->nombre }} {{ $persona->apellido }}
                     </td>
 
                     <td>
-                        {{ $programa->descripcion }}
+                        {{ $persona->ci }}
                     </td>
 
                     <td>
-                        {{ $programa->deleted_at }}
+                        {{ $persona->deleted_at }}
                     </td>
 
                     <td>
 
                         <form
                             action="{{ route(
-                                'programas.restaurar',
-                                $programa->id
+                                'personal.restaurar',
+                                $persona->id
                             ) }}"
                             method="POST">
 
@@ -104,7 +104,7 @@
                     <td colspan="5"
                         class="text-center">
 
-                        No existen programas eliminados.
+                        No existe personal eliminado.
 
                     </td>
 

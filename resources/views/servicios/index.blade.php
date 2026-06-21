@@ -5,7 +5,7 @@
 @section('title', 'Servicios')
 
 @section('content_header')
-    <h1>Servicios</h1>
+<h1>Servicios</h1>
 @stop
 
 @section('content')
@@ -14,11 +14,9 @@
     Nuevo Servicio
 </a>
 
-<a
-href="{{ route('servicios.eliminados') }}"
-class="btn btn-warning mb-3">
+<a href="{{ route('servicios.eliminados') }}" class="btn btn-warning mb-3">
 
-🗑 Eliminados
+    🗑 Eliminados
 
 </a>
 
@@ -44,46 +42,42 @@ class="btn btn-warning mb-3">
 
             <tbody>
 
-            @foreach($servicios as $servicio)
+                @foreach($servicios as $servicio)
 
-                <tr>
+                    <tr>
 
-                    <td>{{ $servicio->id }}</td>
+                        <td>{{ $servicio->id }}</td>
 
-                    <td>{{ $servicio->nombre }}</td>
+                        <td>{{ $servicio->nombre }}</td>
 
-                    <td>{{ $servicio->descripcion }}</td>
+                        <td>{{ $servicio->descripcion }}</td>
 
-                    <td>
+                        <td>
 
-                        <a href="{{ route('servicios.edit', $servicio->id) }}"
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+                            <a href="{{ route('servicios.edit', $servicio->id) }}" class="btn btn-warning btn-sm">
+                                Editar
+                            </a>
 
-                        <form action="{{ route('servicios.destroy', $servicio->id) }}"
-                              method="POST"
-                              style="display:inline;">
+                            <form action="{{ route('servicios.destroy', $servicio->id) }}" method="POST"
+                                style="display:inline;">
 
-                            @csrf
-                            @method('DELETE')
+                                @csrf
+                                @method('DELETE')
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Eliminar servicio?')">
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Eliminar servicio?')">
 
-                                Eliminar
+                                    Eliminar
 
-                            </button>
+                                </button>
 
-                        </form>
+                            </form>
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
-            @endforeach
+                @endforeach
 
             </tbody>
 
@@ -98,15 +92,15 @@ class="btn btn-warning mb-3">
 
 <script>
 
-$(document).ready(function() {
+    $(document).ready(function () {
 
-    $('#tablaServicios').DataTable({
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-        }
+        $('#tablaServicios').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+            }
+        });
+
     });
-
-});
 
 </script>
 
