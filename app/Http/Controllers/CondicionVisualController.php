@@ -75,4 +75,40 @@ class CondicionVisualController extends Controller
             ->route('condiciones-visuales.index')
             ->with('success', 'Condición visual eliminada correctamente');
     }
+
+    public function ver($id)
+{
+    $condicion = CondicionVisual::findOrFail($id);
+
+    return view(
+        'condiciones_visuales.ver',
+        compact('condicion')
+    );
+}
+
+public function eliminados()
+{
+    $condiciones = CondicionVisual::onlyTrashed()
+        ->orderBy('id','desc')
+        ->get();
+
+    return view(
+        'condiciones_visuales.eliminados',
+        compact('condiciones')
+    );
+}
+
+public function restaurar($id)
+{
+    CondicionVisual::onlyTrashed()
+        ->findOrFail($id)
+        ->restore();
+
+    return redirect()
+        ->route('condiciones-visuales.index')
+        ->with(
+            'success',
+            'Condición visual restaurada correctamente'
+        );
+}
 }

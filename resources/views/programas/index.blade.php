@@ -54,32 +54,41 @@ class="btn btn-warning mb-3">
 
                     <td>{{ $programa->descripcion }}</td>
 
-                    <td>
+                   <td>
 
-                        <a href="{{ route('programas.edit', $programa->id) }}"
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+    <a href="{{ route('programas.ver',$programa->id) }}"
+       class="btn btn-info btn-sm">
 
-                        <form action="{{ route('programas.destroy', $programa->id) }}"
-                              method="POST"
-                              style="display:inline;">
+        👁️
 
-                            @csrf
-                            @method('DELETE')
+    </a>
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Eliminar programa?')">
+    <a href="{{ route('programas.edit',$programa->id) }}"
+       class="btn btn-warning btn-sm">
 
-                                Eliminar
+        ✏️
 
-                            </button>
+    </a>
 
-                        </form>
+    <form action="{{ route('programas.destroy',$programa->id) }}"
+          method="POST"
+          style="display:inline;">
 
-                    </td>
+        @csrf
+        @method('DELETE')
+
+        <button
+            type="submit"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('¿Eliminar programa?')">
+
+            🗑️
+
+        </button>
+
+    </form>
+
+</td>
 
                 </tr>
 

@@ -68,4 +68,40 @@ class InstitucionController extends Controller
             ->route('instituciones.index')
             ->with('success', 'Institución eliminada correctamente');
     }
+
+    public function ver($id)
+{
+    $institucion = Institucion::findOrFail($id);
+
+    return view(
+        'instituciones.ver',
+        compact('institucion')
+    );
+}
+
+public function eliminados()
+{
+    $instituciones = Institucion::onlyTrashed()
+        ->orderBy('id','desc')
+        ->get();
+
+    return view(
+        'instituciones.eliminados',
+        compact('instituciones')
+    );
+}
+
+public function restaurar($id)
+{
+    Institucion::onlyTrashed()
+        ->findOrFail($id)
+        ->restore();
+
+    return redirect()
+        ->route('instituciones.index')
+        ->with(
+            'success',
+            'Institución restaurada correctamente'
+        );
+}
 }

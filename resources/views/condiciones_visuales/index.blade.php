@@ -14,6 +14,13 @@
     Nueva Condición Visual
 </a>
 
+<a href="{{ route('condiciones-visuales.eliminados') }}"
+class="btn btn-warning mb-3">
+
+🗑 Eliminados
+
+</a>
+
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -46,29 +53,39 @@
 
                     <td>
 
-                        <a href="{{ route('condiciones-visuales.edit', $condicion->id) }}"
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+<a href="{{ route('condiciones-visuales.ver',$condicion->id) }}"
+class="btn btn-info btn-sm">
 
-                        <form action="{{ route('condiciones-visuales.destroy', $condicion->id) }}"
-                              method="POST"
-                              style="display:inline;">
+👁️
 
-                            @csrf
-                            @method('DELETE')
+</a>
 
-                            <button type="submit"
-                                    class="btn btn-danger btn-sm"
-                                    onclick="return confirm('¿Eliminar condición visual?')">
+<a href="{{ route('condiciones-visuales.edit',$condicion->id) }}"
+class="btn btn-warning btn-sm">
 
-                                Eliminar
+✏️
 
-                            </button>
+</a>
 
-                        </form>
+<form
+action="{{ route('condiciones-visuales.destroy',$condicion->id) }}"
+method="POST"
+style="display:inline;">
 
-                    </td>
+@csrf
+@method('DELETE')
+
+<button
+type="submit"
+class="btn btn-danger btn-sm">
+
+🗑️
+
+</button>
+
+</form>
+
+</td>
 
                 </tr>
 

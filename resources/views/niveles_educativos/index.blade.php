@@ -14,6 +14,13 @@
     Nuevo Nivel Educativo
 </a>
 
+<a href="{{ route('niveles-educativos.eliminados') }}"
+class="btn btn-warning mb-3">
+
+🗑 Eliminados
+
+</a>
+
 @if(session('success'))
     <div class="alert alert-success">
         {{ session('success') }}
@@ -48,31 +55,39 @@
 
                     <td>
 
-                        <a href="{{ route('niveles-educativos.edit', $nivel->id) }}"
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+<a href="{{ route('niveles-educativos.ver',$nivel->id) }}"
+class="btn btn-info btn-sm">
 
-                        <form action="{{ route('niveles-educativos.destroy', $nivel->id) }}"
-                              method="POST"
-                              style="display:inline;">
+👁️
 
-                            @csrf
-                            @method('DELETE')
+</a>
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Eliminar nivel educativo?')">
+<a href="{{ route('niveles-educativos.edit',$nivel->id) }}"
+class="btn btn-warning btn-sm">
 
-                                Eliminar
+✏️
 
-                            </button>
+</a>
 
-                        </form>
+<form
+action="{{ route('niveles-educativos.destroy',$nivel->id) }}"
+method="POST"
+style="display:inline;">
 
-                    </td>
+@csrf
+@method('DELETE')
 
+<button
+type="submit"
+class="btn btn-danger btn-sm">
+
+🗑️
+
+</button>
+
+</form>
+
+</td>
                 </tr>
 
             @endforeach

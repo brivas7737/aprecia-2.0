@@ -75,4 +75,40 @@ public function update(Request $request, string $id)
             ->route('niveles-educativos.index')
             ->with('success', 'Nivel educativo eliminado correctamente');
     }
+
+    public function ver($id)
+{
+    $nivel = NivelEducativo::findOrFail($id);
+
+    return view(
+        'niveles_educativos.ver',
+        compact('nivel')
+    );
+}
+
+public function eliminados()
+{
+    $niveles = NivelEducativo::onlyTrashed()
+        ->orderBy('id','desc')
+        ->get();
+
+    return view(
+        'niveles_educativos.eliminados',
+        compact('niveles')
+    );
+}
+
+public function restaurar($id)
+{
+    NivelEducativo::onlyTrashed()
+        ->findOrFail($id)
+        ->restore();
+
+    return redirect()
+        ->route('niveles-educativos.index')
+        ->with(
+            'success',
+            'Nivel educativo restaurado correctamente'
+        );
+}
 }

@@ -75,4 +75,40 @@ class CategoriaController extends Controller
             ->route('categorias.index')
             ->with('success', 'Categoría eliminada correctamente');
     }
+
+    public function ver($id)
+{
+    $categoria = Categoria::findOrFail($id);
+
+    return view(
+        'categorias.ver',
+        compact('categoria')
+    );
+}
+
+public function eliminados()
+{
+    $categorias = Categoria::onlyTrashed()
+        ->orderBy('id','desc')
+        ->get();
+
+    return view(
+        'categorias.eliminados',
+        compact('categorias')
+    );
+}
+
+public function restaurar($id)
+{
+    Categoria::onlyTrashed()
+        ->findOrFail($id)
+        ->restore();
+
+    return redirect()
+        ->route('categorias.index')
+        ->with(
+            'success',
+            'Categoría restaurada correctamente'
+        );
+}
 }

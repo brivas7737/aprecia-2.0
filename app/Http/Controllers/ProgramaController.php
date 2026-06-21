@@ -117,4 +117,14 @@ public function restaurar($id)
             'Programa restaurado correctamente'
         );
 }
+
+public function ver($id)
+{
+    $programa = Programa::findOrFail($id);
+
+    return view(
+        'programas.ver',
+        compact('programa')
+    );
+}
 }

@@ -5,13 +5,19 @@
 @section('title', 'Instituciones')
 
 @section('content_header')
-    <h1>Instituciones</h1>
+<h1>Instituciones</h1>
 @stop
 
 @section('content')
 
 <a href="{{ route('instituciones.create') }}" class="btn btn-primary mb-3">
     Nueva Institución
+</a>
+
+<a href="{{ route('instituciones.eliminados') }}" class="btn btn-warning mb-3">
+
+    🗑 Eliminados
+
 </a>
 
 @if(session('success'))
@@ -37,49 +43,52 @@
 
             <tbody>
 
-            @foreach($instituciones as $institucion)
+                @foreach($instituciones as $institucion)
 
-                <tr>
+                    <tr>
 
-                    <td>{{ $institucion->id }}</td>
+                        <td>{{ $institucion->id }}</td>
 
-                    <td>{{ $institucion->nombre }}</td>
+                        <td>{{ $institucion->nombre }}</td>
 
-                    <td>{{ $institucion->ciudad }}</td>
+                        <td>{{ $institucion->ciudad }}</td>
 
-                    <td>{{ $institucion->telefono }}</td>
+                        <td>{{ $institucion->telefono }}</td>
 
-                    <td>
+                        <td>
 
-                        <a href="{{ route('instituciones.edit',$institucion->id) }}"
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+                            <a href="{{ route('instituciones.ver', $institucion->id) }}" class="btn btn-info btn-sm">
 
-                        <form
-                            action="{{ route('instituciones.destroy',$institucion->id) }}"
-                            method="POST"
-                            style="display:inline;">
+                                👁️
 
-                            @csrf
-                            @method('DELETE')
+                            </a>
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Eliminar institución?')">
+                            <a href="{{ route('instituciones.edit', $institucion->id) }}" class="btn btn-warning btn-sm">
 
-                                Eliminar
+                                ✏️
 
-                            </button>
+                            </a>
 
-                        </form>
+                            <form action="{{ route('instituciones.destroy', $institucion->id) }}" method="POST"
+                                style="display:inline;">
 
-                    </td>
+                                @csrf
+                                @method('DELETE')
 
-                </tr>
+                                <button type="submit" class="btn btn-danger btn-sm"
+                                    onclick="return confirm('¿Eliminar institución?')">
 
-            @endforeach
+                                    🗑️
+
+                                </button>
+
+                            </form>
+
+                        </td>
+
+                    </tr>
+
+                @endforeach
 
             </tbody>
 
@@ -96,15 +105,15 @@
 
 <script>
 
-$(document).ready(function() {
+    $(document).ready(function () {
 
-    $('#tablaInstituciones').DataTable({
-        language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
-        }
+        $('#tablaInstituciones').DataTable({
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+            }
+        });
+
     });
-
-});
 
 </script>
 @stop
