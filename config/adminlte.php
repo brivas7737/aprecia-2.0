@@ -345,9 +345,21 @@ return [
     ],
 
     [
-    'text' => 'Programas y Servicios',
-    'icon' => 'fas fa-chalkboard-teacher',
-    'url'  => 'programas-servicios',
+    'text' => 'Programas',
+    'icon' => 'fas fa-graduation-cap',
+    'url'  => 'programas',
+    ],
+
+    [
+    'text' => 'Servicios',
+    'icon' => 'fas fa-hands-helping',
+    'url'  => 'servicios',
+    ],
+
+    [
+    'text' => 'Paralelos',
+    'icon' => 'fas fa-layer-group',
+    'url'  => 'paralelos',
     ],
 
     [

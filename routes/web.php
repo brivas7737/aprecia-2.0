@@ -12,6 +12,9 @@ use App\Http\Controllers\PersonalController;
 use App\Http\Controllers\TutorController;
 use App\Http\Controllers\TextoController;
 use App\Http\Controllers\AudioGeneradoController;
+use App\Http\Controllers\ProgramaController;
+use App\Http\Controllers\ServicioController;
+use App\Http\Controllers\ParaleloController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Institucion;
 use App\Models\Estudiante;
@@ -115,11 +118,57 @@ Route::middleware('auth')->group(function () {
     [EstudianteController::class,'restaurar']
     )->name('estudiantes.restaurar');
 
+    Route::resource(
+    'programas',
+    ProgramaController::class
+    );
+
+    Route::get(
+    'programas-eliminados',
+    [ProgramaController::class,'eliminados']
+    )->name('programas.eliminados');
+
+    Route::post(
+    'programas/{id}/restaurar',
+    [ProgramaController::class,'restaurar']
+    )->name('programas.restaurar');
+
+    Route::resource(
+    'servicios',
+    ServicioController::class
+);
+
+Route::get(
+    'servicios-eliminados',
+    [ServicioController::class,'eliminados']
+)->name('servicios.eliminados');
+
+Route::post(
+    'servicios/{id}/restaurar',
+    [ServicioController::class,'restaurar']
+)->name('servicios.restaurar');
+
+Route::resource(
+    'paralelos',
+    ParaleloController::class
+);
+
+Route::get(
+    'paralelos-eliminados',
+    [ParaleloController::class,'eliminados']
+)->name('paralelos.eliminados');
+
+Route::post(
+    'paralelos/{id}/restaurar',
+    [ParaleloController::class,'restaurar']
+)->name('paralelos.restaurar');
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
 
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
 
 });
 
