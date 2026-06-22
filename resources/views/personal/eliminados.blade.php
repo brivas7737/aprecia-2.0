@@ -1,10 +1,13 @@
 @extends('adminlte::page')
 
-@section('title','Programas Eliminados')
+@section('plugins.Datatables', true)
+@section('plugins.DatatablesPlugins', true)
+
+@section('title', 'Personal Eliminado')
 
 @section('content_header')
 
-<h1>Personal Eliminados</h1>
+<h1>Personal Eliminado</h1>
 
 @stop
 
@@ -12,16 +15,15 @@
 
 @if(session('success'))
 
-<div class="alert alert-success">
+    <div class="alert alert-success">
 
-    {{ session('success') }}
+        {{ session('success') }}
 
-</div>
+    </div>
 
 @endif
 
-<a href="{{ route('personal.index') }}"
-   class="btn btn-primary mb-3">
+<a href="{{ route('personal.index') }}" class="btn btn-primary mb-3">
 
     Volver
 
@@ -31,7 +33,7 @@
 
     <div class="card-body">
 
-        <table class="table table-bordered">
+        <table id="tablaEliminados" class="table table-bordered table-striped">
 
             <thead>
 
@@ -39,13 +41,13 @@
 
                     <th>ID</th>
 
-                    <th>Nombre</th>
+                    <th>Nombre Completo</th>
 
-                    <th>Descripción</th>
+                    <th>CI</th>
 
                     <th>Fecha Eliminación</th>
 
-                    <th>Acción</th>
+                    <th>Acciones</th>
 
                 </tr>
 
@@ -55,60 +57,74 @@
 
                 @forelse($personal as $persona)
 
-                <tr>
+                                <tr>
 
-                    <td>
-                        {{ $persona->id }}
-                    </td>
+                                    <td>
+                                        {{ $persona->id }}
+                                    </td>
 
-                    <td>
-                        {{ $persona->nombre }} {{ $persona->apellido }}
-                    </td>
+                                    <td>
+                                        {{ $persona->nombre }}
+                                        {{ $persona->apellido }}
+                                    </td>
 
-                    <td>
-                        {{ $persona->ci }}
-                    </td>
+                                    <td>
+                                        {{ $persona->ci }}
+                                    </td>
 
-                    <td>
-                        {{ $persona->deleted_at }}
-                    </td>
+                                    <td>
+                                        {{ $persona->deleted_at }}
+                                    </td>
 
-                    <td>
+                                    <td>
 
-                        <form
-                            action="{{ route(
-                                'personal.restaurar',
-                                $persona->id
-                            ) }}"
-                            method="POST">
+                                        <form action="{{ route(
+                        'personal.restaurar',
+                        $persona->id
+                    ) }}" method="POST" style="display:inline;">
 
-                            @csrf
+                                            @csrf
 
-                            <button
-                                class="btn btn-success btn-sm">
+                                            <button class="btn btn-success btn-sm">
 
-                                ↩ Restaurar
+                                                ♻ Restaurar
 
-                            </button>
+                                            </button>
 
-                        </form>
+                                        </form>
 
-                    </td>
+                                        <form action="{{ route(
+                        'personal.eliminarDefinitivo',
+                        $persona->id
+                    ) }}" method="POST" style="display:inline;">
 
-                </tr>
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Eliminar definitivamente este registro?')">
+
+                                                ❌ Definitivo
+
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
 
                 @empty
 
-                <tr>
+                    <tr>
 
-                    <td colspan="5"
-                        class="text-center">
+                        <td colspan="5" class="text-center">
 
-                        No existe personal eliminado.
+                            No existe personal eliminado.
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
                 @endforelse
 
@@ -119,5 +135,57 @@
     </div>
 
 </div>
+
+@stop
+
+@section('js')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#tablaEliminados').DataTable({
+
+            dom: 'Bfrtip',
+
+            buttons: [
+
+                'copy',
+
+                'excel',
+
+                'csv',
+
+                'pdf',
+
+                'print'
+
+            ],
+
+            order: [[0, 'desc']],
+
+            language: {
+
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+
+            }
+
+        });
+
+    });
+
+</script>
 
 @stop

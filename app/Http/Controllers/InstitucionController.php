@@ -104,4 +104,18 @@ public function restaurar($id)
             'Institución restaurada correctamente'
         );
 }
+
+public function eliminarDefinitivo($id)
+{
+    Institucion::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('instituciones.eliminados')
+        ->with(
+            'success',
+            'Institución eliminada definitivamente'
+        );
+}
 }

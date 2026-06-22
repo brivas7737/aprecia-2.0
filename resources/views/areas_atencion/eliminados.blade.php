@@ -3,11 +3,11 @@
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
 
-@section('title', 'Condiciones Visuales Eliminadas')
+@section('title', 'Áreas Eliminadas')
 
 @section('content_header')
 
-<h1>Condiciones Visuales Eliminadas</h1>
+<h1>Áreas de Atención Eliminadas</h1>
 
 @stop
 
@@ -23,7 +23,7 @@
 
 @endif
 
-<a href="{{ route('condiciones-visuales.index') }}" class="btn btn-primary mb-3">
+<a href="{{ route('areas-atencion.index') }}" class="btn btn-primary mb-3">
 
     Volver
 
@@ -51,19 +51,19 @@
 
             <tbody>
 
-                @forelse($condiciones as $condicion)
+                @forelse($areas as $area)
 
                                 <tr>
 
-                                    <td>{{ $condicion->id }}</td>
+                                    <td>{{ $area->id }}</td>
 
-                                    <td>{{ $condicion->nombre }}</td>
+                                    <td>{{ $area->nombre }}</td>
 
                                     <td>
 
                                         <form action="{{ route(
-                        'condiciones-visuales.restaurar',
-                        $condicion->id
+                        'areas-atencion.restaurar',
+                        $area->id
                     ) }}" method="POST" style="display:inline;">
 
                                             @csrf
@@ -77,15 +77,15 @@
                                         </form>
 
                                         <form action="{{ route(
-                        'condiciones-visuales.eliminarDefinitivo',
-                        $condicion->id
+                        'areas-atencion.eliminarDefinitivo',
+                        $area->id
                     ) }}" method="POST" style="display:inline;">
 
                                             @csrf
                                             @method('DELETE')
 
                                             <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('¿Eliminar definitivamente esta condición visual?')">
+                                                onclick="return confirm('¿Eliminar definitivamente esta área?')">
 
                                                 ❌ Definitivo
 
@@ -103,7 +103,7 @@
 
                         <td colspan="3">
 
-                            No existen condiciones visuales eliminadas.
+                            No existen áreas eliminadas.
 
                         </td>
 

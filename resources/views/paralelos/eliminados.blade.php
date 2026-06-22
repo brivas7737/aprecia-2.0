@@ -1,6 +1,9 @@
 @extends('adminlte::page')
 
-@section('title','Paralelos Eliminados')
+@section('plugins.Datatables', true)
+@section('plugins.DatatablesPlugins', true)
+
+@section('title', 'Paralelos Eliminados')
 
 @section('content_header')
 
@@ -12,16 +15,15 @@
 
 @if(session('success'))
 
-<div class="alert alert-success">
+    <div class="alert alert-success">
 
-    {{ session('success') }}
+        {{ session('success') }}
 
-</div>
+    </div>
 
 @endif
 
-<a href="{{ route('paralelos.index') }}"
-   class="btn btn-primary mb-3">
+<a href="{{ route('paralelos.index') }}" class="btn btn-primary mb-3">
 
     Volver
 
@@ -31,7 +33,7 @@
 
     <div class="card-body">
 
-        <table class="table table-bordered">
+        <table id="tablaEliminados" class="table table-bordered table-striped">
 
             <thead>
 
@@ -45,7 +47,7 @@
 
                     <th>Fecha Eliminación</th>
 
-                    <th>Acción</th>
+                    <th>Acciones</th>
 
                 </tr>
 
@@ -55,60 +57,73 @@
 
                 @forelse($paralelos as $paralelo)
 
-                <tr>
+                                <tr>
 
-                    <td>
-                        {{ $paralelo->id }}
-                    </td>
+                                    <td>
+                                        {{ $paralelo->id }}
+                                    </td>
 
-                    <td>
-                        {{ $paralelo->nombre }}
-                    </td>
+                                    <td>
+                                        {{ $paralelo->nombre }}
+                                    </td>
 
-                    <td>
-                        {{ $paralelo->descripcion }}
-                    </td>
+                                    <td>
+                                        {{ $paralelo->descripcion }}
+                                    </td>
 
-                    <td>
-                        {{ $paralelo->deleted_at }}
-                    </td>
+                                    <td>
+                                        {{ $paralelo->deleted_at }}
+                                    </td>
 
-                    <td>
+                                    <td>
 
-                        <form
-                            action="{{ route(
-                                'paralelos.restaurar',
-                                $paralelo->id
-                            ) }}"
-                            method="POST">
+                                        <form action="{{ route(
+                        'paralelos.restaurar',
+                        $paralelo->id
+                    ) }}" method="POST" style="display:inline;">
 
-                            @csrf
+                                            @csrf
 
-                            <button
-                                class="btn btn-success btn-sm">
+                                            <button class="btn btn-success btn-sm">
 
-                                ↩ Restaurar
+                                                ♻ Restaurar
 
-                            </button>
+                                            </button>
 
-                        </form>
+                                        </form>
 
-                    </td>
+                                        <form action="{{ route(
+                        'paralelos.eliminarDefinitivo',
+                        $paralelo->id
+                    ) }}" method="POST" style="display:inline;">
 
-                </tr>
+                                            @csrf
+                                            @method('DELETE')
+
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Eliminar definitivamente este paralelo?')">
+
+                                                ❌ Definitivo
+
+                                            </button>
+
+                                        </form>
+
+                                    </td>
+
+                                </tr>
 
                 @empty
 
-                <tr>
+                    <tr>
 
-                    <td colspan="5"
-                        class="text-center">
+                        <td colspan="5" class="text-center">
 
-                        No existen paralelos eliminados.
+                            No existen paralelos eliminados.
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
                 @endforelse
 
@@ -119,5 +134,57 @@
     </div>
 
 </div>
+
+@stop
+
+@section('js')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#tablaEliminados').DataTable({
+
+            dom: 'Bfrtip',
+
+            buttons: [
+
+                'copy',
+
+                'excel',
+
+                'csv',
+
+                'pdf',
+
+                'print'
+
+            ],
+
+            order: [[0, 'desc']],
+
+            language: {
+
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+
+            }
+
+        });
+
+    });
+
+</script>
 
 @stop

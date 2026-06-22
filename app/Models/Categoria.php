@@ -15,4 +15,11 @@ class Categoria extends Model
         'nombre',
         'descripcion'
     ];
+
+    public function textos()
+{
+    return $this->hasMany(
+        Texto::class
+    );
+}
 }

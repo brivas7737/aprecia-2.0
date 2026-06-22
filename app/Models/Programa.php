@@ -16,4 +16,11 @@ class Programa extends Model
         'descripcion',
         'activo'
     ];
+
+    public function estudiantes()
+{
+    return $this->hasMany(
+        Estudiante::class
+    );
+}
 }

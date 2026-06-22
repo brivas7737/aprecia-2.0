@@ -3,17 +3,34 @@
 @section('title', 'Nuevo Estudiante')
 
 @section('content_header')
-    <h1>Nuevo Estudiante</h1>
+<h1>Nuevo Estudiante</h1>
 @stop
 
 @section('content')
+
+@if ($errors->any())
+
+    <div class="alert alert-danger">
+
+        <ul class="mb-0">
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
 
 <div class="card">
 
     <div class="card-body">
 
-        <form action="{{ route('estudiantes.store') }}"
-              method="POST">
+        <form action="{{ route('estudiantes.store') }}" method="POST">
 
             @csrf
 
@@ -21,97 +38,75 @@
 
                 <div class="col-md-6 mb-3">
                     <label>Nombre</label>
-                    <input type="text"
-                           name="nombre"
-                           class="form-control"
-                           required>
+                    <input type="text" name="nombre" class="form-control" required>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label>Apellido</label>
-                    <input type="text"
-                           name="apellido"
-                           class="form-control"
-                           required>
+                    <input type="text" name="apellido" class="form-control" required>
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label>CI</label>
-                    <input type="text"
-                           name="ci"
-                           class="form-control">
+                    <input type="text" name="ci" class="form-control">
                 </div>
 
                 <div class="col-md-4 mb-3">
-    <label>RUDEES</label>
+                    <label>RUDEES</label>
 
-    <input type="text"
-           name="rudees"
-           class="form-control">
-</div>
+                    <input type="text" name="rudees" class="form-control">
+                </div>
 
-<div class="col-md-4 mb-3">
-    <label>Paralelo</label>
+                <div class="col-md-4 mb-3">
+                    <label>Paralelo</label>
 
-    <select name="paralelo_id"
-            class="form-control">
+                    <select name="paralelo_id" class="form-control">
 
-        <option value="">
-            Seleccione
-        </option>
+                        <option value="">
+                            Seleccione
+                        </option>
 
-        @foreach($paralelos as $paralelo)
+                        @foreach($paralelos as $paralelo)
 
-            <option value="{{ $paralelo->id }}">
-                {{ $paralelo->nombre }}
-            </option>
+                            <option value="{{ $paralelo->id }}">
+                                {{ $paralelo->nombre }}
+                            </option>
 
-        @endforeach
+                        @endforeach
 
-    </select>
+                    </select>
 
-</div>
+                </div>
 
                 <div class="col-md-4 mb-3">
                     <label>Fecha de Nacimiento</label>
-                    <input type="date"
-                           name="fecha_nacimiento"
-                           class="form-control">
+                    <input type="date" name="fecha_nacimiento" class="form-control">
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label>Edad</label>
-                    <input type="number"
-                           name="edad"
-                           class="form-control">
+                    <input type="number" name="edad" class="form-control">
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label>Teléfono</label>
-                    <input type="text"
-                           name="telefono"
-                           class="form-control">
+                    <input type="text" name="telefono" class="form-control">
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label>Correo</label>
-                    <input type="email"
-                           name="correo"
-                           class="form-control">
+                    <input type="email" name="correo" class="form-control">
                 </div>
 
                 <div class="col-md-12 mb-3">
                     <label>Dirección</label>
-                    <input type="text"
-                           name="direccion"
-                           class="form-control">
+                    <input type="text" name="direccion" class="form-control">
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label>Institución</label>
 
-                    <select name="institucion_id"
-                            class="form-control">
+                    <select name="institucion_id" class="form-control">
 
                         @foreach($instituciones as $institucion)
 
@@ -128,8 +123,7 @@
                 <div class="col-md-4 mb-3">
                     <label>Nivel Educativo</label>
 
-                    <select name="nivel_educativo_id"
-                            class="form-control">
+                    <select name="nivel_educativo_id" class="form-control">
 
                         @foreach($niveles as $nivel)
 
@@ -146,8 +140,7 @@
                 <div class="col-md-4 mb-3">
                     <label>Condición Visual</label>
 
-                    <select name="condicion_visual_id"
-                            class="form-control">
+                    <select name="condicion_visual_id" class="form-control">
 
                         @foreach($condiciones as $condicion)
 
@@ -163,73 +156,65 @@
 
                 <div class="col-md-6 mb-3">
 
-    <label>Programa</label>
+                    <label>Programa</label>
 
-    <select name="programa_id"
-            class="form-control">
+                    <select name="programa_id" class="form-control">
 
-        <option value="">
-            No aplica
-        </option>
+                        <option value="">
+                            No aplica
+                        </option>
 
-        @foreach($programas as $programa)
+                        @foreach($programas as $programa)
 
-            <option value="{{ $programa->id }}">
-                {{ $programa->nombre }}
-            </option>
+                            <option value="{{ $programa->id }}">
+                                {{ $programa->nombre }}
+                            </option>
 
-        @endforeach
+                        @endforeach
 
-    </select>
+                    </select>
 
-</div>
+                </div>
 
-<div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3">
 
-    <label>Servicio</label>
+                    <label>Servicio</label>
 
-    <select name="servicio_id"
-            class="form-control">
+                    <select name="servicio_id" class="form-control">
 
-        <option value="">
-            No aplica
-        </option>
+                        <option value="">
+                            No aplica
+                        </option>
 
-        @foreach($servicios as $servicio)
+                        @foreach($servicios as $servicio)
 
-            <option value="{{ $servicio->id }}">
-                {{ $servicio->nombre }}
-            </option>
+                            <option value="{{ $servicio->id }}">
+                                {{ $servicio->nombre }}
+                            </option>
 
-        @endforeach
+                        @endforeach
 
-    </select>
+                    </select>
 
-</div>
+                </div>
 
                 <div class="col-md-4 mb-3">
                     <label>Código Estudiantil</label>
 
-                    <input type="text"
-                           name="codigo_estudiantil"
-                           class="form-control">
+                    <input type="text" name="codigo_estudiantil" class="form-control">
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label>Fecha Registro</label>
 
-                    <input type="date"
-                           name="fecha_registro"
-                           class="form-control"
-                           value="{{ date('Y-m-d') }}">
+                    <input type="date" name="fecha_registro" class="form-control" value="{{ date('Y-m-d') }}">
                 </div>
 
                 <div class="col-md-4 mb-3">
 
                     <label>Estado</label>
 
-                    <select name="activo"
-                            class="form-control">
+                    <select name="activo" class="form-control">
 
                         <option value="1">
                             Activo
@@ -245,15 +230,13 @@
 
             </div>
 
-            <button type="submit"
-                    class="btn btn-success">
+            <button type="submit" class="btn btn-success">
 
                 Guardar
 
             </button>
 
-            <a href="{{ route('estudiantes.index') }}"
-               class="btn btn-secondary">
+            <a href="{{ route('estudiantes.index') }}" class="btn btn-secondary">
 
                 Cancelar
 

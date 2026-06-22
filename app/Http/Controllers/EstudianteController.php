@@ -107,20 +107,39 @@ public function index(Request $request)
         ));
     }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|max:100',
-            'apellido' => 'required|max:100',
-        ]);
+public function store(Request $request)
+{
+$request->validate(
 
-        Estudiante::create($request->all());
+[
 
-        return redirect()
-            ->route('estudiantes.index')
-            ->with('success', 'Estudiante registrado correctamente');
-    }
+    'correo' => 'nullable|email',
 
+    'ci' => 'nullable|unique:estudiantes,ci'
+
+],
+
+[
+
+    'correo.email' =>
+        'Debe ingresar un correo válido.',
+
+    'ci.unique' =>
+        'Ya existe un estudiante registrado con este CI.'
+
+]
+
+);
+
+    Estudiante::create($request->all());
+
+    return redirect()
+        ->route('estudiantes.index')
+        ->with(
+            'success',
+            'Estudiante registrado correctamente'
+        );
+}
     public function show(string $id)
     {
         //
@@ -151,14 +170,27 @@ public function index(Request $request)
 
     public function update(Request $request, string $id)
     {
-        $request->validate([
-            'nombre' => 'required|max:100',
-            'apellido' => 'required|max:100',
-        ]);
+       $request->validate(
 
-        $estudiante = Estudiante::findOrFail($id);
+[
 
-        $estudiante->update($request->all());
+    'correo' => 'nullable|email',
+
+    'ci' => 'nullable|unique:estudiantes,ci,' . $id
+
+],
+
+[
+
+    'correo.email' =>
+        'Debe ingresar un correo válido.',
+
+    'ci.unique' =>
+        'Ya existe un estudiante registrado con este CI.'
+
+]
+
+);
 
         return redirect()
             ->route('estudiantes.index')
@@ -217,6 +249,20 @@ public function restaurar($id)
         ->with(
             'success',
             'Estudiante restaurado correctamente'
+        );
+}
+
+public function eliminarDefinitivo($id)
+{
+    Estudiante::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('estudiantes.eliminados')
+        ->with(
+            'success',
+            'Estudiante eliminado definitivamente'
         );
 }
 }

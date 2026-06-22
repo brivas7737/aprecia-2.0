@@ -111,4 +111,18 @@ public function restaurar($id)
             'Categoría restaurada correctamente'
         );
 }
+
+public function eliminarDefinitivo($id)
+{
+    Categoria::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('categorias.eliminados')
+        ->with(
+            'success',
+            'Categoría eliminada definitivamente'
+        );
+}
 }

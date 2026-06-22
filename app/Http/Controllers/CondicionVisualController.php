@@ -111,4 +111,18 @@ public function restaurar($id)
             'Condición visual restaurada correctamente'
         );
 }
+
+public function eliminarDefinitivo($id)
+{
+    CondicionVisual::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('condiciones-visuales.eliminados')
+        ->with(
+            'success',
+            'Condición visual eliminada definitivamente'
+        );
+}
 }

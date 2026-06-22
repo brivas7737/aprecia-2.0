@@ -127,4 +127,18 @@ public function ver($id)
         compact('servicio')
     );
 }
+
+public function eliminarDefinitivo($id)
+{
+    Servicio::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('servicios.eliminados')
+        ->with(
+            'success',
+            'Servicio eliminado definitivamente'
+        );
+}
 }

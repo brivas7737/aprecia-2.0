@@ -1,6 +1,9 @@
 @extends('adminlte::page')
 
-@section('title','Tutores Eliminados')
+@section('plugins.Datatables', true)
+@section('plugins.DatatablesPlugins', true)
+
+@section('title', 'Tutores Eliminados')
 
 @section('content_header')
 
@@ -10,8 +13,17 @@
 
 @section('content')
 
-<a href="{{ route('tutores.index') }}"
-   class="btn btn-primary mb-3">
+@if(session('success'))
+
+    <div class="alert alert-success">
+
+        {{ session('success') }}
+
+    </div>
+
+@endif
+
+<a href="{{ route('tutores.index') }}" class="btn btn-primary mb-3">
 
     Volver
 
@@ -19,82 +31,148 @@
 
 <div class="card">
 
-<div class="card-body">
+    <div class="card-body">
 
-<table class="table table-bordered">
+        <table id="tablaEliminados" class="table table-bordered table-striped">
 
-<thead>
+            <thead>
 
-<tr>
+                <tr>
 
-<th>ID</th>
-<th>Nombre</th>
-<th>CI</th>
-<th>Acción</th>
+                    <th>ID</th>
+                    <th>Nombre</th>
+                    <th>CI</th>
+                    <th>Acciones</th>
 
-</tr>
+                </tr>
 
-</thead>
+            </thead>
 
-<tbody>
+            <tbody>
 
-@forelse($tutores as $tutor)
+                @forelse($tutores as $tutor)
 
-<tr>
+                                <tr>
 
-<td>{{ $tutor->id }}</td>
+                                    <td>{{ $tutor->id }}</td>
 
-<td>
-{{ $tutor->nombre }}
-{{ $tutor->apellido }}
-</td>
+                                    <td>
+                                        {{ $tutor->nombre }}
+                                        {{ $tutor->apellido }}
+                                    </td>
 
-<td>{{ $tutor->ci }}</td>
+                                    <td>{{ $tutor->ci }}</td>
 
-<td>
+                                    <td>
 
-<form
-action="{{ route(
-'tutores.restaurar',
-$tutor->id
-) }}"
-method="POST">
+                                        <form action="{{ route(
+                        'tutores.restaurar',
+                        $tutor->id
+                    ) }}" method="POST" style="display:inline;">
 
-@csrf
+                                            @csrf
 
-<button
-class="btn btn-success btn-sm">
+                                            <button class="btn btn-success btn-sm">
 
-↩ Restaurar
+                                                ♻ Restaurar
 
-</button>
+                                            </button>
 
-</form>
+                                        </form>
 
-</td>
+                                        <form action="{{ route(
+                        'tutores.eliminarDefinitivo',
+                        $tutor->id
+                    ) }}" method="POST" style="display:inline;">
 
-</tr>
+                                            @csrf
+                                            @method('DELETE')
 
-@empty
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Eliminar definitivamente este tutor?')">
 
-<tr>
+                                                ❌ Definitivo
 
-<td colspan="4">
+                                            </button>
 
-No existen tutores eliminados.
+                                        </form>
 
-</td>
+                                    </td>
 
-</tr>
+                                </tr>
 
-@endforelse
+                @empty
 
-</tbody>
+                    <tr>
 
-</table>
+                        <td colspan="4">
+
+                            No existen tutores eliminados.
+
+                        </td>
+
+                    </tr>
+
+                @endforelse
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
-</div>
+@stop
+
+@section('js')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#tablaEliminados').DataTable({
+
+            dom: 'Bfrtip',
+
+            buttons: [
+
+                'copy',
+
+                'excel',
+
+                'csv',
+
+                'pdf',
+
+                'print'
+
+            ],
+
+            order: [[0, 'desc']],
+
+            language: {
+
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+
+            }
+
+        });
+
+    });
+
+</script>
 
 @stop

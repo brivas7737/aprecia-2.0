@@ -41,21 +41,39 @@ public function create()
     );
 }
 
-    public function store(Request $request)
-    {
-        $request->validate([
-            'nombre' => 'required|max:100',
-            'apellido' => 'required|max:100',
-            'correo' => 'nullable|email',
-            'ci' => 'nullable|numeric'
-        ]);
+public function store(Request $request)
+{
+    $request->validate(
 
-        Personal::create($request->all());
+    [
 
-        return redirect()
-            ->route('personal.index')
-            ->with('success', 'Personal registrado correctamente');
-    }
+        'correo' => 'nullable|email',
+
+        'ci' => 'nullable|unique:personal,ci'
+
+    ],
+
+    [
+
+        'correo.email' =>
+            'Debe ingresar un correo válido.',
+
+        'ci.unique' =>
+            'Ya existe una persona registrada con este CI.'
+
+    ]
+
+    );
+
+    Personal::create($request->all());
+
+    return redirect()
+        ->route('personal.index')
+        ->with(
+            'success',
+            'Personal registrado correctamente'
+        );
+}
 
     public function show(string $id)
     {
@@ -80,23 +98,41 @@ public function create()
         ));
     }
 
-    public function update(Request $request, string $id)
-    {
-        $request->validate([
-            'nombre' => 'required|max:100',
-            'apellido' => 'required|max:100',
-            'correo' => 'nullable|email',
-            'ci' => 'nullable|numeric'
-        ]);
+public function update(Request $request, string $id)
+{
+    $request->validate(
 
-        $personal = Personal::findOrFail($id);
+    [
 
-        $personal->update($request->all());
+        'correo' => 'nullable|email',
 
-        return redirect()
-            ->route('personal.index')
-            ->with('success', 'Personal actualizado correctamente');
-    }
+        'ci' => 'nullable|unique:personal,ci,' . $id
+
+    ],
+
+    [
+
+        'correo.email' =>
+            'Debe ingresar un correo válido.',
+
+        'ci.unique' =>
+            'Ya existe una persona registrada con este CI.'
+
+    ]
+
+    );
+
+    $personal = Personal::findOrFail($id);
+
+    $personal->update($request->all());
+
+    return redirect()
+        ->route('personal.index')
+        ->with(
+            'success',
+            'Personal actualizado correctamente'
+        );
+}
 
     public function destroy(string $id)
     {
@@ -147,4 +183,18 @@ public function create()
                 'Registro restaurado correctamente'
             );
     }
+
+    public function eliminarDefinitivo($id)
+{
+    Personal::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('personal.eliminados')
+        ->with(
+            'success',
+            'Personal eliminado definitivamente'
+        );
+}
 }

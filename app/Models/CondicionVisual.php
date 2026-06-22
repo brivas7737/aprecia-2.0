@@ -15,4 +15,11 @@ class CondicionVisual extends Model
         'nombre',
         'descripcion'
     ];
+
+    public function estudiantes()
+{
+    return $this->hasMany(
+        Estudiante::class
+    );
+}
 }

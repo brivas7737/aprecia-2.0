@@ -1,6 +1,9 @@
 @extends('adminlte::page')
 
-@section('title','Niveles Educativos Eliminados')
+@section('plugins.Datatables', true)
+@section('plugins.DatatablesPlugins', true)
+
+@section('title', 'Niveles Educativos Eliminados')
 
 @section('content_header')
 
@@ -10,85 +13,162 @@
 
 @section('content')
 
-<a href="{{ route('niveles-educativos.index') }}"
-class="btn btn-primary mb-3">
+@if(session('success'))
 
-Volver
+    <div class="alert alert-success">
+
+        {{ session('success') }}
+
+    </div>
+
+@endif
+
+<a href="{{ route('niveles-educativos.index') }}" class="btn btn-primary mb-3">
+
+    Volver
 
 </a>
 
 <div class="card">
 
-<div class="card-body">
+    <div class="card-body">
 
-<table class="table table-bordered">
+        <table id="tablaEliminados" class="table table-bordered table-striped">
 
-<thead>
+            <thead>
 
-<tr>
+                <tr>
 
-<th>ID</th>
-<th>Nombre</th>
-<th>Acción</th>
+                    <th>ID</th>
 
-</tr>
+                    <th>Nombre</th>
 
-</thead>
+                    <th>Acciones</th>
 
-<tbody>
+                </tr>
 
-@forelse($niveles as $nivel)
+            </thead>
 
-<tr>
+            <tbody>
 
-<td>{{ $nivel->id }}</td>
+                @forelse($niveles as $nivel)
 
-<td>{{ $nivel->nombre }}</td>
+                                <tr>
 
-<td>
+                                    <td>{{ $nivel->id }}</td>
 
-<form
-action="{{ route(
-'niveles-educativos.restaurar',
-$nivel->id
-) }}"
-method="POST">
+                                    <td>{{ $nivel->nombre }}</td>
 
-@csrf
+                                    <td>
 
-<button
-class="btn btn-success btn-sm">
+                                        <form action="{{ route(
+                        'niveles-educativos.restaurar',
+                        $nivel->id
+                    ) }}" method="POST" style="display:inline;">
 
-↩ Restaurar
+                                            @csrf
 
-</button>
+                                            <button class="btn btn-success btn-sm">
 
-</form>
+                                                ♻ Restaurar
 
-</td>
+                                            </button>
 
-</tr>
+                                        </form>
 
-@empty
+                                        <form action="{{ route(
+                        'niveles-educativos.eliminarDefinitivo',
+                        $nivel->id
+                    ) }}" method="POST" style="display:inline;">
 
-<tr>
+                                            @csrf
+                                            @method('DELETE')
 
-<td colspan="3">
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Eliminar definitivamente este nivel educativo?')">
 
-No existen niveles eliminados.
+                                                ❌ Definitivo
 
-</td>
+                                            </button>
 
-</tr>
+                                        </form>
 
-@endforelse
+                                    </td>
 
-</tbody>
+                                </tr>
 
-</table>
+                @empty
+
+                    <tr>
+
+                        <td colspan="3">
+
+                            No existen niveles eliminados.
+
+                        </td>
+
+                    </tr>
+
+                @endforelse
+
+            </tbody>
+
+        </table>
+
+    </div>
 
 </div>
 
-</div>
+@stop
+
+@section('js')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#tablaEliminados').DataTable({
+
+            dom: 'Bfrtip',
+
+            buttons: [
+
+                'copy',
+
+                'excel',
+
+                'csv',
+
+                'pdf',
+
+                'print'
+
+            ],
+
+            order: [[0, 'desc']],
+
+            language: {
+
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+
+            }
+
+        });
+
+    });
+
+</script>
 
 @stop

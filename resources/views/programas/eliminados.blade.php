@@ -3,11 +3,11 @@
 @section('plugins.Datatables', true)
 @section('plugins.DatatablesPlugins', true)
 
-@section('title', 'Condiciones Visuales Eliminadas')
+@section('title', 'Programas Eliminados')
 
 @section('content_header')
 
-<h1>Condiciones Visuales Eliminadas</h1>
+<h1>Programas Eliminados</h1>
 
 @stop
 
@@ -23,7 +23,7 @@
 
 @endif
 
-<a href="{{ route('condiciones-visuales.index') }}" class="btn btn-primary mb-3">
+<a href="{{ route('programas.index') }}" class="btn btn-primary mb-3">
 
     Volver
 
@@ -43,6 +43,10 @@
 
                     <th>Nombre</th>
 
+                    <th>Descripción</th>
+
+                    <th>Fecha Eliminación</th>
+
                     <th>Acciones</th>
 
                 </tr>
@@ -51,19 +55,23 @@
 
             <tbody>
 
-                @forelse($condiciones as $condicion)
+                @forelse($programas as $programa)
 
                                 <tr>
 
-                                    <td>{{ $condicion->id }}</td>
+                                    <td>{{ $programa->id }}</td>
 
-                                    <td>{{ $condicion->nombre }}</td>
+                                    <td>{{ $programa->nombre }}</td>
+
+                                    <td>{{ $programa->descripcion }}</td>
+
+                                    <td>{{ $programa->deleted_at }}</td>
 
                                     <td>
 
                                         <form action="{{ route(
-                        'condiciones-visuales.restaurar',
-                        $condicion->id
+                        'programas.restaurar',
+                        $programa->id
                     ) }}" method="POST" style="display:inline;">
 
                                             @csrf
@@ -77,15 +85,15 @@
                                         </form>
 
                                         <form action="{{ route(
-                        'condiciones-visuales.eliminarDefinitivo',
-                        $condicion->id
+                        'programas.eliminarDefinitivo',
+                        $programa->id
                     ) }}" method="POST" style="display:inline;">
 
                                             @csrf
                                             @method('DELETE')
 
                                             <button type="submit" class="btn btn-danger btn-sm"
-                                                onclick="return confirm('¿Eliminar definitivamente esta condición visual?')">
+                                                onclick="return confirm('¿Eliminar definitivamente este programa?')">
 
                                                 ❌ Definitivo
 
@@ -101,9 +109,9 @@
 
                     <tr>
 
-                        <td colspan="3">
+                        <td colspan="5" class="text-center">
 
-                            No existen condiciones visuales eliminadas.
+                            No existen programas eliminados.
 
                         </td>
 

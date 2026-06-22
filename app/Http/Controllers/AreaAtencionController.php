@@ -75,4 +75,54 @@ class AreaAtencionController extends Controller
             ->route('areas-atencion.index')
             ->with('success', 'Área de atención eliminada correctamente');
     }
+
+    public function ver($id)
+{
+    $area = AreaAtencion::findOrFail($id);
+
+    return view(
+        'areas_atencion.ver',
+        compact('area')
+    );
+}
+
+public function eliminados()
+{
+    $areas = AreaAtencion::onlyTrashed()
+        ->orderBy('id','desc')
+        ->get();
+
+    return view(
+        'areas_atencion.eliminados',
+        compact('areas')
+    );
+}
+
+public function restaurar($id)
+{
+    AreaAtencion::onlyTrashed()
+        ->findOrFail($id)
+        ->restore();
+
+    return redirect()
+        ->route('areas-atencion.index')
+        ->with(
+            'success',
+            'Área restaurada correctamente'
+        );
+}
+
+public function eliminarDefinitivo($id)
+{
+    AreaAtencion::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('areas-atencion.eliminados')
+        ->with(
+            'success',
+            'Área eliminada definitivamente'
+        );
+}
 }

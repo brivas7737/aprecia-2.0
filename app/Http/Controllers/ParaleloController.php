@@ -127,4 +127,18 @@ public function ver($id)
         compact('paralelo')
     );
 }
+
+public function eliminarDefinitivo($id)
+{
+    Paralelo::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('paralelos.eliminados')
+        ->with(
+            'success',
+            'Paralelo eliminado definitivamente'
+        );
+}
 }

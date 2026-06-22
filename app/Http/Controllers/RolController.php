@@ -126,4 +126,18 @@ class RolController extends Controller
                 'Rol restaurado correctamente'
             );
     }
+
+    public function eliminarDefinitivo($id)
+{
+    Rol::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('roles.eliminados')
+        ->with(
+            'success',
+            'Rol eliminado definitivamente'
+        );
+}
 }

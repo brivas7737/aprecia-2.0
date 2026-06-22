@@ -3,17 +3,34 @@
 @section('title', 'Editar Estudiante')
 
 @section('content_header')
-    <h1>Editar Estudiante</h1>
+<h1>Editar Estudiante</h1>
 @stop
 
 @section('content')
+
+@if ($errors->any())
+
+    <div class="alert alert-danger">
+
+        <ul class="mb-0">
+
+            @foreach ($errors->all() as $error)
+
+                <li>{{ $error }}</li>
+
+            @endforeach
+
+        </ul>
+
+    </div>
+
+@endif
 
 <div class="card">
 
     <div class="card-body">
 
-        <form action="{{ route('estudiantes.update', $estudiante->id) }}"
-              method="POST">
+        <form action="{{ route('estudiantes.update', $estudiante->id) }}" method="POST">
 
             @csrf
             @method('PUT')
@@ -22,119 +39,87 @@
 
                 <div class="col-md-6 mb-3">
                     <label>Nombre</label>
-                    <input type="text"
-                           name="nombre"
-                           class="form-control"
-                           value="{{ $estudiante->nombre }}"
-                           required>
+                    <input type="text" name="nombre" class="form-control" value="{{ $estudiante->nombre }}" required>
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label>Apellido</label>
-                    <input type="text"
-                           name="apellido"
-                           class="form-control"
-                           value="{{ $estudiante->apellido }}"
-                           required>
+                    <input type="text" name="apellido" class="form-control" value="{{ $estudiante->apellido }}"
+                        required>
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label>CI</label>
-                    <input type="text"
-                           name="ci"
-                           class="form-control"
-                           value="{{ $estudiante->ci }}">
+                    <input type="text" name="ci" class="form-control" value="{{ $estudiante->ci }}">
                 </div>
 
                 <div class="col-md-4 mb-3">
 
-    <label>RUDEES</label>
+                    <label>RUDEES</label>
 
-    <input type="text"
-           name="rudees"
-           class="form-control"
-           value="{{ $estudiante->rudees }}">
+                    <input type="text" name="rudees" class="form-control" value="{{ $estudiante->rudees }}">
 
-</div>
+                </div>
 
-<div class="col-md-4 mb-3">
+                <div class="col-md-4 mb-3">
 
-    <label>Paralelo</label>
+                    <label>Paralelo</label>
 
-    <select name="paralelo_id"
-            class="form-control">
+                    <select name="paralelo_id" class="form-control">
 
-        <option value="">
-            Seleccione
-        </option>
+                        <option value="">
+                            Seleccione
+                        </option>
 
-        @foreach($paralelos as $paralelo)
+                        @foreach($paralelos as $paralelo)
 
-            <option
-                value="{{ $paralelo->id }}"
-                {{ $estudiante->paralelo_id == $paralelo->id ? 'selected' : '' }}>
+                            <option value="{{ $paralelo->id }}" {{ $estudiante->paralelo_id == $paralelo->id ? 'selected' : '' }}>
 
-                {{ $paralelo->nombre }}
+                                {{ $paralelo->nombre }}
 
-            </option>
+                            </option>
 
-        @endforeach
+                        @endforeach
 
-    </select>
+                    </select>
 
-</div>
+                </div>
 
                 <div class="col-md-4 mb-3">
                     <label>Fecha de Nacimiento</label>
-                    <input type="date"
-                           name="fecha_nacimiento"
-                           class="form-control"
-                           value="{{ $estudiante->fecha_nacimiento }}">
+                    <input type="date" name="fecha_nacimiento" class="form-control"
+                        value="{{ $estudiante->fecha_nacimiento }}">
                 </div>
 
                 <div class="col-md-4 mb-3">
                     <label>Edad</label>
-                    <input type="number"
-                           name="edad"
-                           class="form-control"
-                           value="{{ $estudiante->edad }}">
+                    <input type="number" name="edad" class="form-control" value="{{ $estudiante->edad }}">
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label>Teléfono</label>
-                    <input type="text"
-                           name="telefono"
-                           class="form-control"
-                           value="{{ $estudiante->telefono }}">
+                    <input type="text" name="telefono" class="form-control" value="{{ $estudiante->telefono }}">
                 </div>
 
                 <div class="col-md-6 mb-3">
                     <label>Correo</label>
-                    <input type="email"
-                           name="correo"
-                           class="form-control"
-                           value="{{ $estudiante->correo }}">
+                    <input type="email" name="correo" class="form-control" value="{{ $estudiante->correo }}">
                 </div>
 
                 <div class="col-md-12 mb-3">
                     <label>Dirección</label>
-                    <input type="text"
-                           name="direccion"
-                           class="form-control"
-                           value="{{ $estudiante->direccion }}">
+                    <input type="text" name="direccion" class="form-control" value="{{ $estudiante->direccion }}">
                 </div>
 
                 <div class="col-md-4 mb-3">
 
                     <label>Institución</label>
 
-                    <select name="institucion_id"
-                            class="form-control">
+                    <select name="institucion_id" class="form-control">
 
                         @foreach($instituciones as $institucion)
 
-                            <option value="{{ $institucion->id }}"
-                                {{ $estudiante->institucion_id == $institucion->id ? 'selected' : '' }}>
+                            <option value="{{ $institucion->id }}" {{ $estudiante->institucion_id == $institucion->id ? 'selected' : '' }}>
 
                                 {{ $institucion->nombre }}
 
@@ -150,13 +135,11 @@
 
                     <label>Nivel Educativo</label>
 
-                    <select name="nivel_educativo_id"
-                            class="form-control">
+                    <select name="nivel_educativo_id" class="form-control">
 
                         @foreach($niveles as $nivel)
 
-                            <option value="{{ $nivel->id }}"
-                                {{ $estudiante->nivel_educativo_id == $nivel->id ? 'selected' : '' }}>
+                            <option value="{{ $nivel->id }}" {{ $estudiante->nivel_educativo_id == $nivel->id ? 'selected' : '' }}>
 
                                 {{ $nivel->nombre }}
 
@@ -172,13 +155,11 @@
 
                     <label>Condición Visual</label>
 
-                    <select name="condicion_visual_id"
-                            class="form-control">
+                    <select name="condicion_visual_id" class="form-control">
 
                         @foreach($condiciones as $condicion)
 
-                            <option value="{{ $condicion->id }}"
-                                {{ $estudiante->condicion_visual_id == $condicion->id ? 'selected' : '' }}>
+                            <option value="{{ $condicion->id }}" {{ $estudiante->condicion_visual_id == $condicion->id ? 'selected' : '' }}>
 
                                 {{ $condicion->nombre }}
 
@@ -192,66 +173,58 @@
 
                 <div class="col-md-6 mb-3">
 
-    <label>Programa</label>
+                    <label>Programa</label>
 
-    <select name="programa_id"
-            class="form-control">
+                    <select name="programa_id" class="form-control">
 
-        <option value="">
-            No aplica
-        </option>
+                        <option value="">
+                            No aplica
+                        </option>
 
-        @foreach($programas as $programa)
+                        @foreach($programas as $programa)
 
-            <option
-                value="{{ $programa->id }}"
-                {{ $estudiante->programa_id == $programa->id ? 'selected' : '' }}>
+                            <option value="{{ $programa->id }}" {{ $estudiante->programa_id == $programa->id ? 'selected' : '' }}>
 
-                {{ $programa->nombre }}
+                                {{ $programa->nombre }}
 
-            </option>
+                            </option>
 
-        @endforeach
+                        @endforeach
 
-    </select>
+                    </select>
 
-</div>
+                </div>
 
-<div class="col-md-6 mb-3">
+                <div class="col-md-6 mb-3">
 
-    <label>Servicio</label>
+                    <label>Servicio</label>
 
-    <select name="servicio_id"
-            class="form-control">
+                    <select name="servicio_id" class="form-control">
 
-        <option value="">
-            No aplica
-        </option>
+                        <option value="">
+                            No aplica
+                        </option>
 
-        @foreach($servicios as $servicio)
+                        @foreach($servicios as $servicio)
 
-            <option
-                value="{{ $servicio->id }}"
-                {{ $estudiante->servicio_id == $servicio->id ? 'selected' : '' }}>
+                            <option value="{{ $servicio->id }}" {{ $estudiante->servicio_id == $servicio->id ? 'selected' : '' }}>
 
-                {{ $servicio->nombre }}
+                                {{ $servicio->nombre }}
 
-            </option>
+                            </option>
 
-        @endforeach
+                        @endforeach
 
-    </select>
+                    </select>
 
-</div>
+                </div>
 
                 <div class="col-md-4 mb-3">
 
                     <label>Código Estudiantil</label>
 
-                    <input type="text"
-                           name="codigo_estudiantil"
-                           class="form-control"
-                           value="{{ $estudiante->codigo_estudiantil }}">
+                    <input type="text" name="codigo_estudiantil" class="form-control"
+                        value="{{ $estudiante->codigo_estudiantil }}">
 
                 </div>
 
@@ -259,10 +232,8 @@
 
                     <label>Fecha Registro</label>
 
-                    <input type="date"
-                           name="fecha_registro"
-                           class="form-control"
-                           value="{{ $estudiante->fecha_registro }}">
+                    <input type="date" name="fecha_registro" class="form-control"
+                        value="{{ $estudiante->fecha_registro }}">
 
                 </div>
 
@@ -270,16 +241,13 @@
 
                     <label>Estado</label>
 
-                    <select name="activo"
-                            class="form-control">
+                    <select name="activo" class="form-control">
 
-                        <option value="1"
-                            {{ $estudiante->activo ? 'selected' : '' }}>
+                        <option value="1" {{ $estudiante->activo ? 'selected' : '' }}>
                             Activo
                         </option>
 
-                        <option value="0"
-                            {{ !$estudiante->activo ? 'selected' : '' }}>
+                        <option value="0" {{ !$estudiante->activo ? 'selected' : '' }}>
                             Inactivo
                         </option>
 
@@ -289,15 +257,13 @@
 
             </div>
 
-            <button type="submit"
-                    class="btn btn-primary">
+            <button type="submit" class="btn btn-primary">
 
                 Actualizar
 
             </button>
 
-            <a href="{{ route('estudiantes.index') }}"
-               class="btn btn-secondary">
+            <a href="{{ route('estudiantes.index') }}" class="btn btn-secondary">
 
                 Cancelar
 

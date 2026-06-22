@@ -102,7 +102,7 @@ public function index(Request $request)
             'nivel_educativo_id' => 'required',
             'titulo' => 'required|max:255',
             'autor' => 'required|max:255',
-            'archivo' => 'required|file|mimes:pdf,doc,docx,txt',
+            'archivo' => 'required|file|mimes:pdf',
         ]);
 
         $ruta = null;
@@ -183,12 +183,33 @@ public function index(Request $request)
     {
         $texto = Texto::findOrFail($id);
 
-        $request->validate([
-            'categoria_id' => 'required',
-            'nivel_educativo_id' => 'required',
-            'titulo' => 'required|max:255',
-            'autor' => 'required|max:255',
-        ]);
+        $request->validate(
+
+[
+
+    'categoria_id' => 'required',
+
+    'nivel_educativo_id' => 'required',
+
+    'titulo' => 'required|max:255',
+
+    'autor' => 'required|max:255',
+
+    'archivo' => 'required|file|mimes:pdf',
+
+],
+
+[
+
+    'archivo.required' =>
+        'Debe seleccionar un archivo.',
+
+    'archivo.mimes' =>
+        'Solo se permiten archivos PDF.'
+
+]
+
+);
 
         $ruta = $texto->archivo;
         $formato = $texto->formato;
@@ -355,6 +376,20 @@ public function restaurar($id)
         ->with(
             'success',
             'Texto restaurado correctamente'
+        );
+}
+
+public function eliminarDefinitivo($id)
+{
+    Texto::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('textos.eliminados')
+        ->with(
+            'success',
+            'Texto eliminado definitivamente'
         );
 }
 }

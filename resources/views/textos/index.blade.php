@@ -1,5 +1,8 @@
 @extends('adminlte::page')
 
+@section('plugins.Datatables', true)
+@section('plugins.DatatablesPlugins', true)
+
 @section('title', 'Textos')
 
 @section('content_header')
@@ -10,15 +13,7 @@
 
     <div>
 
-        <a href="{{ route('textos.eliminados') }}"
-           class="btn btn-warning">
-
-            🗑 Eliminados
-
-        </a>
-
-        <a href="{{ route('textos.create') }}"
-           class="btn btn-success">
+        <a href="{{ route('textos.create') }}" class="btn btn-success">
 
             <i class="fas fa-plus"></i>
 
@@ -26,120 +21,107 @@
 
         </a>
 
+        <a href="{{ route('textos.eliminados') }}" class="btn btn-warning">
+
+            🗑 Eliminados
+
+        </a>
+
     </div>
 
     <div class="card mt-3">
 
-<div class="card-body">
+        <div class="card-body">
 
-<form method="GET">
+            <form method="GET">
 
-<div class="row">
+                <div class="row">
 
-<div class="col-md-3">
+                    <div class="col-md-3">
 
-<select
-name="categoria"
-class="form-control">
+                        <select name="categoria" class="form-control">
 
-<option value="">
+                            <option value="">
 
-Todas las categorías
+                                Todas las categorías
 
-</option>
+                            </option>
 
-@foreach($categorias as $categoria)
+                            @foreach($categorias as $categoria)
 
-<option
-value="{{ $categoria->id }}"
-{{ request('categoria') == $categoria->id ? 'selected' : '' }}>
+                                <option value="{{ $categoria->id }}" {{ request('categoria') == $categoria->id ? 'selected' : '' }}>
 
-{{ $categoria->nombre }}
+                                    {{ $categoria->nombre }}
 
-</option>
+                                </option>
 
-@endforeach
+                            @endforeach
 
-</select>
+                        </select>
 
-</div>
+                    </div>
 
-<div class="col-md-3">
+                    <div class="col-md-3">
 
-<select
-name="nivel"
-class="form-control">
+                        <select name="nivel" class="form-control">
 
-<option value="">
+                            <option value="">
 
-Todos los niveles
+                                Todos los niveles
 
-</option>
+                            </option>
 
-@foreach($niveles as $nivel)
+                            @foreach($niveles as $nivel)
 
-<option
-value="{{ $nivel->id }}"
-{{ request('nivel') == $nivel->id ? 'selected' : '' }}>
+                                <option value="{{ $nivel->id }}" {{ request('nivel') == $nivel->id ? 'selected' : '' }}>
 
-{{ $nivel->nombre }}
+                                    {{ $nivel->nombre }}
 
-</option>
+                                </option>
 
-@endforeach
+                            @endforeach
 
-</select>
+                        </select>
 
-</div>
+                    </div>
 
-<div class="col-md-2">
+                    <div class="col-md-2">
 
-<input
-type="text"
-name="titulo"
-class="form-control"
-placeholder="Título"
-value="{{ request('titulo') }}">
+                        <input type="text" name="titulo" class="form-control" placeholder="Título"
+                            value="{{ request('titulo') }}">
 
-</div>
+                    </div>
 
-<div class="col-md-2">
+                    <div class="col-md-2">
 
-<input
-type="text"
-name="autor"
-class="form-control"
-placeholder="Autor"
-value="{{ request('autor') }}">
+                        <input type="text" name="autor" class="form-control" placeholder="Autor"
+                            value="{{ request('autor') }}">
 
-</div>
+                    </div>
 
-<div class="col-md-2">
+                    <div class="col-md-2">
 
-<button
-class="btn btn-primary">
+                        <button class="btn btn-primary">
 
-🔍 Buscar
+                            🔍 Buscar
 
-</button>
+                        </button>
 
-<a
-href="{{ route('textos.index') }}"
-class="btn btn-secondary">
+                        <a href="{{ route('textos.index') }}" class="btn btn-secondary">
 
-Limpiar
+                            Limpiar
 
-</a>
+                        </a>
 
-</div>
+                    </div>
 
-</div>
+                </div>
 
-</form>
+            </form>
 
-</div>
+        </div>
 
-</div>
+    </div>
 
 </div>
 
@@ -149,11 +131,11 @@ Limpiar
 
 @if(session('success'))
 
-<div class="alert alert-success">
+    <div class="alert alert-success">
 
-    {{ session('success') }}
+        {{ session('success') }}
 
-</div>
+    </div>
 
 @endif
 
@@ -171,7 +153,7 @@ Limpiar
 
     <div class="card-body">
 
-        <table class="table table-bordered table-striped">
+        <table id="tablaTextos" class="table table-bordered table-striped">
 
             <thead>
 
@@ -199,109 +181,101 @@ Limpiar
 
                 @forelse($textos as $texto)
 
-                <tr>
+                    <tr>
 
-                    <td>
+                        <td>
 
-                        {{ $texto->id }}
+                            {{ $texto->id }}
 
-                    </td>
+                        </td>
 
-                    <td>
+                        <td>
 
-                        {{ $texto->titulo }}
+                            {{ $texto->titulo }}
 
-                    </td>
+                        </td>
 
-                    <td>
+                        <td>
 
-                        {{ $texto->categoria->nombre ?? 'N/A' }}
+                            {{ $texto->categoria->nombre ?? 'N/A' }}
 
-                    </td>
+                        </td>
 
-                    <td>
+                        <td>
 
-                        {{ $texto->nivelEducativo->nombre ?? 'N/A' }}
+                            {{ $texto->nivelEducativo->nombre ?? 'N/A' }}
 
-                    </td>
+                        </td>
 
-                    <td>
+                        <td>
 
-                        {{ $texto->autor }}
+                            {{ $texto->autor }}
 
-                    </td>
+                        </td>
 
-                    <td>
+                        <td>
 
-                        {{ strtoupper($texto->formato) }}
+                            {{ strtoupper($texto->formato) }}
 
-                    </td>
+                        </td>
 
-                    <td>
+                        <td>
 
-                        @if($texto->archivo)
+                            @if($texto->archivo)
 
-                        <a href="{{ asset('storage/'.$texto->archivo) }}"
-                           target="_blank"
-                           class="btn btn-info btn-sm">
+                                <a href="{{ asset('storage/' . $texto->archivo) }}" target="_blank" class="btn btn-info btn-sm">
 
-                            <i class="fas fa-eye"></i>
+                                    <i class="fas fa-eye"></i>
 
-                            Ver
 
-                        </a>
-                        @endif
 
-                        <a href="{{ route('textos.edit',$texto->id) }}"
-                           class="btn btn-warning btn-sm">
+                                </a>
+                            @endif
 
-                            <i class="fas fa-edit"></i>
+                            <a href="{{ route('textos.edit', $texto->id) }}" class="btn btn-warning btn-sm">
 
-                            Editar
+                                <i class="fas fa-edit"></i>
 
-                        </a>
 
-                        <form action="{{ route('textos.destroy',$texto->id) }}"
-                              method="POST"
-                              style="display:inline;">
 
-                            @csrf
-                            @method('DELETE')
+                            </a>
 
-                            <button type="submit"
-                                    class="btn btn-danger btn-sm"
+                            <form action="{{ route('textos.destroy', $texto->id) }}" method="POST" style="display:inline;">
+
+                                @csrf
+                                @method('DELETE')
+
+                                <button type="submit" class="btn btn-danger btn-sm"
                                     onclick="return confirm('¿Eliminar este texto?')">
 
-                                <i class="fas fa-trash"></i>
+                                    <i class="fas fa-trash"></i>
 
-                                Eliminar
 
-                            </button>
 
-                        </form>
+                                </button>
 
-                        <a href="{{ route('textos.generarAudio',$texto->id) }}"
-                             class="btn btn-success btn-sm">
-                        <i class="fas fa-volume-up"></i>
-                          Audio
-                        </a>
+                            </form>
 
-                    </td>
+                            <a href="{{ route('textos.generarAudio', $texto->id) }}" class="btn btn-success btn-sm">
+                                <i class="fas fa-volume-up"></i>
 
-                </tr>
+                            </a>
+
+                        </td>
+
+                    </tr>
 
                 @empty
 
-                <tr>
+                    <tr>
 
-                    <td colspan="7"
-                        class="text-center">
+                        <td colspan="7" class="text-center">
 
-                        No existen textos registrados.
+                            No existen textos registrados.
 
-                    </td>
+                        </td>
 
-                </tr>
+                    </tr>
 
                 @endforelse
 
@@ -312,5 +286,53 @@ Limpiar
     </div>
 
 </div>
+
+@section('js')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/dataTables.buttons.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.html5.min.js"></script>
+
+<script src="https://cdn.datatables.net/buttons/2.4.2/js/buttons.print.min.js"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#tablaTextos').DataTable({
+
+            dom: 'Bfrtip',
+
+            buttons: [
+
+                'copy',
+
+                'excel',
+
+                'csv',
+
+                'pdf',
+
+                'print'
+
+            ],
+
+            language: {
+                url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+            }
+
+        });
+
+    });
+
+</script>
+
+@stop
 
 @stop

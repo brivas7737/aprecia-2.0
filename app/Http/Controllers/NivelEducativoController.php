@@ -111,4 +111,18 @@ public function restaurar($id)
             'Nivel educativo restaurado correctamente'
         );
 }
+
+public function eliminarDefinitivo($id)
+{
+    NivelEducativo::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('niveles-educativos.eliminados')
+        ->with(
+            'success',
+            'Nivel educativo eliminado definitivamente'
+        );
+}
 }

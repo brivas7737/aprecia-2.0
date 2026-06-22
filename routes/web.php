@@ -21,6 +21,10 @@ use App\Models\Institucion;
 use App\Models\Estudiante;
 use App\Models\Texto;
 use App\Models\Personal;
+use App\Models\Tutor;
+use App\Models\Categoria;
+use App\Models\Programa;
+use App\Models\CondicionVisual;
 
 Route::get('/', function () {
     return view('inicio');
@@ -29,10 +33,46 @@ Route::get('/', function () {
 Route::get('/dashboard', function () {
 
     return view('dashboard', [
+
         'totalInstituciones' => Institucion::count(),
+
         'totalEstudiantes' => Estudiante::count(),
+
         'totalTextos' => Texto::count(),
+
         'totalPersonal' => Personal::count(),
+
+        'totalTutores' => Tutor::count(),
+
+        'totalCategorias' => Categoria::count(),
+
+        'totalDocentes' => Personal::whereHas('rol', function ($q) {
+
+            $q->where('nombre', 'Docente');
+
+        })->count(),
+
+        'totalAudios' => 0,
+
+        'ultimosEstudiantes' => Estudiante::latest()
+            ->take(5)
+            ->get(),
+
+        'ultimosTextos' => Texto::latest()
+            ->take(5)
+            ->get(),
+
+        'ultimosTutores' => Tutor::latest()
+            ->take(5)
+            ->get(),
+
+        'programasGrafico' => Programa::withCount('estudiantes')->get(),
+
+        'condicionesGrafico' => CondicionVisual::withCount('estudiantes')->get(),
+        
+
+        'categoriasGrafico' => Categoria::withCount('textos')->get(),
+
     ]);
 
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -91,6 +131,21 @@ Route::get(
 )->name('condiciones-visuales.ver');
 
     Route::resource('areas-atencion', AreaAtencionController::class);
+
+    Route::get(
+    'areas-atencion-eliminados',
+    [AreaAtencionController::class,'eliminados']
+)->name('areas-atencion.eliminados');
+
+Route::post(
+    'areas-atencion/{id}/restaurar',
+    [AreaAtencionController::class,'restaurar']
+)->name('areas-atencion.restaurar');
+
+Route::get(
+    'areas-atencion/{id}/ver',
+    [AreaAtencionController::class,'ver']
+)->name('areas-atencion.ver');
 
     Route::resource('categorias', CategoriaController::class);
 
@@ -286,6 +341,70 @@ Route::get(
     [RolController::class,'ver']
 )->name('roles.ver');
 
+    Route::delete(
+    'estudiantes/{id}/eliminar-definitivo',
+    [EstudianteController::class, 'eliminarDefinitivo']
+    )->name('estudiantes.eliminarDefinitivo');    
+
+    Route::delete(
+    'instituciones/{id}/eliminar-definitivo',
+    [InstitucionController::class, 'eliminarDefinitivo']
+    )->name('instituciones.eliminarDefinitivo');
+
+    Route::delete(
+    'tutores/{id}/eliminar-definitivo',
+    [TutorController::class, 'eliminarDefinitivo']
+    )->name('tutores.eliminarDefinitivo');
+
+    Route::delete(
+    'personal/{id}/eliminar-definitivo',
+    [PersonalController::class, 'eliminarDefinitivo']
+    )->name('personal.eliminarDefinitivo');
+
+    Route::delete(
+    'paralelos/{id}/eliminar-definitivo',
+    [ParaleloController::class, 'eliminarDefinitivo']
+    )->name('paralelos.eliminarDefinitivo');
+
+    Route::delete(
+    'condiciones-visuales/{id}/eliminar-definitivo',
+    [CondicionVisualController::class, 'eliminarDefinitivo']
+    )->name('condiciones-visuales.eliminarDefinitivo');
+
+    Route::delete(
+    'roles/{id}/eliminar-definitivo',
+    [RolController::class, 'eliminarDefinitivo']
+    )->name('roles.eliminarDefinitivo');
+
+    Route::delete(
+    'niveles-educativos/{id}/eliminar-definitivo',
+    [NivelEducativoController::class, 'eliminarDefinitivo']
+    )->name('niveles-educativos.eliminarDefinitivo');
+
+    Route::delete(
+    'areas-atencion/{id}/eliminar-definitivo',
+    [AreaAtencionController::class, 'eliminarDefinitivo']
+    )->name('areas-atencion.eliminarDefinitivo');
+
+    Route::delete(
+    'programas/{id}/eliminar-definitivo',
+    [ProgramaController::class, 'eliminarDefinitivo']
+   )->name('programas.eliminarDefinitivo');
+
+   Route::delete(
+    'servicios/{id}/eliminar-definitivo',
+    [ServicioController::class, 'eliminarDefinitivo']
+    )->name('servicios.eliminarDefinitivo');
+
+    Route::delete(
+    'categorias/{id}/eliminar-definitivo',
+    [CategoriaController::class, 'eliminarDefinitivo']
+    )->name('categorias.eliminarDefinitivo');
+
+    Route::delete(
+    'textos/{id}/eliminar-definitivo',
+    [TextoController::class, 'eliminarDefinitivo']
+    )->name('textos.eliminarDefinitivo');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

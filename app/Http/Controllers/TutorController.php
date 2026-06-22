@@ -25,21 +25,39 @@ class TutorController extends Controller
         return view('tutores.create', compact('estudiantes'));
     }
 
-    public function store(Request $request)
-    {
-        Tutor::create($request->all());
+public function store(Request $request)
+{
+    $request->validate(
 
-        return redirect()
-            ->route('tutores.index')
-            ->with('success', 'Tutor registrado correctamente');
+    [
 
-        $request->validate([
-            'nombre' => 'required|max:100',
-            'apellido' => 'required|max:100',
-            'correo' => 'nullable|email',
-            'ci' => 'nullable|numeric'
-        ]);
-    }
+        'correo' => 'nullable|email',
+
+        'ci' => 'nullable|unique:tutores,ci'
+
+    ],
+
+    [
+
+        'correo.email' =>
+            'Debe ingresar un correo válido.',
+
+        'ci.unique' =>
+            'Ya existe un tutor registrado con este CI.'
+
+    ]
+
+    );
+
+    Tutor::create($request->all());
+
+    return redirect()
+        ->route('tutores.index')
+        ->with(
+            'success',
+            'Tutor registrado correctamente'
+        );
+}
 
     public function show(string $id)
     {
@@ -56,16 +74,41 @@ class TutorController extends Controller
         return view('tutores.edit', compact('tutor', 'estudiantes'));
     }
 
-    public function update(Request $request, string $id)
-    {
-        $tutor = Tutor::findOrFail($id);
+public function update(Request $request, string $id)
+{
+    $request->validate(
 
-        $tutor->update($request->all());
+    [
 
-        return redirect()
-            ->route('tutores.index')
-            ->with('success', 'Tutor actualizado correctamente');
-    }
+        'correo' => 'nullable|email',
+
+        'ci' => 'nullable|unique:tutores,ci,' . $id
+
+    ],
+
+    [
+
+        'correo.email' =>
+            'Debe ingresar un correo válido.',
+
+        'ci.unique' =>
+            'Ya existe un tutor registrado con este CI.'
+
+    ]
+
+    );
+
+    $tutor = Tutor::findOrFail($id);
+
+    $tutor->update($request->all());
+
+    return redirect()
+        ->route('tutores.index')
+        ->with(
+            'success',
+            'Tutor actualizado correctamente'
+        );
+}
 
     public function destroy(string $id)
     {
@@ -112,6 +155,20 @@ public function restaurar($id)
         ->with(
             'success',
             'Tutor restaurado correctamente'
+        );
+}
+
+public function eliminarDefinitivo($id)
+{
+    Tutor::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('tutores.eliminados')
+        ->with(
+            'success',
+            'Tutor eliminado definitivamente'
         );
 }
 }

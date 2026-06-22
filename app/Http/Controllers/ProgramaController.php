@@ -127,4 +127,18 @@ public function ver($id)
         compact('programa')
     );
 }
+
+public function eliminarDefinitivo($id)
+{
+    Programa::onlyTrashed()
+        ->findOrFail($id)
+        ->forceDelete();
+
+    return redirect()
+        ->route('programas.eliminados')
+        ->with(
+            'success',
+            'Programa eliminado definitivamente'
+        );
+}
 }
