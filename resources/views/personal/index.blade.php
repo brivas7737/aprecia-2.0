@@ -39,16 +39,17 @@
             <thead>
 
                 <tr>
-
                     <th>ID</th>
                     <th>Nombre Completo</th>
                     <th>CI</th>
-                    <th>Cargo</th>
                     <th>Institución</th>
+                    <th>Rol</th>
+                    <th>Área de Atención</th>
+                    <th>Especialidad</th>
+                    <th>Años Servicio</th>
                     <th>Teléfono</th>
                     <th>Estado</th>
                     <th>Acciones</th>
-
                 </tr>
 
             </thead>
@@ -57,76 +58,88 @@
 
                 @foreach($personal as $persona)
 
-                    <tr>
+                                <tr>
 
-                        <td>{{ $persona->id }}</td>
+                                    <td>{{ $persona->id }}</td>
 
-                        <td>
-                            {{ $persona->nombre }}
-                            {{ $persona->apellido }}
-                        </td>
+<td>
+    {{ $persona->nombre }}
+    {{ $persona->apellido }}
+</td>
 
-                        <td>{{ $persona->ci }}</td>
+<td>{{ $persona->ci }}</td>
 
-                        <td>{{ $persona->cargo }}</td>
+<td>
+    {{ $persona->institucion->nombre ?? '' }}
+</td>
 
-                        <td>
-                            {{ $persona->institucion->nombre ?? '' }}
-                        </td>
+<td>
+    {{ $persona->rol->nombre ?? '' }}
+</td>
 
-                        <td>{{ $persona->telefono }}</td>
+<td>
+    {{ $persona->areaAtencion->nombre ?? '' }}
+</td>
 
-                        <td>
+<td>
+    {{ $persona->especialidad_certificado }}
+</td>
 
-                            @if($persona->activo)
+<td>
+    {{ $persona->anios_servicio }}
+</td>
 
-                                Activo
+<td>{{ $persona->telefono }}</td>
 
-                            @else
+<td>
 
-                                Inactivo
+    @if($persona->activo)
 
-                            @endif
+        Activo
 
-                        </td>
+    @else
 
-                        <td>
-<a
-href="{{ route(
-'personal.ver',
-$persona->id
-) }}"
-class="btn btn-info btn-sm">
+        Inactivo
 
-👁️
+    @endif
 
-</a>
+</td>
+
+                                    <td>
+                                        <a href="{{ route(
+                        'personal.ver',
+                        $persona->id
+                    ) }}" class="btn btn-info btn-sm">
+
+                                            👁️
+
+                                        </a>
 
 
-                            <a href="{{ route('personal.edit', $persona->id) }}" class="btn btn-warning btn-sm">
+                                        <a href="{{ route('personal.edit', $persona->id) }}" class="btn btn-warning btn-sm">
 
-                                ✏️
+                                            ✏️
 
-                            </a>
+                                        </a>
 
-                            <form action="{{ route('personal.destroy', $persona->id) }}" method="POST"
-                                style="display:inline;">
+                                        <form action="{{ route('personal.destroy', $persona->id) }}" method="POST"
+                                            style="display:inline;">
 
-                                @csrf
-                                @method('DELETE')
+                                            @csrf
+                                            @method('DELETE')
 
-                                <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('¿Eliminar registro?')">
+                                            <button type="submit" class="btn btn-danger btn-sm"
+                                                onclick="return confirm('¿Eliminar registro?')">
 
-                                    🗑️
+                                                🗑️
 
-                                </button>
+                                            </button>
 
-                            </form>
+                                        </form>
 
-                        </td>
+                                    </td>
 
-                    </tr>
+                                </tr>
 
                 @endforeach
 

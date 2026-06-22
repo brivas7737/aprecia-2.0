@@ -56,30 +56,39 @@ class="btn btn-warning mb-3">
 
                     <td>
 
-                        <a href="{{ route('paralelos.edit', $paralelo->id) }}"
-                           class="btn btn-warning btn-sm">
-                            Editar
-                        </a>
+    <a href="{{ route('paralelos.ver',$paralelo->id) }}"
+       class="btn btn-info btn-sm">
 
-                        <form action="{{ route('paralelos.destroy', $paralelo->id) }}"
-                              method="POST"
-                              style="display:inline;">
+        👁️
 
-                            @csrf
-                            @method('DELETE')
+    </a>
 
-                            <button
-                                type="submit"
-                                class="btn btn-danger btn-sm"
-                                onclick="return confirm('¿Eliminar paralelo?')">
+    <a href="{{ route('paralelos.edit',$paralelo->id) }}"
+       class="btn btn-warning btn-sm">
 
-                                Eliminar
+        ✏️
 
-                            </button>
+    </a>
 
-                        </form>
+    <form action="{{ route('paralelos.destroy',$paralelo->id) }}"
+          method="POST"
+          style="display:inline;">
 
-                    </td>
+        @csrf
+        @method('DELETE')
+
+        <button
+            type="submit"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('¿Eliminar paralelo?')">
+
+            🗑️
+
+        </button>
+
+    </form>
+
+</td>
 
                 </tr>
 

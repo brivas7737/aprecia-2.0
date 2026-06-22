@@ -15,6 +15,7 @@ use App\Http\Controllers\AudioGeneradoController;
 use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\ParaleloController;
+use App\Http\Controllers\RolController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Institucion;
 use App\Models\Estudiante;
@@ -228,6 +229,11 @@ Route::get(
         [ServicioController::class, 'restaurar']
     )->name('servicios.restaurar');
 
+    Route::get(
+    'servicios/{id}/ver',
+    [ServicioController::class,'ver']
+)->name('servicios.ver');
+
     Route::resource(
         'paralelos',
         ParaleloController::class
@@ -244,6 +250,11 @@ Route::get(
     )->name('paralelos.restaurar');
 
     Route::get(
+    'paralelos/{id}/ver',
+    [ParaleloController::class,'ver']
+)->name('paralelos.ver');
+
+    Route::get(
         'personal/{personal}/ver',
         [PersonalController::class, 'ver']
     )->name('personal.ver');
@@ -257,6 +268,23 @@ Route::get(
         'personal/{id}/restaurar',
         [PersonalController::class, 'restaurar']
     )->name('personal.restaurar');
+
+Route::resource('roles', RolController::class);
+
+Route::get(
+    'roles-eliminados',
+    [RolController::class,'eliminados']
+)->name('roles.eliminados');
+
+Route::post(
+    'roles/{id}/restaurar',
+    [RolController::class,'restaurar']
+)->name('roles.restaurar');
+
+Route::get(
+    'roles/{id}/ver',
+    [RolController::class,'ver']
+)->name('roles.ver');
 
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

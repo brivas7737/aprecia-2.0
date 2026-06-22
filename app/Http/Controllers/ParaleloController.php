@@ -117,4 +117,14 @@ public function restaurar($id)
             'Paralelo restaurado correctamente'
         );
 }
+
+public function ver($id)
+{
+    $paralelo = Paralelo::findOrFail($id);
+
+    return view(
+        'paralelos.ver',
+        compact('paralelo')
+    );
+}
 }

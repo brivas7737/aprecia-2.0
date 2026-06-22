@@ -388,6 +388,14 @@ return [
     'url'  => 'audios-generados',
     ],
 
+        ['header' => 'ADMINISTRACIÓN'],
+
+    [
+    'text' => 'Roles',
+    'icon' => 'fas fa-user-tag',
+    'url'  => 'roles',
+],
+
 ],
 
     /*

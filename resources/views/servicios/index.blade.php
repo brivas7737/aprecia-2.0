@@ -54,26 +54,39 @@
 
                         <td>
 
-                            <a href="{{ route('servicios.edit', $servicio->id) }}" class="btn btn-warning btn-sm">
-                                Editar
-                            </a>
+    <a href="{{ route('servicios.ver',$servicio->id) }}"
+       class="btn btn-info btn-sm">
 
-                            <form action="{{ route('servicios.destroy', $servicio->id) }}" method="POST"
-                                style="display:inline;">
+        👁️
 
-                                @csrf
-                                @method('DELETE')
+    </a>
 
-                                <button type="submit" class="btn btn-danger btn-sm"
-                                    onclick="return confirm('¿Eliminar servicio?')">
+    <a href="{{ route('servicios.edit',$servicio->id) }}"
+       class="btn btn-warning btn-sm">
 
-                                    Eliminar
+        ✏️
 
-                                </button>
+    </a>
 
-                            </form>
+    <form action="{{ route('servicios.destroy',$servicio->id) }}"
+          method="POST"
+          style="display:inline;">
 
-                        </td>
+        @csrf
+        @method('DELETE')
+
+        <button
+            type="submit"
+            class="btn btn-danger btn-sm"
+            onclick="return confirm('¿Eliminar servicio?')">
+
+            🗑️
+
+        </button>
+
+    </form>
+
+</td>
 
                     </tr>
 

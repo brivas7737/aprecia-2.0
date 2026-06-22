@@ -3,7 +3,7 @@
 @section('title', 'Nuevo Personal')
 
 @section('content_header')
-    <h1>Nuevo Personal</h1>
+<h1>Nuevo Personal</h1>
 @stop
 
 @section('content')
@@ -12,21 +12,17 @@
 
     <div class="card-body">
 
-        <form action="{{ route('personal.store') }}"
-              method="POST">
+        <form action="{{ route('personal.store') }}" method="POST">
 
             @csrf
 
             <div class="row">
-
-                <div class="col-md-6 mb-3">
+                
+                            <div class="col-md-6 mb-3">
 
                     <label>Nombre</label>
 
-                    <input type="text"
-                           name="nombre"
-                           class="form-control"
-                           required>
+                    <input type="text" name="nombre" class="form-control" required>
 
                 </div>
 
@@ -34,10 +30,7 @@
 
                     <label>Apellido</label>
 
-                    <input type="text"
-                           name="apellido"
-                           class="form-control"
-                           required>
+                    <input type="text" name="apellido" class="form-control" required>
 
                 </div>
 
@@ -45,9 +38,7 @@
 
                     <label>CI</label>
 
-                    <input type="text"
-                           name="ci"
-                           class="form-control">
+                    <input type="text" name="ci" class="form-control">
 
                 </div>
 
@@ -55,9 +46,7 @@
 
                     <label>Teléfono</label>
 
-                    <input type="text"
-                           name="telefono"
-                           class="form-control">
+                    <input type="text" name="telefono" class="form-control">
 
                 </div>
 
@@ -65,19 +54,75 @@
 
                     <label>Correo</label>
 
-                    <input type="email"
-                           name="correo"
-                           class="form-control">
+                    <input type="email" name="correo" class="form-control">
+
+                </div>
+            
+            <div class="col-md-6 mb-3">
+
+                    <label>Rol</label>
+
+                    <select name="rol_id" class="form-control">
+
+                        <option value="">
+                            Seleccione un rol
+                        </option>
+
+                        @foreach($roles as $rol)
+
+                            <option value="{{ $rol->id }}">
+
+                                {{ $rol->nombre }}
+
+                            </option>
+
+                        @endforeach
+
+                    </select>
 
                 </div>
 
                 <div class="col-md-6 mb-3">
 
-                    <label>Cargo</label>
+                    <label>Área de Atención</label>
 
-                    <input type="text"
-                           name="cargo"
-                           class="form-control">
+                    <select name="area_atencion_id" class="form-control">
+
+                        <option value="">
+                            Seleccione un área
+                        </option>
+
+                        @foreach($areasAtencion as $area)
+
+                            <option value="{{ $area->id }}">
+
+                                {{ $area->nombre }}
+
+                            </option>
+
+                        @endforeach
+
+                    </select>
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>
+                        Especialidad según Certificado de Egreso
+                    </label>
+
+                    <input type="text" name="especialidad_certificado" class="form-control">
+
+                </div>
+
+                <div class="col-md-6 mb-3">
+
+                    <label>
+                        Años de Servicio
+                    </label>
+
+                    <input type="number" name="anios_servicio" class="form-control" min="0">
 
                 </div>
 
@@ -85,8 +130,7 @@
 
                     <label>Institución</label>
 
-                    <select name="institucion_id"
-                            class="form-control">
+                    <select name="institucion_id" class="form-control">
 
                         @foreach($instituciones as $institucion)
 
@@ -106,10 +150,7 @@
 
                     <label>Fecha Ingreso</label>
 
-                    <input type="date"
-                           name="fecha_ingreso"
-                           class="form-control"
-                           value="{{ date('Y-m-d') }}">
+                    <input type="date" name="fecha_ingreso" class="form-control" value="{{ date('Y-m-d') }}">
 
                 </div>
 
@@ -117,8 +158,7 @@
 
                     <label>Estado</label>
 
-                    <select name="activo"
-                            class="form-control">
+                    <select name="activo" class="form-control">
 
                         <option value="1">
                             Activo
@@ -134,15 +174,13 @@
 
             </div>
 
-            <button type="submit"
-                    class="btn btn-success">
+            <button type="submit" class="btn btn-success">
 
                 Guardar
 
             </button>
 
-            <a href="{{ route('personal.index') }}"
-               class="btn btn-secondary">
+            <a href="{{ route('personal.index') }}" class="btn btn-secondary">
 
                 Cancelar
 

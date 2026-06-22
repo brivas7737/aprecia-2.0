@@ -7,59 +7,123 @@ use Illuminate\Http\Request;
 
 class RolController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $roles = Rol::orderBy('id')->get();
+
+        return view(
+            'roles.index',
+            compact('roles')
+        );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
-        //
+        return view('roles.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:100',
+        ]);
+
+        Rol::create([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+        ]);
+
+        return redirect()
+            ->route('roles.index')
+            ->with(
+                'success',
+                'Rol creado correctamente'
+            );
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Rol $rol)
+    public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Rol $rol)
+    public function edit(string $id)
     {
-        //
+        $rol = Rol::findOrFail($id);
+
+        return view(
+            'roles.edit',
+            compact('rol')
+        );
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Rol $rol)
+    public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|max:100',
+        ]);
+
+        $rol = Rol::findOrFail($id);
+
+        $rol->update([
+            'nombre' => $request->nombre,
+            'descripcion' => $request->descripcion,
+        ]);
+
+        return redirect()
+            ->route('roles.index')
+            ->with(
+                'success',
+                'Rol actualizado correctamente'
+            );
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Rol $rol)
+    public function destroy(string $id)
     {
-        //
+        $rol = Rol::findOrFail($id);
+
+        $rol->delete();
+
+        return redirect()
+            ->route('roles.index')
+            ->with(
+                'success',
+                'Rol eliminado correctamente'
+            );
+    }
+
+    public function ver($id)
+    {
+        $rol = Rol::findOrFail($id);
+
+        return view(
+            'roles.ver',
+            compact('rol')
+        );
+    }
+
+    public function eliminados()
+    {
+        $roles = Rol::onlyTrashed()
+            ->orderBy('id','desc')
+            ->get();
+
+        return view(
+            'roles.eliminados',
+            compact('roles')
+        );
+    }
+
+    public function restaurar($id)
+    {
+        Rol::onlyTrashed()
+            ->findOrFail($id)
+            ->restore();
+
+        return redirect()
+            ->route('roles.index')
+            ->with(
+                'success',
+                'Rol restaurado correctamente'
+            );
     }
 }

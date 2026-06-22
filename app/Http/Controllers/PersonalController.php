@@ -4,25 +4,42 @@ namespace App\Http\Controllers;
 
 use App\Models\Personal;
 use App\Models\Institucion;
+use App\Models\Rol;
+use App\Models\AreaAtencion;
 use Illuminate\Http\Request;
 
 class PersonalController extends Controller
 {
-    public function index()
-    {
-        $personal = Personal::with('institucion')
-            ->orderBy('id')
-            ->get();
+public function index()
+{
+    $personal = Personal::with([
+        'institucion',
+        'rol',
+        'areaAtencion'
+    ])
+    ->orderBy('id')
+    ->get();
 
-        return view('personal.index', compact('personal'));
-    }
+    return view('personal.index', compact('personal'));
+}
 
-    public function create()
-    {
-        $instituciones = Institucion::orderBy('nombre')->get();
+public function create()
+{
+    $instituciones = Institucion::orderBy('nombre')->get();
 
-        return view('personal.create', compact('instituciones'));
-    }
+    $roles = Rol::orderBy('nombre')->get();
+
+    $areasAtencion = AreaAtencion::orderBy('nombre')->get();
+
+    return view(
+        'personal.create',
+        compact(
+            'instituciones',
+            'roles',
+            'areasAtencion'
+        )
+    );
+}
 
     public function store(Request $request)
     {
@@ -51,9 +68,15 @@ class PersonalController extends Controller
 
         $instituciones = Institucion::orderBy('nombre')->get();
 
+        $roles = Rol::orderBy('nombre')->get();
+
+        $areasAtencion = AreaAtencion::orderBy('nombre')->get();
+
         return view('personal.edit', compact(
             'personal',
-            'instituciones'
+            'instituciones',
+            'roles',
+            'areasAtencion'
         ));
     }
 

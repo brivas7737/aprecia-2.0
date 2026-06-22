@@ -117,4 +117,14 @@ public function restaurar($id)
             'Servicio restaurado correctamente'
         );
 }
+
+public function ver($id)
+{
+    $servicio = Servicio::findOrFail($id);
+
+    return view(
+        'servicios.ver',
+        compact('servicio')
+    );
+}
 }

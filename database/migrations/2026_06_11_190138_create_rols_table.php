@@ -4,25 +4,26 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
     public function up(): void
     {
-Schema::create('roles', function (Blueprint $table) {
-    $table->id();
+        Schema::create('roles', function (Blueprint $table) {
 
-    $table->string('nombre', 50);
+            $table->id();
 
-    $table->text('descripcion')
-          ->nullable();
+            $table->string('nombre', 100);
 
-    $table->timestamps();
+            $table->text('descripcion')
+                ->nullable();
 
-    $table->softDeletes();
-});
+            $table->timestamps();
+
+            $table->softDeletes();
+
+        });
     }
 
     /**
@@ -30,6 +31,6 @@ Schema::create('roles', function (Blueprint $table) {
      */
     public function down(): void
     {
-        Schema::dropIfExists('rols');
+        Schema::dropIfExists('roles');
     }
 };
