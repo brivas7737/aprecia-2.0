@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Paralelo;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 
 class ParaleloController extends Controller
@@ -34,12 +35,20 @@ class ParaleloController extends Controller
             'activo' => true
         ]);
 
-        return redirect()
-            ->route('paralelos.index')
-            ->with(
-                'success',
-                'Paralelo creado correctamente'
-            );
+Paralelo::create($request->all());
+
+LogHelper::registrar(
+    'CREAR',
+    'PARALELOS',
+    'Se registró un paralelo'
+);
+
+return redirect()
+    ->route('paralelos.index')
+    ->with(
+        'success',
+        'Paralelo registrado correctamente'
+    );
     }
 
     public function show(string $id)
@@ -69,27 +78,40 @@ class ParaleloController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion
         ]);
+$paralelo->update($request->all());
 
-        return redirect()
-            ->route('paralelos.index')
-            ->with(
-                'success',
-                'Paralelo actualizado correctamente'
-            );
+LogHelper::registrar(
+    'EDITAR',
+    'PARALELOS',
+    'Se actualizó un paralelo'
+);
+
+return redirect()
+    ->route('paralelos.index')
+    ->with(
+        'success',
+        'Paralelo actualizado correctamente'
+    );
     }
 
     public function destroy(string $id)
     {
         $paralelo = Paralelo::findOrFail($id);
 
-        $paralelo->delete();
+$paralelo->delete();
 
-        return redirect()
-            ->route('paralelos.index')
-            ->with(
-                'success',
-                'Paralelo eliminado correctamente'
-            );
+LogHelper::registrar(
+    'ELIMINAR',
+    'PARALELOS',
+    'Se eliminó un paralelo'
+);
+
+return redirect()
+    ->route('paralelos.index')
+    ->with(
+        'success',
+        'Paralelo eliminado correctamente'
+    );
     }
 
     public function eliminados()
@@ -106,16 +128,22 @@ class ParaleloController extends Controller
 
 public function restaurar($id)
 {
-    Paralelo::onlyTrashed()
-        ->findOrFail($id)
-        ->restore();
+Paralelo::onlyTrashed()
+    ->findOrFail($id)
+    ->restore();
 
-    return redirect()
-        ->route('paralelos.index')
-        ->with(
-            'success',
-            'Paralelo restaurado correctamente'
-        );
+LogHelper::registrar(
+    'RESTAURAR',
+    'PARALELOS',
+    'Se restauró un paralelo'
+);
+
+return redirect()
+    ->route('paralelos.index')
+    ->with(
+        'success',
+        'Paralelo restaurado correctamente'
+    );
 }
 
 public function ver($id)

@@ -10,6 +10,7 @@ use App\Models\Programa;
 use App\Models\Servicio;
 use App\Models\Paralelo;
 use Illuminate\Http\Request;
+use App\Helpers\LogHelper;
 
 class EstudianteController extends Controller
 {
@@ -131,14 +132,20 @@ $request->validate(
 
 );
 
-    Estudiante::create($request->all());
+Estudiante::create($request->all());
 
-    return redirect()
-        ->route('estudiantes.index')
-        ->with(
-            'success',
-            'Estudiante registrado correctamente'
-        );
+LogHelper::registrar(
+    'CREAR',
+    'ESTUDIANTES',
+    'Se registró un estudiante'
+);
+
+return redirect()
+    ->route('estudiantes.index')
+    ->with(
+        'success',
+        'Estudiante registrado correctamente'
+    );
 }
     public function show(string $id)
     {
@@ -168,68 +175,93 @@ $request->validate(
         ));
     }
 
-    public function update(Request $request, string $id)
-    {
-       $request->validate(
+public function update(Request $request, string $id)
+{
+    $request->validate(
 
-[
+        [
 
-    'correo' => 'nullable|email',
+            'correo' => 'nullable|email',
 
-    'ci' => 'nullable|unique:estudiantes,ci,' . $id
+            'ci' => 'nullable|unique:estudiantes,ci,' . $id
 
-],
+        ],
 
-[
+        [
 
-    'correo.email' =>
-        'Debe ingresar un correo válido.',
+            'correo.email' =>
+                'Debe ingresar un correo válido.',
 
-    'ci.unique' =>
-        'Ya existe un estudiante registrado con este CI.'
+            'ci.unique' =>
+                'Ya existe un estudiante registrado con este CI.'
 
-]
+        ]
 
-);
+    );
 
-        return redirect()
-            ->route('estudiantes.index')
-            ->with('success', 'Estudiante actualizado correctamente');
-    }
+    $estudiante = Estudiante::findOrFail($id);
 
-    public function destroy(string $id)
-    {
-        $estudiante = Estudiante::findOrFail($id);
+    $estudiante->update($request->all());
 
-        $estudiante->delete();
+    LogHelper::registrar(
 
-        return redirect()
-            ->route('estudiantes.index')
-            ->with('success', 'Estudiante eliminado correctamente');
-    }
+        'EDITAR',
+
+        'ESTUDIANTES',
+
+        'Se actualizó un estudiante'
+
+    );
+
+    return redirect()
+        ->route('estudiantes.index')
+        ->with(
+            'success',
+            'Estudiante actualizado correctamente'
+        );
+}
+public function destroy(string $id)
+{
+    $estudiante = Estudiante::findOrFail($id);
+
+    $estudiante->delete();
+
+    LogHelper::registrar(
+        'ELIMINAR',
+        'ESTUDIANTES',
+        'Se eliminó un estudiante'
+    );
+
+    return redirect()
+        ->route('estudiantes.index')
+        ->with(
+            'success',
+            'Estudiante eliminado correctamente'
+        );
+}
 
     public function ver($id)
-{
-    $estudiante = Estudiante::with([
-        'institucion',
-        'nivelEducativo',
-        'condicionVisual',
-        'programa',
-        'servicio',
-        'paralelo'
-    ])->findOrFail($id);
+    {
+        $estudiante = Estudiante::with([
+            'institucion',
+            'nivelEducativo',
+            'condicionVisual',
+            'programa',
+            'servicio',
+            'paralelo'
+        ])->findOrFail($id);
 
-    return view(
-        'estudiantes.ver',
-        compact('estudiante')
-    );
+        return view(
+            'estudiantes.ver',
+            compact('estudiante')
+        );
     }
 
-    public function eliminados()
+public function eliminados()
 {
     $estudiantes =
         Estudiante::onlyTrashed()
-        ->orderBy('id','desc')
+        ->orderBy('id', 'desc')
         ->get();
 
     return view(
@@ -243,6 +275,12 @@ public function restaurar($id)
     Estudiante::onlyTrashed()
         ->findOrFail($id)
         ->restore();
+
+    LogHelper::registrar(
+        'RESTAURAR',
+        'ESTUDIANTES',
+        'Se restauró un estudiante'
+    );
 
     return redirect()
         ->route('estudiantes.index')

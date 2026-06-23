@@ -6,6 +6,7 @@ use App\Models\Personal;
 use App\Models\Institucion;
 use App\Models\Rol;
 use App\Models\AreaAtencion;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 
 class PersonalController extends Controller
@@ -65,14 +66,20 @@ public function store(Request $request)
 
     );
 
-    Personal::create($request->all());
+Personal::create($request->all());
 
-    return redirect()
-        ->route('personal.index')
-        ->with(
-            'success',
-            'Personal registrado correctamente'
-        );
+LogHelper::registrar(
+    'CREAR',
+    'PERSONAL',
+    'Se registró personal'
+);
+
+return redirect()
+    ->route('personal.index')
+    ->with(
+        'success',
+        'Personal registrado correctamente'
+    );
 }
 
     public function show(string $id)
@@ -124,25 +131,40 @@ public function update(Request $request, string $id)
 
     $personal = Personal::findOrFail($id);
 
-    $personal->update($request->all());
+$personal->update($request->all());
 
-    return redirect()
-        ->route('personal.index')
-        ->with(
-            'success',
-            'Personal actualizado correctamente'
-        );
+LogHelper::registrar(
+    'EDITAR',
+    'PERSONAL',
+    'Se actualizó personal'
+);
+
+return redirect()
+    ->route('personal.index')
+    ->with(
+        'success',
+        'Personal actualizado correctamente'
+    );
 }
 
     public function destroy(string $id)
     {
         $personal = Personal::findOrFail($id);
 
-        $personal->delete();
+$personal->delete();
 
-        return redirect()
-            ->route('personal.index')
-            ->with('success', 'Personal eliminado correctamente');
+LogHelper::registrar(
+    'ELIMINAR',
+    'PERSONAL',
+    'Se eliminó personal'
+);
+
+return redirect()
+    ->route('personal.index')
+    ->with(
+        'success',
+        'Personal eliminado correctamente'
+    );
     }
 
     public function ver($id)
@@ -172,16 +194,22 @@ public function update(Request $request, string $id)
 
     public function restaurar($id)
     {
-        Personal::onlyTrashed()
-            ->findOrFail($id)
-            ->restore();
+Personal::onlyTrashed()
+    ->findOrFail($id)
+    ->restore();
 
-        return redirect()
-            ->route('personal.index')
-            ->with(
-                'success',
-                'Registro restaurado correctamente'
-            );
+LogHelper::registrar(
+    'RESTAURAR',
+    'PERSONAL',
+    'Se restauró personal'
+);
+
+return redirect()
+    ->route('personal.index')
+    ->with(
+        'success',
+        'Personal restaurado correctamente'
+    );
     }
 
     public function eliminarDefinitivo($id)

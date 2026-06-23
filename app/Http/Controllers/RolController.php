@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Rol;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 
 class RolController extends Controller
@@ -33,12 +34,20 @@ class RolController extends Controller
             'descripcion' => $request->descripcion,
         ]);
 
-        return redirect()
-            ->route('roles.index')
-            ->with(
-                'success',
-                'Rol creado correctamente'
-            );
+Rol::create($request->all());
+
+LogHelper::registrar(
+    'CREAR',
+    'ROLES',
+    'Se registró un rol'
+);
+
+return redirect()
+    ->route('roles.index')
+    ->with(
+        'success',
+        'Rol registrado correctamente'
+    );
     }
 
     public function show(string $id)
@@ -69,26 +78,40 @@ class RolController extends Controller
             'descripcion' => $request->descripcion,
         ]);
 
-        return redirect()
-            ->route('roles.index')
-            ->with(
-                'success',
-                'Rol actualizado correctamente'
-            );
+$rol->update($request->all());
+
+LogHelper::registrar(
+    'EDITAR',
+    'ROLES',
+    'Se actualizó un rol'
+);
+
+return redirect()
+    ->route('roles.index')
+    ->with(
+        'success',
+        'Rol actualizado correctamente'
+    );
     }
 
     public function destroy(string $id)
     {
         $rol = Rol::findOrFail($id);
 
-        $rol->delete();
+ $rol->delete();
 
-        return redirect()
-            ->route('roles.index')
-            ->with(
-                'success',
-                'Rol eliminado correctamente'
-            );
+LogHelper::registrar(
+    'ELIMINAR',
+    'ROLES',
+    'Se eliminó un rol'
+);
+
+return redirect()
+    ->route('roles.index')
+    ->with(
+        'success',
+        'Rol eliminado correctamente'
+    );
     }
 
     public function ver($id)
@@ -115,16 +138,22 @@ class RolController extends Controller
 
     public function restaurar($id)
     {
-        Rol::onlyTrashed()
-            ->findOrFail($id)
-            ->restore();
+Rol::onlyTrashed()
+    ->findOrFail($id)
+    ->restore();
 
-        return redirect()
-            ->route('roles.index')
-            ->with(
-                'success',
-                'Rol restaurado correctamente'
-            );
+LogHelper::registrar(
+    'RESTAURAR',
+    'ROLES',
+    'Se restauró un rol'
+);
+
+return redirect()
+    ->route('roles.index')
+    ->with(
+        'success',
+        'Rol restaurado correctamente'
+    );
     }
 
     public function eliminarDefinitivo($id)

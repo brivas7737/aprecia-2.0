@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CondicionVisual;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 
 class CondicionVisualController extends Controller
@@ -29,10 +30,20 @@ class CondicionVisualController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
         ]);
+CondicionVisual::create($request->all());
 
-        return redirect()
-            ->route('condiciones-visuales.index')
-            ->with('success', 'Condición visual creada correctamente');
+LogHelper::registrar(
+    'CREAR',
+    'CONDICIONES VISUALES',
+    'Se registró una condición visual'
+);
+
+return redirect()
+    ->route('condiciones-visuales.index')
+    ->with(
+        'success',
+        'Condición visual registrada correctamente'
+    );
     }
 
     public function show(string $id)
@@ -59,21 +70,40 @@ class CondicionVisualController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
         ]);
+$condicion->update($request->all());
 
-        return redirect()
-            ->route('condiciones-visuales.index')
-            ->with('success', 'Condición visual actualizada correctamente');
+LogHelper::registrar(
+    'EDITAR',
+    'CONDICIONES VISUALES',
+    'Se actualizó una condición visual'
+);
+
+return redirect()
+    ->route('condiciones-visuales.index')
+    ->with(
+        'success',
+        'Condición visual actualizada correctamente'
+    );
     }
 
     public function destroy(string $id)
     {
         $condicion = CondicionVisual::findOrFail($id);
 
-        $condicion->delete();
+$condicion->delete();
 
-        return redirect()
-            ->route('condiciones-visuales.index')
-            ->with('success', 'Condición visual eliminada correctamente');
+LogHelper::registrar(
+    'ELIMINAR',
+    'CONDICIONES VISUALES',
+    'Se eliminó una condición visual'
+);
+
+return redirect()
+    ->route('condiciones-visuales.index')
+    ->with(
+        'success',
+        'Condición visual eliminada correctamente'
+    );
     }
 
     public function ver($id)
@@ -100,16 +130,22 @@ public function eliminados()
 
 public function restaurar($id)
 {
-    CondicionVisual::onlyTrashed()
-        ->findOrFail($id)
-        ->restore();
+CondicionVisual::onlyTrashed()
+    ->findOrFail($id)
+    ->restore();
 
-    return redirect()
-        ->route('condiciones-visuales.index')
-        ->with(
-            'success',
-            'Condición visual restaurada correctamente'
-        );
+LogHelper::registrar(
+    'RESTAURAR',
+    'CONDICIONES VISUALES',
+    'Se restauró una condición visual'
+);
+
+return redirect()
+    ->route('condiciones-visuales.index')
+    ->with(
+        'success',
+        'Condición visual restaurada correctamente'
+    );
 }
 
 public function eliminarDefinitivo($id)

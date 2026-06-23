@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AreaAtencion;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 
 class AreaAtencionController extends Controller
@@ -29,10 +30,20 @@ class AreaAtencionController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
         ]);
+AreaAtencion::create($request->all());
 
-        return redirect()
-            ->route('areas-atencion.index')
-            ->with('success', 'Área de atención creada correctamente');
+LogHelper::registrar(
+    'CREAR',
+    'AREAS DE ATENCION',
+    'Se registró un área de atención'
+);
+
+return redirect()
+    ->route('areas-atencion.index')
+    ->with(
+        'success',
+        'Área registrada correctamente'
+    );
     }
 
     public function show(string $id)
@@ -60,20 +71,40 @@ class AreaAtencionController extends Controller
             'descripcion' => $request->descripcion,
         ]);
 
-        return redirect()
-            ->route('areas-atencion.index')
-            ->with('success', 'Área de atención actualizada correctamente');
+$area->update($request->all());
+
+LogHelper::registrar(
+    'EDITAR',
+    'AREAS DE ATENCION',
+    'Se actualizó un área de atención'
+);
+
+return redirect()
+    ->route('areas-atencion.index')
+    ->with(
+        'success',
+        'Área actualizada correctamente'
+    );
     }
 
     public function destroy(string $id)
     {
         $area = AreaAtencion::findOrFail($id);
 
-        $area->delete();
+  $area->delete();
 
-        return redirect()
-            ->route('areas-atencion.index')
-            ->with('success', 'Área de atención eliminada correctamente');
+LogHelper::registrar(
+    'ELIMINAR',
+    'AREAS DE ATENCION',
+    'Se eliminó un área de atención'
+);
+
+return redirect()
+    ->route('areas-atencion.index')
+    ->with(
+        'success',
+        'Área eliminada correctamente'
+    );
     }
 
     public function ver($id)
@@ -100,16 +131,22 @@ public function eliminados()
 
 public function restaurar($id)
 {
-    AreaAtencion::onlyTrashed()
-        ->findOrFail($id)
-        ->restore();
+AreaAtencion::onlyTrashed()
+    ->findOrFail($id)
+    ->restore();
 
-    return redirect()
-        ->route('areas-atencion.index')
-        ->with(
-            'success',
-            'Área restaurada correctamente'
-        );
+LogHelper::registrar(
+    'RESTAURAR',
+    'AREAS DE ATENCION',
+    'Se restauró un área de atención'
+);
+
+return redirect()
+    ->route('areas-atencion.index')
+    ->with(
+        'success',
+        'Área restaurada correctamente'
+    );
 }
 
 public function eliminarDefinitivo($id)

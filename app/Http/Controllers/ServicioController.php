@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Servicio;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 
 class ServicioController extends Controller
@@ -34,12 +35,20 @@ class ServicioController extends Controller
             'activo' => true
         ]);
 
-        return redirect()
-            ->route('servicios.index')
-            ->with(
-                'success',
-                'Servicio creado correctamente'
-            );
+Servicio::create($request->all());
+
+LogHelper::registrar(
+    'CREAR',
+    'SERVICIOS',
+    'Se registró un servicio'
+);
+
+return redirect()
+    ->route('servicios.index')
+    ->with(
+        'success',
+        'Servicio registrado correctamente'
+    );
     }
 
     public function show(string $id)
@@ -70,26 +79,40 @@ class ServicioController extends Controller
             'descripcion' => $request->descripcion
         ]);
 
-        return redirect()
-            ->route('servicios.index')
-            ->with(
-                'success',
-                'Servicio actualizado correctamente'
-            );
+$servicio->update($request->all());
+
+LogHelper::registrar(
+    'EDITAR',
+    'SERVICIOS',
+    'Se actualizó un servicio'
+);
+
+return redirect()
+    ->route('servicios.index')
+    ->with(
+        'success',
+        'Servicio actualizado correctamente'
+    );
     }
 
     public function destroy(string $id)
     {
         $servicio = Servicio::findOrFail($id);
 
-        $servicio->delete();
+$servicio->delete();
 
-        return redirect()
-            ->route('servicios.index')
-            ->with(
-                'success',
-                'Servicio eliminado correctamente'
-            );
+LogHelper::registrar(
+    'ELIMINAR',
+    'SERVICIOS',
+    'Se eliminó un servicio'
+);
+
+return redirect()
+    ->route('servicios.index')
+    ->with(
+        'success',
+        'Servicio eliminado correctamente'
+    );
     }
 
     public function eliminados()
@@ -106,16 +129,23 @@ class ServicioController extends Controller
 
 public function restaurar($id)
 {
-    Servicio::onlyTrashed()
-        ->findOrFail($id)
-        ->restore();
+Servicio::onlyTrashed()
+    ->findOrFail($id)
+    ->restore();
 
-    return redirect()
-        ->route('servicios.index')
-        ->with(
-            'success',
-            'Servicio restaurado correctamente'
-        );
+LogHelper::registrar(
+    'RESTAURAR',
+    'SERVICIOS',
+    'Se restauró un servicio'
+);
+
+return redirect()
+    ->route('servicios.index')
+    ->with(
+        'success',
+        'Servicio restaurado correctamente'
+    );
+
 }
 
 public function ver($id)

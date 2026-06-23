@@ -395,6 +395,12 @@ return [
     'url'  => 'roles',
 ],
 
+[
+    'text' => 'Logs',
+    'url'  => 'logs',
+    'icon' => 'fas fa-history',
+],
+
 ],
 
     /*

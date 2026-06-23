@@ -56,8 +56,14 @@
 
     <li class="nav-item">
         <a class="nav-link" href="#about">
-            Nuestra Historia
+            Historia
         </a>
+    </li>
+
+    <li class="nav-item">
+    <a class="nav-link" href="#equipo">
+        Nuestro Equipo
+    </a>
     </li>
 
     <li class="nav-item">
@@ -269,7 +275,7 @@
         <section class="page-section" id="about">
             <div class="container">
                 <div class="text-center">
-                    <h2 class="section-heading text-uppercase">Nuestra Historia</h2>
+                    <h2 class="section-heading text-uppercase">Historia</h2>
                     <h3 class="section-subheading text-muted">31 años de compromiso con la educación, la inclusión y el desarrollo integral de personas con discapacidad visual.</h3>
                 </div>
                 <ul class="timeline">
@@ -329,7 +335,7 @@
         </section>
         <!-- Team-->
         <section class="page-section bg-light" id="team">
-            <div class="container">
+            <div id="equipo" class="container">
                 <div class="text-center">
                     <h2 class="section-heading text-uppercase">Nuestro Equipo</h2>
                     <h3 class="section-subheading text-muted">Profesionales comprometidos con la educación, inclusión y desarrollo integral de personas con discapacidad visual.</h3>

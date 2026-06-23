@@ -6,6 +6,7 @@ use App\Models\Texto;
 use App\Models\Categoria;
 use App\Models\NivelEducativo;
 use App\Models\AudioGenerado;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -131,6 +132,11 @@ public function index(Request $request)
             'formato' => $formato,
             'fecha_ingreso' => now()
         ]);
+        LogHelper::registrar(
+    'CREAR',
+    'TEXTOS',
+    'Se registró un texto'
+);
 
         return redirect()
             ->route('textos.index')
@@ -244,6 +250,11 @@ public function index(Request $request)
             'archivo' => $ruta,
             'formato' => $formato
         ]);
+        LogHelper::registrar(
+    'EDITAR',
+    'TEXTOS',
+    'Se actualizó un texto'
+);
 
         return redirect()
             ->route('textos.index')
@@ -270,6 +281,11 @@ public function index(Request $request)
 
         $texto->delete();
 
+        LogHelper::registrar(
+    'ELIMINAR',
+    'TEXTOS',
+    'Se eliminó un texto'
+);
         return redirect()
             ->route('textos.index')
             ->with(
@@ -349,6 +365,32 @@ $audio = AudioGenerado::create([
 
 ]);
 
+$audio = AudioGenerado::create([
+
+    'texto_id' => $texto->id,
+
+    'voz_id' => 1,
+
+    'archivo_audio' => 'audios/' . $nombreAudio,
+
+    'duracion_segundos' => null,
+
+    'reproducciones' => 0,
+
+    'fecha_generacion' => now()
+
+]);
+
+LogHelper::registrar(
+
+    'GENERAR AUDIO',
+
+    'TEXTOS',
+
+    'Se generó un audio para el texto: ' . $texto->titulo
+
+);
+
         return redirect()
             ->route('textos.index')
             ->with(
@@ -370,6 +412,11 @@ public function restaurar($id)
     Texto::onlyTrashed()
         ->findOrFail($id)
         ->restore();
+        LogHelper::registrar(
+    'RESTAURAR',
+    'TEXTOS',
+    'Se restauró un texto'
+);
 
     return redirect()
         ->route('textos.index')

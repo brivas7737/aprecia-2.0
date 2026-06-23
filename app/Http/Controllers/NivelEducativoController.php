@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\NivelEducativo;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 
 class NivelEducativoController extends Controller
@@ -29,10 +30,20 @@ public function store(Request $request)
         'nombre' => $request->nombre,
         'descripcion' => $request->descripcion,
     ]);
+NivelEducativo::create($request->all());
 
-    return redirect()
-        ->route('niveles-educativos.index')
-        ->with('success', 'Nivel educativo creado correctamente');
+LogHelper::registrar(
+    'CREAR',
+    'NIVELES EDUCATIVOS',
+    'Se registró un nivel educativo'
+);
+
+return redirect()
+    ->route('niveles-educativos.index')
+    ->with(
+        'success',
+        'Nivel educativo registrado correctamente'
+    );
 }
 
     public function show(string $id)
@@ -60,20 +71,40 @@ public function update(Request $request, string $id)
         'descripcion' => $request->descripcion,
     ]);
 
-    return redirect()
-        ->route('niveles-educativos.index')
-        ->with('success', 'Nivel educativo actualizado correctamente');
+$nivel->update($request->all());
+
+LogHelper::registrar(
+    'EDITAR',
+    'NIVELES EDUCATIVOS',
+    'Se actualizó un nivel educativo'
+);
+
+return redirect()
+    ->route('niveles-educativos.index')
+    ->with(
+        'success',
+        'Nivel educativo actualizado correctamente'
+    );
 }
 
     public function destroy(string $id)
     {
         $nivel = NivelEducativo::findOrFail($id);
 
-        $nivel->delete();
+$nivel->delete();
 
-        return redirect()
-            ->route('niveles-educativos.index')
-            ->with('success', 'Nivel educativo eliminado correctamente');
+LogHelper::registrar(
+    'ELIMINAR',
+    'NIVELES EDUCATIVOS',
+    'Se eliminó un nivel educativo'
+);
+
+return redirect()
+    ->route('niveles-educativos.index')
+    ->with(
+        'success',
+        'Nivel educativo eliminado correctamente'
+    );
     }
 
     public function ver($id)
@@ -100,16 +131,22 @@ public function eliminados()
 
 public function restaurar($id)
 {
-    NivelEducativo::onlyTrashed()
-        ->findOrFail($id)
-        ->restore();
+NivelEducativo::onlyTrashed()
+    ->findOrFail($id)
+    ->restore();
 
-    return redirect()
-        ->route('niveles-educativos.index')
-        ->with(
-            'success',
-            'Nivel educativo restaurado correctamente'
-        );
+LogHelper::registrar(
+    'RESTAURAR',
+    'NIVELES EDUCATIVOS',
+    'Se restauró un nivel educativo'
+);
+
+return redirect()
+    ->route('niveles-educativos.index')
+    ->with(
+        'success',
+        'Nivel educativo restaurado correctamente'
+    );
 }
 
 public function eliminarDefinitivo($id)

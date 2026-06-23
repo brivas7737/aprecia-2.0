@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Programa;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
 
 class ProgramaController extends Controller
@@ -34,12 +35,20 @@ class ProgramaController extends Controller
             'activo' => true
         ]);
 
-        return redirect()
-            ->route('programas.index')
-            ->with(
-                'success',
-                'Programa creado correctamente'
-            );
+Programa::create($request->all());
+
+LogHelper::registrar(
+    'CREAR',
+    'PROGRAMAS',
+    'Se registró un programa'
+);
+
+return redirect()
+    ->route('programas.index')
+    ->with(
+        'success',
+        'Programa registrado correctamente'
+    );
     }
 
     public function show(string $id)
@@ -65,31 +74,40 @@ class ProgramaController extends Controller
 
         $programa = Programa::findOrFail($id);
 
-        $programa->update([
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion
-        ]);
+$programa->update($request->all());
 
-        return redirect()
-            ->route('programas.index')
-            ->with(
-                'success',
-                'Programa actualizado correctamente'
-            );
+LogHelper::registrar(
+    'EDITAR',
+    'PROGRAMAS',
+    'Se actualizó un programa'
+);
+
+return redirect()
+    ->route('programas.index')
+    ->with(
+        'success',
+        'Programa actualizado correctamente'
+    );
     }
 
     public function destroy(string $id)
     {
         $programa = Programa::findOrFail($id);
 
-        $programa->delete();
+$programa->delete();
 
-        return redirect()
-            ->route('programas.index')
-            ->with(
-                'success',
-                'Programa eliminado correctamente'
-            );
+LogHelper::registrar(
+    'ELIMINAR',
+    'PROGRAMAS',
+    'Se eliminó un programa'
+);
+
+return redirect()
+    ->route('programas.index')
+    ->with(
+        'success',
+        'Programa eliminado correctamente'
+    );
     }
 
     public function eliminados()
@@ -106,16 +124,23 @@ class ProgramaController extends Controller
 
 public function restaurar($id)
 {
-    Programa::onlyTrashed()
-        ->findOrFail($id)
-        ->restore();
+Programa::onlyTrashed()
+    ->findOrFail($id)
+    ->restore();
 
-    return redirect()
-        ->route('programas.index')
-        ->with(
-            'success',
-            'Programa restaurado correctamente'
-        );
+LogHelper::registrar(
+    'RESTAURAR',
+    'PROGRAMAS',
+    'Se restauró un programa'
+);
+
+return redirect()
+    ->route('programas.index')
+    ->with(
+        'success',
+        'Programa restaurado correctamente'
+    );
+
 }
 
 public function ver($id)

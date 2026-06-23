@@ -16,6 +16,7 @@ use App\Http\Controllers\ProgramaController;
 use App\Http\Controllers\ServicioController;
 use App\Http\Controllers\ParaleloController;
 use App\Http\Controllers\RolController;
+use App\Http\Controllers\LogSistemaController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Institucion;
 use App\Models\Estudiante;
@@ -405,6 +406,11 @@ Route::get(
     'textos/{id}/eliminar-definitivo',
     [TextoController::class, 'eliminarDefinitivo']
     )->name('textos.eliminarDefinitivo');
+
+    Route::get(
+    '/logs',
+    [LogSistemaController::class, 'index']
+    )->name('logs.index');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

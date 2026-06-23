@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Categoria;
+use App\Helpers\LogHelper;
 use Illuminate\Http\Request;
+
 
 class CategoriaController extends Controller
 {
@@ -25,14 +27,20 @@ class CategoriaController extends Controller
             'nombre' => 'required|max:100',
         ]);
 
-        Categoria::create([
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
-        ]);
+Categoria::create($request->all());
 
-        return redirect()
-            ->route('categorias.index')
-            ->with('success', 'Categoría creada correctamente');
+LogHelper::registrar(
+    'CREAR',
+    'CATEGORIAS',
+    'Se registró una categoría'
+);
+
+return redirect()
+    ->route('categorias.index')
+    ->with(
+        'success',
+        'Categoría registrada correctamente'
+    );
     }
 
     public function show(string $id)
@@ -55,25 +63,40 @@ class CategoriaController extends Controller
 
         $categoria = Categoria::findOrFail($id);
 
-        $categoria->update([
-            'nombre' => $request->nombre,
-            'descripcion' => $request->descripcion,
-        ]);
+$categoria->update($request->all());
 
-        return redirect()
-            ->route('categorias.index')
-            ->with('success', 'Categoría actualizada correctamente');
+LogHelper::registrar(
+    'EDITAR',
+    'CATEGORIAS',
+    'Se actualizó una categoría'
+);
+
+return redirect()
+    ->route('categorias.index')
+    ->with(
+        'success',
+        'Categoría actualizada correctamente'
+    );
     }
 
     public function destroy(string $id)
     {
         $categoria = Categoria::findOrFail($id);
 
-        $categoria->delete();
+$categoria->delete();
 
-        return redirect()
-            ->route('categorias.index')
-            ->with('success', 'Categoría eliminada correctamente');
+LogHelper::registrar(
+    'ELIMINAR',
+    'CATEGORIAS',
+    'Se eliminó una categoría'
+);
+
+return redirect()
+    ->route('categorias.index')
+    ->with(
+        'success',
+        'Categoría eliminada correctamente'
+    );
     }
 
     public function ver($id)
@@ -100,9 +123,22 @@ public function eliminados()
 
 public function restaurar($id)
 {
-    Categoria::onlyTrashed()
-        ->findOrFail($id)
-        ->restore();
+Categoria::onlyTrashed()
+    ->findOrFail($id)
+    ->restore();
+
+LogHelper::registrar(
+    'RESTAURAR',
+    'CATEGORIAS',
+    'Se restauró una categoría'
+);
+
+return redirect()
+    ->route('categorias.index')
+    ->with(
+        'success',
+        'Categoría restaurada correctamente'
+    );
 
     return redirect()
         ->route('categorias.index')

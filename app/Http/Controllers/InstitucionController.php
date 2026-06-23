@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Institucion;
 use Illuminate\Http\Request;
+use App\Helpers\LogHelper;
 
 class InstitucionController extends Controller
 {
@@ -26,9 +27,18 @@ class InstitucionController extends Controller
 
         Institucion::create($request->all());
 
+        LogHelper::registrar(
+            'CREAR',
+            'INSTITUCIONES',
+            'Se registró una institución'
+        );
+
         return redirect()
             ->route('instituciones.index')
-            ->with('success', 'Institución creada correctamente');
+            ->with(
+                'success',
+                'Institución registrada correctamente'
+            );
     }
 
     public function show(string $id)
@@ -53,9 +63,18 @@ class InstitucionController extends Controller
 
         $institucion->update($request->all());
 
+        LogHelper::registrar(
+            'EDITAR',
+            'INSTITUCIONES',
+            'Se actualizó una institución'
+        );
+
         return redirect()
             ->route('instituciones.index')
-            ->with('success', 'Institución actualizada correctamente');
+            ->with(
+                'success',
+                'Institución actualizada correctamente'
+            );
     }
 
     public function destroy(string $id)
@@ -64,58 +83,73 @@ class InstitucionController extends Controller
 
         $institucion->delete();
 
+        LogHelper::registrar(
+            'ELIMINAR',
+            'INSTITUCIONES',
+            'Se eliminó una institución'
+        );
+
         return redirect()
             ->route('instituciones.index')
-            ->with('success', 'Institución eliminada correctamente');
+            ->with(
+                'success',
+                'Institución eliminada correctamente'
+            );
     }
 
     public function ver($id)
-{
-    $institucion = Institucion::findOrFail($id);
+    {
+        $institucion = Institucion::findOrFail($id);
 
-    return view(
-        'instituciones.ver',
-        compact('institucion')
-    );
-}
-
-public function eliminados()
-{
-    $instituciones = Institucion::onlyTrashed()
-        ->orderBy('id','desc')
-        ->get();
-
-    return view(
-        'instituciones.eliminados',
-        compact('instituciones')
-    );
-}
-
-public function restaurar($id)
-{
-    Institucion::onlyTrashed()
-        ->findOrFail($id)
-        ->restore();
-
-    return redirect()
-        ->route('instituciones.index')
-        ->with(
-            'success',
-            'Institución restaurada correctamente'
+        return view(
+            'instituciones.ver',
+            compact('institucion')
         );
-}
+    }
 
-public function eliminarDefinitivo($id)
-{
-    Institucion::onlyTrashed()
-        ->findOrFail($id)
-        ->forceDelete();
+    public function eliminados()
+    {
+        $instituciones = Institucion::onlyTrashed()
+            ->orderBy('id', 'desc')
+            ->get();
 
-    return redirect()
-        ->route('instituciones.eliminados')
-        ->with(
-            'success',
-            'Institución eliminada definitivamente'
+        return view(
+            'instituciones.eliminados',
+            compact('instituciones')
         );
-}
+    }
+
+    public function restaurar($id)
+    {
+        Institucion::onlyTrashed()
+            ->findOrFail($id)
+            ->restore();
+
+        LogHelper::registrar(
+            'RESTAURAR',
+            'INSTITUCIONES',
+            'Se restauró una institución'
+        );
+
+        return redirect()
+            ->route('instituciones.index')
+            ->with(
+                'success',
+                'Institución restaurada correctamente'
+            );
+    }
+
+    public function eliminarDefinitivo($id)
+    {
+        Institucion::onlyTrashed()
+            ->findOrFail($id)
+            ->forceDelete();
+
+        return redirect()
+            ->route('instituciones.eliminados')
+            ->with(
+                'success',
+                'Institución eliminada definitivamente'
+            );
+    }
 }
