@@ -63,12 +63,12 @@ return [
     |
     */
 
-    'logo' => '<b>APRECIA</b> 2.0',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-    'logo_img_class' => 'brand-image img-circle elevation-3',
+    'logo' => '<b>APRECIA</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/aprecia.png',
+    'logo_img_class' => 'brand-image img-circle elevation-0',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
-    'logo_img_alt' => 'Admin Logo',
+    'logo_img_alt' => 'APRECIA',
 
     /*
     |--------------------------------------------------------------------------
@@ -84,13 +84,12 @@ return [
     */
 
     'auth_logo' => [
-        'enabled' => false,
+        'enabled' => true,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'Auth Logo',
-            'class' => '',
-            'width' => 50,
-            'height' => 50,
+            'path' => 'vendor/adminlte/dist/img/aprecia.png',
+'alt' => 'APRECIA',
+'width' => 120,
+'height' => 120,
         ],
     ],
 
@@ -113,7 +112,7 @@ return [
         'enabled' => true,
         'mode' => 'fullscreen',
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+            'path' => 'vendor/adminlte/dist/img/aprecia.png',
             'alt' => 'AdminLTE Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
