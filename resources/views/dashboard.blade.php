@@ -274,6 +274,30 @@
 
     </div>
 
+    <div class="card">
+
+    <div class="card-header">
+
+        <h3 class="card-title">
+
+            Audios Generados por Mes
+
+        </h3>
+
+    </div>
+
+    <div class="card-body">
+
+        <div style="height:350px;">
+
+            <canvas id="graficoAudios"></canvas>
+
+        </div>
+
+    </div>
+
+</div>
+
     <div class="card-body">
 
         <div style="height:350px;">
@@ -285,6 +309,9 @@
     </div>
 
 </div>
+
+
+
 
 <div class="card">
 
@@ -380,6 +407,34 @@ new Chart(
             datasets: [{
                 label: 'Textos',
                 data: textosPorCategoria
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false
+        }
+    }
+);
+
+const mesesAudios = @json(
+    $audiosGrafico->pluck('mes')
+);
+
+const cantidadesAudios = @json(
+    $audiosGrafico->pluck('total')
+);
+
+new Chart(
+    document.getElementById('graficoAudios'),
+    {
+        type: 'line',
+        data: {
+            labels: mesesAudios,
+            datasets: [{
+                label: 'Audios Generados',
+                data: cantidadesAudios,
+                fill: false,
+                tension: 0.3
             }]
         },
         options: {

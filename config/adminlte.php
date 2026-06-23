@@ -401,6 +401,12 @@ return [
     'icon' => 'fas fa-history',
 ],
 
+[
+    'text' => 'Backups',
+    'url'  => 'backups',
+    'icon' => 'fas fa-database',
+],
+
 ],
 
     /*
