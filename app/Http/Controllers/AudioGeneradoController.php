@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AudioGenerado;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
+use App\Helpers\LogHelper;
 
 class AudioGeneradoController extends Controller
 {
@@ -24,10 +25,10 @@ class AudioGeneradoController extends Controller
     }
     public function descargar(AudioGenerado $audio)
 {
-    return Storage::disk('public')
-        ->download(
-            $audio->archivo_audio
-        );
+        $path = Storage::disk('public')
+            ->path($audio->archivo_audio);
+
+        return response()->download($path);
 }
 
 public function destroy(AudioGenerado $audio)
@@ -76,5 +77,31 @@ public function reproducir(AudioGenerado $audio)
     return response()->json([
         'ok' => true
     ]);
+}
+
+public function eliminarDefinitivo($id)
+{
+    $audio =
+        AudioGenerado::onlyTrashed()
+        ->findOrFail($id);
+
+    $audio->forceDelete();
+
+    LogHelper::registrar(
+
+        'ELIMINAR DEFINITIVO',
+
+        'AUDIOS',
+
+        'Se eliminó definitivamente un audio'
+
+    );
+
+    return redirect()
+        ->route('audios-generados.eliminados')
+        ->with(
+            'success',
+            'Audio eliminado definitivamente'
+        );
 }
 }

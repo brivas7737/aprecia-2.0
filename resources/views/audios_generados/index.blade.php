@@ -1,24 +1,22 @@
 @extends('adminlte::page')
 
-@section('title','Audios Generados')
+@section('title', 'Audios Generados')
 
 @section('content_header')
 
 <div class="d-flex justify-content-between">
 
-<div class="d-flex justify-content-between">
+    <div class="d-flex justify-content-between">
 
-<h1>Audios Generados</h1>
+        <h1>Audios Generados</h1>
 
-<a
-href="{{ route('audios-generados.eliminados') }}"
-class="btn btn-warning">
+        <a href="{{ route('audios-generados.eliminados') }}" class="btn btn-warning">
 
-🗑 Eliminados
+            🗑 Eliminados
 
-</a>
+        </a>
 
-</div>
+    </div>
 
 </div>
 
@@ -28,11 +26,11 @@ class="btn btn-warning">
 
 @if(session('success'))
 
-<div class="alert alert-success">
+    <div class="alert alert-success">
 
-    {{ session('success') }}
+        {{ session('success') }}
 
-</div>
+    </div>
 
 @endif
 
@@ -66,89 +64,78 @@ class="btn btn-warning">
 
             <tbody>
 
-@forelse($audios as $audio)
+                @forelse($audios as $audio)
 
-<tr>
+                                <tr>
 
-    <td>{{ $audio->id }}</td>
+                                    <td>{{ $audio->id }}</td>
 
-    <td>{{ $audio->texto->titulo ?? 'N/A' }}</td>
+                                    <td>{{ $audio->texto->titulo ?? 'N/A' }}</td>
 
-    <td>{{ $audio->voz->nombre ?? 'N/A' }}</td>
+                                    <td>{{ $audio->voz->nombre ?? 'N/A' }}</td>
 
-    <td>{{ $audio->fecha_generacion }}</td>
+                                    <td>{{ $audio->fecha_generacion }}</td>
 
-    <td>{{ $audio->reproducciones }}</td>
+                                    <td>{{ $audio->reproducciones }}</td>
 
-    <td>
+                                    <td>
 
-        @php
-            $nombreAudio = basename($audio->archivo_audio);
-        @endphp
+                                        @php
+                                            $nombreAudio = basename($audio->archivo_audio);
+                                        @endphp
 
-        <audio
-            controls
-            preload="none"
-            onplay="registrarReproduccion({{ $audio->id }})">
+                                        <audio controls preload="none" onplay="registrarReproduccion({{ $audio->id }})">
 
-            <source
-                src="{{ asset('storage/audios/'.$nombreAudio) }}"
-                type="audio/mpeg">
+                                            <source src="{{ asset('storage/audios/' . $nombreAudio) }}" type="audio/mpeg">
 
-        </audio>
+                                        </audio>
 
-    </td>
+                                    </td>
 
-    <td>
+                                    <td>
 
-        <a href="{{ route(
-            'audios-generados.descargar',
-            $audio->id
-        ) }}"
-        class="btn btn-success btn-sm">
+                                        <a href="{{ route(
+                        'audios-generados.descargar',
+                        $audio->id
+                    ) }}" class="btn btn-success btn-sm">
 
-            ⬇
+                                            ⬇
 
-        </a>
+                                        </a>
 
-        <form
-            action="{{ route(
-                'audios-generados.destroy',
-                $audio->id
-            ) }}"
-            method="POST"
-            style="display:inline;">
+                                        <form action="{{ route(
+                        'audios-generados.destroy',
+                        $audio->id
+                    ) }}" method="POST" style="display:inline;">
 
-            @csrf
-            @method('DELETE')
+                                            @csrf
+                                            @method('DELETE')
 
-            <button
-                type="submit"
-                class="btn btn-danger btn-sm">
+                                            <button type="submit" class="btn btn-danger btn-sm">
 
-                🗑
+                                                🗑
 
-            </button>
+                                            </button>
 
-        </form>
+                                        </form>
 
-    </td>
+                                    </td>
 
-</tr>
+                                </tr>
 
-@empty
+                @empty
 
-<tr>
+                    <tr>
 
-    <td colspan="7" class="text-center">
+                        <td colspan="7" class="text-center">
 
-        No existen audios generados.
+                            No existen audios generados.
 
-    </td>
+                        </td>
 
-</tr>
+                    </tr>
 
-@endforelse
+                @endforelse
 
             </tbody>
 
@@ -162,19 +149,18 @@ class="btn btn-warning">
 
 <script>
 
-function registrarReproduccion(id)
-{
-    fetch(
-        '/audios-generados/' + id + '/reproducir',
-        {
-            method: 'POST',
-            headers: {
-                'X-CSRF-TOKEN':
-                '{{ csrf_token() }}'
+    function registrarReproduccion(id) {
+        fetch(
+            '/audios-generados/' + id + '/reproducir',
+            {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN':
+                        '{{ csrf_token() }}'
+                }
             }
-        }
-    );
-}
+        );
+    }
 
 </script>
 

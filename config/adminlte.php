@@ -387,6 +387,12 @@ return [
     'url'  => 'audios-generados',
     ],
 
+    [
+    'text' => 'Brailles Generados',
+    'url'  => 'brailles-generados',
+    'icon' => 'fas fa-braille',
+],
+
         ['header' => 'ADMINISTRACIÓN'],
 
     [

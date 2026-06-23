@@ -19,6 +19,7 @@ use App\Http\Controllers\RolController;
 use App\Http\Controllers\LogSistemaController;
 use App\Http\Controllers\BackupController;
 use App\Models\AudioGenerado;
+use App\Http\Controllers\BrailleGeneradoController;
 use Illuminate\Support\Facades\Route;
 use App\Models\Institucion;
 use App\Models\Estudiante;
@@ -457,6 +458,61 @@ Route::delete(
     '/backups/eliminar-definitivo/{id}',
     [BackupController::class, 'eliminarDefinitivo']
 )->name('backups.eliminarDefinitivo');
+
+Route::get(
+    '/brailles-generados',
+    [BrailleGeneradoController::class, 'index']
+)->name('brailles-generados.index');
+
+Route::get(
+    '/braille/generar/{id}',
+    [BrailleGeneradoController::class, 'generar']
+)->name('braille.generar');
+
+Route::get(
+    '/braille/descargar/{id}',
+    [BrailleGeneradoController::class, 'descargar']
+)->name('braille.descargar');
+
+Route::get(
+    '/brailles-generados',
+    [BrailleGeneradoController::class, 'index']
+)->name('brailles-generados.index');
+
+Route::get(
+    '/braille/descargar/{id}',
+    [BrailleGeneradoController::class, 'descargar']
+)->name('braille.descargar');
+
+Route::delete(
+    '/braille/{id}',
+    [BrailleGeneradoController::class,'destroy']
+)->name('braille.destroy');
+
+Route::get(
+    '/brailles-eliminados',
+    [BrailleGeneradoController::class,'eliminados']
+)->name('braille.eliminados');
+
+Route::post(
+    '/braille/restaurar/{id}',
+    [BrailleGeneradoController::class,'restaurar']
+)->name('braille.restaurar');
+
+Route::delete(
+    '/braille/eliminar-definitivo/{id}',
+    [BrailleGeneradoController::class,'eliminarDefinitivo']
+)->name('braille.eliminarDefinitivo');
+
+Route::delete(
+    '/audios-generados/eliminar-definitivo/{id}',
+    [AudioGeneradoController::class, 'eliminarDefinitivo']
+)->name('audios-generados.eliminarDefinitivo');
+
+Route::get(
+    '/braille/ver/{id}',
+    [BrailleGeneradoController::class, 'ver']
+)->name('braille.ver');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 

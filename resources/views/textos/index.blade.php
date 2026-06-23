@@ -261,6 +261,18 @@
 
                             </a>
 
+<a href="{{ route(
+    'braille.generar',
+    $texto->id
+) }}"
+class="btn btn-secondary btn-sm">
+
+    ⠿
+
+</a>
+
+</a>
+
                         </td>
 
                     </tr>

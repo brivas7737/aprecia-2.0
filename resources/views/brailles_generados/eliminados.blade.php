@@ -1,28 +1,45 @@
 @extends('adminlte::page')
 
-@section('title', 'Audios Eliminados')
+@section('title', 'Brailles Eliminados')
+
+@section('plugins.Datatables', true)
+@section('plugins.DatatablesPlugins', true)
 
 @section('content_header')
 
-<h1>Audios Eliminados</h1>
+<h1>Brailles Eliminados</h1>
 
 @stop
 
 @section('content')
 
+<a href="{{ route('brailles-generados.index') }}"
+   class="btn btn-primary mb-3">
+
+    Volver
+
+</a>
+
 <div class="card">
 
     <div class="card-body">
 
-        <table class="table table-bordered">
+        <table
+            id="tablaBraillesEliminados"
+            class="table table-bordered table-striped">
 
             <thead>
 
                 <tr>
 
                     <th>ID</th>
+
                     <th>Texto</th>
+
+                    <th>Archivo</th>
+
                     <th>Fecha</th>
+
                     <th>Acción</th>
 
                 </tr>
@@ -31,26 +48,40 @@
 
             <tbody>
 
-                @forelse($audios as $audio)
+                @forelse($brailles as $braille)
 
                 <tr>
 
-                    <td>{{ $audio->id }}</td>
-
                     <td>
-                        {{ $audio->texto->titulo ?? 'N/A' }}
+
+                        {{ $braille->id }}
+
                     </td>
 
                     <td>
-                        {{ $audio->deleted_at }}
+
+                        {{ $braille->texto->titulo ?? 'N/A' }}
+
+                    </td>
+
+                    <td>
+
+                        {{ basename($braille->archivo_brf) }}
+
+                    </td>
+
+                    <td>
+
+                        {{ $braille->fecha_generacion }}
+
                     </td>
 
                     <td>
 
                         <form
                             action="{{ route(
-                                'audios-generados.restaurar',
-                                $audio->id
+                                'braille.restaurar',
+                                $braille->id
                             ) }}"
                             method="POST"
                             style="display:inline;">
@@ -68,8 +99,8 @@
 
                         <form
                             action="{{ route(
-                                'audios-generados.eliminarDefinitivo',
-                                $audio->id
+                                'braille.eliminarDefinitivo',
+                                $braille->id
                             ) }}"
                             method="POST"
                             style="display:inline;">
@@ -95,10 +126,10 @@
                 <tr>
 
                     <td
-                        colspan="4"
+                        colspan="5"
                         class="text-center">
 
-                        No existen audios eliminados
+                        No existen brailles eliminados.
 
                     </td>
 
@@ -113,5 +144,27 @@
     </div>
 
 </div>
+
+@stop
+
+@section('js')
+
+<script>
+
+$(document).ready(function() {
+
+    $('#tablaBraillesEliminados').DataTable({
+
+        language: {
+
+            url: '//cdn.datatables.net/plug-ins/1.13.7/i18n/es-ES.json'
+
+        }
+
+    });
+
+});
+
+</script>
 
 @stop
